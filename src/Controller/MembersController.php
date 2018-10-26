@@ -7,15 +7,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MembersController extends AbstractController
 {
-    /**
-     * @Route("/members", name="members")
-     */
-    public function home()
-    {
-        return $this->render('members/homeMembers.html.twig');
-    }
         /**
-     * @Route("/my_compte", name="my_compte")
+     * @Route("/members", name="my_compte")
      */
     public function my_compte()
     {
