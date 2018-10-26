@@ -1,3 +1,12 @@
 body{
     background-image: url("../images/IMG9857.png");
 }
+.logo{
+    background-image: url("../images/logo.png"); 
+    width: 75px;
+    height: 75px;
+}
+.nav-link:hover{
+    background-color:gray;
+    border-radius: 10px;
+}

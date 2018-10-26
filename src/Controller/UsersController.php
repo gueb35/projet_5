@@ -14,4 +14,32 @@ class UsersController extends AbstractController
     {
         return $this->render('users/homeUsers.html.twig');
     }
+    /**
+     * @Route("/presentation", name="users_presentation")
+     */
+    public function presentation()
+    {
+        return $this->render('users/presentationUsers.html.twig');
+    }
+    /**
+     * @Route("/inscription", name="users_inscription")
+     */
+    public function inscription()
+    {
+        return $this->render('users/inscriptionUsers.html.twig');
+    }
+    /**
+     * @Route("/members", name="users_members")
+     */
+    public function membersAccess()
+    {
+        return $this->render('users/membersUsers.html.twig');
+    }
+    /**
+     * @Route("/administrator", name="users_administrator")
+     */
+    public function administratorAccess()
+    {
+        return $this->render('users/administratorUsers.html.twig');
+    }
 }
