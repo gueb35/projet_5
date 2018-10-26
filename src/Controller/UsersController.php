@@ -29,7 +29,7 @@ class UsersController extends AbstractController
         return $this->render('users/inscriptionUsers.html.twig');
     }
     /**
-     * @Route("/members", name="users_members")
+     * @Route("/members_access", name="users_members")
      */
     public function membersAccess()
     {
