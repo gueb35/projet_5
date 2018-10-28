@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Members;
 
 class AdminController extends AbstractController
 {
@@ -26,7 +27,11 @@ class AdminController extends AbstractController
      */
     public function membersList()
     {
-        return $this->render('admin/membersList.html.twig');
+        $repo = $this->getDoctrine()->getRepository(Members::class);
+        $members = $this->find();
+        return $this->render('admin/membersList.html.twig', [
+            'members' =>$members
+        ]);
     }
     /**
      * @Route("/basketComp", name="basket_compouned_list")

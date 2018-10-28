@@ -4,6 +4,15 @@
 
 {% block body %}
 <p class="text-center">
-    Liste de vos membres.
+    Liste de vos membres:
 </p>
+<section class="Members">
+    {% for member in members %}
+    <div class="metadata">
+        Mr/Mme{{member.name}} {{member.surname}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
+        résidant à {{member.town}}.</br>
+        Vous êtes inscrit au paniers {{member.baskettype}} et le nombre de paniers vous restant dû est de {{member.numberBasketRest}}.</br>
+        Le lieu de ramassage de votre panier se situe sur la commune de {{member.dayOfWeek}}!
+    </div>
+</section>
 {% endblock %}
