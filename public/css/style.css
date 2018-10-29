@@ -14,12 +14,16 @@ footer{
     position: absolute;
     bottom: 0;
 }
-span{
-    /* color: #e87b78; */
+/* span{
+    color: #e87b78; */
     /* color: #fe992a; */
-    /* color: #737c85; */
-}
-/*admin*/
+    /* color: #737c85;
+} */
+/*************espace users***************/
+
+/************espace members***************/
+
+/*************espace admin****************/
 /*membersList*/
 .sepMemList{
     height: 3px;
