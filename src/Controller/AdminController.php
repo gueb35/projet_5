@@ -52,6 +52,25 @@ class AdminController extends AbstractController
      */
     public function showBaskCollList()
     {
-        return $this->render('admin/basketColl.html.twig');
+        $repo = $this->getDoctrine()->getRepository(Members::class);
+        $dayBaskColl1 = $repo->findBy(
+            array('dayOfWeek' => 'lundi')
+        );
+        $dayBaskColl3 = $repo->findBy(
+            array('dayOfWeek' => 'mercredi')
+        );
+        $dayBaskColl4 = $repo->findBy(
+            array('dayOfWeek' => 'jeudi')
+        );
+        $dayBaskColl5 = $repo->findBy(
+            array('dayOfWeek' => 'vendredi')
+        );
+        return $this->render('admin/basketColl.html.twig', [
+            'day1' => $dayBaskColl1,
+            'day3' => $dayBaskColl3,
+            'day4' => $dayBaskColl4,
+            'day5' => $dayBaskColl5
+
+        ]);
     }
 }

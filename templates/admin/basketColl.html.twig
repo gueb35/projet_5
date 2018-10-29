@@ -4,6 +4,39 @@
 
 {% block body %}
 <p class="text-center">
-    Liste des paniers collectés !
-</p>
+        <h1>Bienvenue sur la page représentant la liste des paniers collectés à préparer !</h1>
+    </p>
+    <section class="listBaskComp">
+        <h2 class="baskCompMonday">Paniers collectés du lundi à livrés sur la commune de Chateaugiron:</h2>
+        {% for day in day1 %}
+        <div class="metadata">
+            -1 panier pour : Mr/Mme {{day.name}} {{day.surname}}
+        </div>
+        <div class="sepMemList"></div>
+        {% endfor %}
+
+        <h2 class="baskCompWednesday">Paniers collectés du mercredi à livrés sur la commune de Vern sur seiche:</h2>
+        {% for day in day3 %}
+        <div class="metadata">
+            -1 panier pour : Mr/Mme {{day.name}} {{day.surname}}
+        </div>
+        <div class="sepMemList"></div>
+        {% endfor %}
+
+        <h2 class="baskCompThursday">Paniers collectés du jeudi à livrés sur la commune de Amanlis:</h2>
+        {% for day in day4 %}
+        <div class="metadata">
+            -1 panier pour : Mr/Mme {{day.name}} {{day.surname}}
+        </div>
+        <div class="sepMemList"></div>
+        {% endfor %}
+
+        <h2 class="baskCompFriday">Paniers collectés du vendredi à livrés sur la commune de Bourg barré:</h2>
+        {% for day in day5 %}
+        <div class="metadata">
+            -1 panier pour : Mr/Mme {{day.name}} {{day.surname}}
+        </div>
+        <div class="sepMemList"></div>
+        {% endfor %}
+        </section>
 {% endblock %}

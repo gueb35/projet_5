@@ -10,7 +10,8 @@ class MembersFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        for ($i = 1; $i < 6; $i++){
+        for ($i = 1; $i <= 5; $i++)
+        {
             $members = new Members();
 
             $members->setName("Nom $i");
@@ -27,7 +28,9 @@ class MembersFixtures extends Fixture
 
             $manager->persist($members);
         }
-        for ($i = 6; $i < 11; $i++){
+        for ($i = 6; $i <= 10; $i++)
+        {
+            $members = new Members();
             $members->setName("Nom $i");
             $members->setSurname("Prénom $i");
             $members->setEmail("mail@$i");
