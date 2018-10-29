@@ -4,6 +4,27 @@
 
 {% block body %}
 <p class="text-center">
-    Liste des paniers composés.
-</p>
+        <h1>Bienvenue sur la page représentant la liste des paniers composés à préparer !</h1>
+    </p>
+    <section class="listBaskComp">
+        <h2>Paniers composés à récupérer le mardi de 13 à 17h :</h2>
+        {% for baskComp in baskComps %}
+        <div class="metadata">
+            -1 panier pour : Mr/Mme {{baskComp.name}} {{baskComp.surname}},</br>
+            comprenant :</br>
+            -</br>
+            -</br>
+            -</br>
+            -</br>
+            -</br>
+            -</br>
+            -</br>
+            -</br>
+            -</br>
+            -</br>
+            -
+        </div>
+        <div class="sepMemList"></div>
+        {% endfor %}
+    </section>
 {% endblock %}

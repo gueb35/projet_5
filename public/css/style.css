@@ -14,6 +14,11 @@ footer{
     position: absolute;
     bottom: 0;
 }
+span{
+    /* color: #e87b78; */
+    /* color: #fe992a; */
+    /* color: #737c85; */
+}
 /*admin*/
 /*membersList*/
 .sepMemList{
@@ -22,4 +27,12 @@ footer{
     left: 0;
     background-color: black;
     border-radius: 5px;
+}
+/*homeAdmin*/
+.linkAdmin{
+    text-decoration: none;
+}
+/*basketColl*/
+.baskColl{
+    border: 2px solid black;
 }
