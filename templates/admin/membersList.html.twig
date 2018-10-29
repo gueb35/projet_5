@@ -4,15 +4,33 @@
 
 {% block body %}
 <p class="text-center">
-    Liste de vos membres:
+    <h1>Bienvenue sur la page représentant la liste de vos membres!</br>
+    Cette liste se divise en 2 parties :</h1>
 </p>
-<section class="Members">
-    {% for member in members %}
+<section class="MembersComp">
+    <h2 class="title1MemberList">Membres du panier composés :</h2>
+    {% for member in members1 %}
     <div class="metadata">
-        Mr/Mme{{member.name}} {{member.surname}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
-        résidant à {{member.town}}.</br>
-        Vous êtes inscrit au paniers {{member.baskettype}} et le nombre de paniers vous restant dû est de {{member.numberBasketRest}}.</br>
-        Le lieu de ramassage de votre panier se situe sur la commune de {{member.dayOfWeek}}!
+        Mr/Mme {{member.name}} {{member.surname}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
+        résidant à {{member.town}} .</br>
+        Inscrit(e) aux paniers {{member.baskettype}} .</br>
+        E-mail : {{member.email}}
     </div>
+    <div class="sepMemList"></div>
+    {% endfor %}
 </section>
+<section class="MembersColl">
+        <h2 class="title2MemberList">Membres du panier collectés :</h2>
+        {% for member in members2 %}
+        <div class="metadata">
+            Mr/Mme {{member.name}} {{member.surname}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
+            résidant à {{member.town}} .</br>
+            Inscrit(e) aux paniers {{member.baskettype}}.</br>
+            Nombre de paniers restant dû : {{member.numberBasketRest}} .</br>
+            Le lieu de ramassage de ce panier se situe sur la commune de {{member.dayOfWeek}}!</br>
+            E-mail : {{member.email}}
+        </div>
+        <div class="sepMemList"></div>
+        {% endfor %}
+    </section>
 {% endblock %}

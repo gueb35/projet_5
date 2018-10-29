@@ -14,3 +14,12 @@ footer{
     position: absolute;
     bottom: 0;
 }
+/*admin*/
+/*membersList*/
+.sepMemList{
+    height: 3px;
+    width: 500px;
+    left: 0;
+    background-color: black;
+    border-radius: 5px;
+}

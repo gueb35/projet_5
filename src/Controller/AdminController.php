@@ -28,9 +28,16 @@ class AdminController extends AbstractController
     public function membersList()
     {
         $repo = $this->getDoctrine()->getRepository(Members::class);
-        $members = $this->find();
+        $membersComp = $repo->findBy(
+            array('baskettype' => 'composés')/*,*/
+        );
+        $membersColl = $repo->findBy(
+            array('baskettype' => 'collectés')
+        );
         return $this->render('admin/membersList.html.twig', [
-            'members' =>$members
+            'members1' => $membersComp,
+            'members2' => $membersColl
+
         ]);
     }
     /**
