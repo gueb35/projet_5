@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Members;
 
 class UsersController extends AbstractController
 {
@@ -26,7 +27,20 @@ class UsersController extends AbstractController
      */
     public function inscription()
     {
-        return $this->render('users/inscriptionUsers.html.twig');
+        $member = new Members();
+
+        $form = $this->createFormBuilder($member)
+                      ->add('name')
+                      ->add('surname')
+                      ->add('email')
+                      ->add('town')
+                      ->add('pseudo')
+                      ->add('password')
+                      ->getForm();
+
+        return $this->render('users/inscriptionUsers.html.twig', [
+            'formOne' => $form->createView()
+        ]);
     }
     /**
      * @Route("/members_access", name="users_members")
