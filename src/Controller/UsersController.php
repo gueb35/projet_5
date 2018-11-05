@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Members;
@@ -29,82 +31,57 @@ class UsersController extends AbstractController
     /**
      * @Route("/inscription", name="users_inscription")
      */
-    public function inscription()
+    public function inscription(Request $request, ObjectManager $manager)
     {
         $member = new Members();
 
         $formOne = $this->createFormBuilder($member)
-            ->add('name', TextType::class, [
-                'attr' => [
-                    'placeholder' => "votre nom"
-                ]
-            ])
-            ->add('surname', TextType::class, [
-                'attr' => [
-                    'placeholder' => "votre prénom"
-                ]
-            ])
-            ->add('email', TextType::class, [
-                'attr' => [
-                    'placeholder' => "votre email"
-                ]
-            ])
-            ->add('town', TextType::class, [
-                'attr' => [
-                    'placeholder' => "votre lieu de résidence"
-                ]
-            ])
-            ->add('pseudo', TextType::class, [
-                'attr' => [
-                    'placeholder' => "votre pseudo"
-                ]
-            ])
-            ->add('password', TextType::class, [
-                'attr' => [
-                    'placeholder' => "votre mot de passe"
-                ]
-            ])
-
+            ->add('name')
+            ->add('surname')
+            ->add('email')
+            ->add('town')
+            ->add('pseudo')
+            ->add('password')
             ->getForm();
 
-        $formTwo = $this->createFormBuilder($member)
-        ->add('name', TextType::class, [
-            'attr' => [
-                'placeholder' => "votre nom"
-            ]
-        ])
-        ->add('surname', TextType::class, [
-            'attr' => [
-                'placeholder' => "votre prénom"
-            ]
-        ])
-        ->add('email', TextType::class, [
-            'attr' => [
-                'placeholder' => "votre email"
-            ]
-        ])
-        ->add('town', TextType::class, [
-            'attr' => [
-                'placeholder' => "votre lieu de résidence"
-            ]
-        ])
-        ->add('dayOfWeek', TextType::class, [
-            'attr' => [
-                'placeholder' => "Jour ou vous désirez récupérer votre panier chaque semaine"
-            ]
-        ])
-        ->add('pseudo', TextType::class, [
-            'attr' => [
-                'placeholder' => "votre pseudo"
-            ]
-        ])
-        ->add('password', TextType::class, [
-            'attr' => [
-                'placeholder' => "votre mot de passe"
-            ]
-        ])
+        $formOne->handleRequest($request);
 
-        ->getForm();
+        if($formOne->isSubmitted() && $formOne->isValid()) {
+            $member->setbaskettype("composés");
+            $member->setnumberBasketRest(0);
+            $member->setdayOfWeek("mardi");
+            $member->setCreatedAt(new \DateTime());
+
+            $manager->persist($member);
+            $manager->flush();
+
+            return $this->redirectToRoute('my_compte');
+
+        }
+
+        $formTwo = $this->createFormBuilder($member)
+            ->add('name')
+            ->add('surname')
+            ->add('email')
+            ->add('town')
+            ->add('dayOfWeek')
+            ->add('pseudo')
+            ->add('password')
+            ->getForm();
+
+        $formTwo->handleRequest($request);
+
+        if($formTwo->isSubmitted() && $formTwo->isValid()) {
+            $member->setbaskettype("collectés");
+            $member->setnumberBasketRest(0);
+            $member->setCreatedAt(new \DateTime());
+
+            $manager->persist($member);
+            $manager->flush();
+            
+            return $this->redirectToRoute('my_compte');
+
+        }
 
         return $this->render('users/inscriptionUsers.html.twig', [
             'formOne' => $formOne->createView(),

@@ -27,13 +27,18 @@ Pour une prochaine composition de panier, rendez-vous directement dans votre esp
 </p>
 {{ form_start(formOne) }}
 
-{{ form(formOne) }}
+{{ form_row(formOne.name, {'attr' : {'placeholder': "Votre nom"}}) }}
+{{ form_row(formOne.surname, {'attr' : {'placeholder': "Votre prénom"}}) }}
+{{ form_row(formOne.email, {'attr' : {'placeholder': "Votre email"}}) }}
+{{ form_row(formOne.town, {'attr' : {'placeholder': "votre lieu de résidence"}}) }}
+{{ form_row(formOne.pseudo, {'attr' : {'placeholder': "Votre pseudo"}}) }}
+{{ form_row(formOne.password, {'attr' : {'placeholder': "Votre mot de passe"}}) }}
 
 <button type="submit" class="btn btn-success">M'inscrire</button>
 
 {{form_end(formOne)}}
 
-<p>2/ Il vous est possible également  de récupérer un panier confectionné par nos soins de 10 légumes et/ou fruits au sein d'un dépot hebdomadaire correspopndant à une liste de 5 communes</br>
+<p>2/ Il vous est possible également  de récupérer un panier confectionné par nos soins de 10 légumes et/ou fruits au sein d'un dépot hebdomadaire correspondant à une liste de 5 communes</br>
 -lundi : Chateaugiron;</br>
 -mardi : Nouvoitou, directement à la ferme;</br>
 -mercredi : Vern/seiche;</br>
@@ -54,8 +59,13 @@ Les dépots des paniers collectés se déroule de septembre à mi-juillet avec u
 
 {{ form_start(formTwo) }}
 
-{{ form(formTwo) }}
-
+{{ form_row(formTwo.name, {'attr' : {'placeholder': "Votre nom"}}) }}
+{{ form_row(formTwo.surname, {'attr' : {'placeholder': "Votre prénom"}}) }}
+{{ form_row(formTwo.email, {'attr' : {'placeholder': "Votre email"}}) }}
+{{ form_row(formTwo.town, {'attr' : {'placeholder': "Votre lieu de résidence"}}) }}
+{{ form_row(formTwo.dayOfWeek, {'attr' : {'placeholder': "Jour ou vous désirez récupérer votre panier chaque semaine"}}) }}
+{{ form_row(formTwo.pseudo, {'attr' : {'placeholder': "Votre pseudo"}}) }}
+{{ form_row(formTwo.password, {'attr' : {'placeholder': "Votre mot de passe"}}) }}
 <button type="submit" class="btn btn-success">Inscription à la collecte de paniers</button>
 
 {{form_end(formTwo)}}
