@@ -92,15 +92,61 @@ class UsersController extends AbstractController
     /**
      * @Route("/members_access", name="users_members")
      */
-    public function membersAccess()
+    public function membersAccess(Request $request, ObjectManager $manager)
     {
-        return $this->render('users/membersUsers.html.twig');
+        $member = new Members();
+
+        $formThree = $this->createFormBuilder($member)
+            ->add('pseudo')
+            ->add('password')
+            ->getForm();
+
+        $formThree->handleRequest($request);
+
+        if($formThree->isSubmitted() && $formTree->isValid()) {
+            // $member->setbaskettype("composés");
+            // $member->setnumberBasketRest(0);
+            // $member->setdayOfWeek("mardi");
+            // $member->setCreatedAt(new \DateTime());
+
+            // $manager->persist($member);
+            // $manager->flush();
+
+            return $this->redirectToRoute('my_compte');
+
+        }
+        return $this->render('users/membersUsers.html.twig', [
+            'formThree' => $formThree->createView()
+        ]);
     }
     /**
      * @Route("/administrator", name="users_administrator")
      */
-    public function administratorAccess()
+    public function administratorAccess(Request $request, ObjectManager $manager)
     {
-        return $this->render('users/administratorUsers.html.twig');
+        $member = new Members();
+
+        $formFour = $this->createFormBuilder($member)
+            ->add('pseudo')
+            ->add('password')
+            ->getForm();
+
+        $formFour->handleRequest($request);
+
+        if($formFour->isSubmitted() && $formFour->isValid()) {
+            // $member->setbaskettype("composés");
+            // $member->setnumberBasketRest(0);
+            // $member->setdayOfWeek("mardi");
+            // $member->setCreatedAt(new \DateTime());
+
+            // $manager->persist($member);
+            // $manager->flush();
+
+            return $this->redirectToRoute('my_compte');
+
+        }
+        return $this->render('users/administratorUsers.html.twig', [
+            'formFour' => $formFour->createView()
+        ]);
     }
 }

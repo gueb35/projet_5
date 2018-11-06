@@ -8,7 +8,7 @@
     Cette liste se divise en 2 parties :</h1>
 </p>
 <section class="MembersComp">
-    <h2 class="title1MemberList">Membres du panier composés de la semaine(du mercredi matin au lundi soir):</h2>
+    <h2 class="title1MemberList">Membres du panier composés de la semaine(du mercredi matin au mardi midi 12h):</h2>
     {% for member in members1 %}
     <div class="metadata">
         Mr/Mme {{member.name}} {{member.surname}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}

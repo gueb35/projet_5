@@ -4,7 +4,12 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Members;
+use App\Entity\ProdOfWeek;
 
 class AdminController extends AbstractController
 {
@@ -15,13 +20,60 @@ class AdminController extends AbstractController
     {
         return $this->render('admin/homeAdmin.html.twig');
     }
+
     /**
      * @Route("/prodOfWeek", name="product_of_the_week")
      */
-    public function createListProd()
+    public function createListProd(Request $request, ObjectManager $manager)
     {
-        return $this->render('admin/prodWeek.html.twig');
+        $ProdOfWeeks = new ProdOfWeek();
+
+        $formProdOfWeekUnity = $this->createFormBuilder($ProdOfWeeks)
+            ->add('prodByUnity')
+            ->add('quantityProdUnity')
+            ->getForm();
+
+        $formProdOfWeekUnity->handleRequest($request);
+
+        if($formProdOfWeekUnity->isSubmitted() && $formProdOfWeekUnity->isValid()) {
+
+            $manager->persist($ProdOfWeeks);
+            $manager->flush();
+
+            return $this->redirectToRoute('product_of_the_week');
+        }
+
+        $formProdOfWeekByKg = $this->createFormBuilder($ProdOfWeeks)
+        ->add('prodByKg')
+        ->add('quantityProdKg')
+        ->getForm();
+
+    $formProdOfWeekByKg->handleRequest($request);
+
+    if($formProdOfWeekByKg->isSubmitted() && $formProdOfWeekByKg->isValid()) {
+
+        $manager->persist($ProdOfWeeks);
+        $manager->flush();
+
+        return $this->redirectToRoute('product_of_the_week');
     }
+
+        return $this->render('admin/prodWeek.html.twig', [
+
+            'formProdOfWeekUnity1' => $formProdOfWeekUnity->createView(),
+            'formProdOfWeekUnity2' => $formProdOfWeekUnity->createView(),
+            'formProdOfWeekUnity3' => $formProdOfWeekUnity->createView(),
+            'formProdOfWeekUnity4' => $formProdOfWeekUnity->createView(),
+            'formProdOfWeekUnity5' => $formProdOfWeekUnity->createView(),
+
+            'formProdOfWeekByKg6' => $formProdOfWeekByKg->createView(),
+            'formProdOfWeekByKg7' => $formProdOfWeekByKg->createView(),
+            'formProdOfWeekByKg8' => $formProdOfWeekByKg->createView(),
+            'formProdOfWeekByKg9' => $formProdOfWeekByKg->createView(),
+            'formProdOfWeekByKg10' => $formProdOfWeekByKg->createView()
+        ]);
+    }
+
     /**
      * @Route("/membersList", name="members_list")
      */
