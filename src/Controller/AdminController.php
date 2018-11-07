@@ -81,7 +81,7 @@ class AdminController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(Members::class);
         $membersComp = $repo->findBy(
-            array('baskettype' => 'composés')/*,*/
+            array('baskettype' => 'composés')
         );
         $membersColl = $repo->findBy(
             array('baskettype' => 'collectés')
@@ -91,6 +91,7 @@ class AdminController extends AbstractController
             'members2' => $membersColl
         ]);
     }
+
     /**
      * @Route("/basketComp", name="basket_compouned_list")
      */
@@ -104,6 +105,7 @@ class AdminController extends AbstractController
             'baskComps' => $baskComps
         ]);
     }
+    
     /**
      * @Route("/basketColl", name="basket_collected")
      */

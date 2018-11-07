@@ -3,5 +3,18 @@
 {% block title %}Votre compte !{% endblock %}
 
 {% block body %}
-<h1 class="text-center">Bienvenue sur la page de votre compte!</h1>
+    <h1 class="text-center">Bienvenue sur la page de votre compte!</h1>
+    <h5>Voici les informations relatives à votre compte :</h5>
+        <p>info compte</p>
+    <h5>Voici la liste des produits de la semaine :</h5>
+<section class="prodList1">
+        {% for prodOfWeeks in prodOfWeek %}
+            <div class="metadata">
+                Produit no {{ prodOfWeeks.id }} : {{prodOfWeeks.prodByUnity}}{{prodOfWeeks.prodByKg}} {{ prodOfWeeks.quantityProdUnity }}{{ prodOfWeeks.quantityProdKg }}
+            </div>
+            <div class="sepMemList"></div>
+        {% endfor %}
+
+</section>
+
 {% endblock %}

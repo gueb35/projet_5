@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use App\Entity\Members;
 
 class UsersController extends AbstractController
@@ -35,13 +37,14 @@ class UsersController extends AbstractController
     {
         $member = new Members();
 
+        /*paniers composés*/
         $formOne = $this->createFormBuilder($member)
-            ->add('name')
-            ->add('surname')
-            ->add('email')
-            ->add('town')
-            ->add('pseudo')
-            ->add('password')
+            ->add('name',TextType::class)
+            ->add('surname',TextType::class)
+            ->add('email', EmailType::class)
+            ->add('town',TextType::class)
+            ->add('pseudo',TextType::class)
+            ->add('password', PasswordType::class)
             ->getForm();
 
         $formOne->handleRequest($request);
@@ -59,14 +62,15 @@ class UsersController extends AbstractController
 
         }
 
+        /*paniers collectés*/
         $formTwo = $this->createFormBuilder($member)
-            ->add('name')
-            ->add('surname')
-            ->add('email')
-            ->add('town')
-            ->add('dayOfWeek')
-            ->add('pseudo')
-            ->add('password')
+            ->add('name',TextType::class)
+            ->add('surname',TextType::class)
+            ->add('email', EmailType::class)
+            ->add('town',TextType::class)
+            ->add('dayOfWeek',TextType::class)
+            ->add('pseudo',TextType::class)
+            ->add('password', PasswordType::class)
             ->getForm();
 
         $formTwo->handleRequest($request);
