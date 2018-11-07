@@ -11,7 +11,7 @@ class MembersController extends AbstractController
         /**
      * @Route("/members", name="my_compte")
      */
-    public function my_compte()
+    public function showListProdOfWeek()
     {
         $repo = $this->getDoctrine()->getRepository(ProdOfWeek::class);
         $prodOfWeek = $repo->findAll();
