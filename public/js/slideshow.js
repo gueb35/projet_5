@@ -1,13 +1,13 @@
 var Slideshow = (function(){
-    var self = {},
-        config = {
-            duration:4,
-            container:{
-                width:0,
-                height:0
-            }
-        };
         
+var self = {},
+config = {
+    duration:4,
+    container:{
+        width:0,
+        height:0
+    }
+};
     setOptions = function (){
         if(typeof options === 'object' && Object.keys(options).length >0){
             for (var property in options){
@@ -51,10 +51,13 @@ var Slideshow = (function(){
             slideshow.style.backgroundSize = 'cover';
             slideshow.classList.remove('fadeOut');
         },1000);
+
         i++;
+
         if(i == images.length){
             i = 0;
         }
+
         setTimeout(play, config.duration * 1000);
         
     }
