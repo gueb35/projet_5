@@ -20,7 +20,13 @@ footer{
     /* color: #737c85;
 } */
 /*************espace users***************/
-
+/*page de présentation*/
+#diapo{
+    width: 75%;
+    height: 200px;
+    margin: auto;
+    border: 2px solid black;
+}
 /************espace members***************/
 
 /*************espace admin****************/
