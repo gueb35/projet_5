@@ -41,5 +41,13 @@
             {% endblock %}
         </div>
         {% block javascripts %}{% endblock %}
+        <script src="js/slideshow.js"></script>
+        <script>Slideshow.init({
+            container: {
+                width : 700,
+                height : 350
+            }
+        });
+        </script>
     </body>
 </html>
