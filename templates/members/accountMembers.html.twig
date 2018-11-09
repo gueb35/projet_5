@@ -5,7 +5,9 @@
 {% block body %}
     <h1 class="text-center">Bienvenue sur la page de votre compte!</h1>
     <h5>Voici les informations relatives à votre compte :</h5>
-        <p>info compte</p>
+    {% for memberInfo in memberCount %}
+    Bonjour Mr/Mme {{ memberInfo.name }}
+    {% endfor %}
     <h5>Voici la liste des produits de la semaine :</h5>
 <section class="prodList1">
         {% for prodOfWeeks in prodOfWeek %}

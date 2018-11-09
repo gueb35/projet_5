@@ -58,7 +58,7 @@ class UsersController extends AbstractController
             $manager->persist($member);
             $manager->flush();
 
-            return $this->redirectToRoute('my_compte');
+            return $this->redirectToRoute('my_compte', ['id' => $member->getId()]);
 
         }
 
@@ -83,7 +83,7 @@ class UsersController extends AbstractController
             $manager->persist($member);
             $manager->flush();
             
-            return $this->redirectToRoute('my_compte');
+            return $this->redirectToRoute('my_compte', ['id' => $member->getId()]);
 
         }
 
