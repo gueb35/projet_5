@@ -52,12 +52,6 @@ footer{
     width: 200px;
     height: 100px;
 }
-#titleUp{
-    position: relative; 
-}
-#titleDown{
-    position: relative;
-}
 h5{
     color: white;
     margin-top: 20px;
