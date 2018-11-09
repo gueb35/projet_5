@@ -1,10 +1,17 @@
 body{
     background-image: url("../images/IMG9857.png");
+    margin-top: 120px;
 }
 .logo{
     background-image: url("../images/logo.png"); 
     width: 75px;
     height: 75px;
+}
+.menu{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
 }
 .nav-link:hover{
     background-color:gray;
@@ -14,13 +21,12 @@ footer{
     position: absolute;
     bottom: 0;
 }
-/* span{
-    color: #e87b78; */
-    /* color: #fe992a; */
-    /* color: #737c85;
-} */
 /*************espace users***************/
 /*page de présentation*/
+#titlePresentation{
+    width: 75%;
+    margin: auto;
+}
 #slideshow-container{
     position: absolute;
     width: 100%;
@@ -41,6 +47,50 @@ footer{
 }
 .slideshow-image{
     display: none;
+}
+.image{
+    width: 200px;
+    height: 100px;
+}
+#titleUp{
+    position: relative; 
+}
+#titleDown{
+    position: relative;
+}
+h5{
+    color: white;
+    margin-top: 20px;
+    background-color: #555;
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.chevronDown
+{
+	border-style: solid;
+	color: white;
+	border-width: 0.15em 0.15em 0 0;
+	content: '';
+	height: 0.60em;
+    width: 0.60em;
+    margin-top: 3.5px;
+    margin-left: 10px;
+	position: absolute;
+    transform: rotate(135deg);
+}
+.chevronUp
+{
+	border-style: solid;
+	color: white;
+	border-width: 0.15em 0.15em 0 0;
+	content: '';
+	height: 0.60em;
+    width: 0.60em;
+    margin-top: 7.5px;
+    margin-left: 10px;
+	position: absolute;
+    transform: rotate(-45deg);
 }
 /************espace members***************/
 
