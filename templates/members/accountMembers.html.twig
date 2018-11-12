@@ -3,11 +3,13 @@
 {% block title %}Votre compte !{% endblock %}
 
 {% block body %}
-    <h1 class="text-center">Bienvenue sur la page de votre compte!</h1>
-    <h5>Voici les informations relatives à votre compte :</h5>
-    {% for memberInfo in memberCount %}
-    Bonjour Mr/Mme {{ memberInfo.name }}
-    {% endfor %}
+    {# {% for memberInfo in memberCount %}
+        <h1 class="text-center">Bienvenue Mr/Mme {{ memberInfo.name }} {{memberInfo.surname}}!</h1>
+        <h5>Voici les informations relatives à votre compte :</h5>
+        Vous vous êtes inscrit(e) aux paniers {{ memberInfo.baskettype}} le {{ memberInfo.createdAt | date('d/m/Y') à {{memberInfo.createdAt | date('H:i')}}
+        Le lieu de ramassage de votre panier se situe sur la commune du {{memberInfo.dayOfWeek}} et votre nombre de paniers restant est de {{memberInfo.numberBasketRest}}!
+        Vous résidez à {{ memberInfo.town}} et votre email est : {{ memberInfo.email}}
+        {% endfor %} #}
     <h5>Voici la liste des produits de la semaine :</h5>
 <section class="prodList1">
         {% for prodOfWeeks in prodOfWeek %}

@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\ProdOfWeekRepository;
+use App\Repository\MembersRepository;
 use App\Entity\Members;
 use App\Entity\ProdOfWeek;
 
@@ -13,15 +15,15 @@ class MembersController extends AbstractController
      * @Route("/members/{id}", name="my_compte")
      * @Route("/members", name="my_compte")
      */
-    public function showListProdOfWeek($id)
+    public function showListProdOfWeek(ProdOfWeekRepository $repo, MembersRepository $repoM/*, $id*/)
     {
-        $repo = $this->getDoctrine()->getRepository(ProdOfWeek::class);
-        $repoM = $this->getDoctrine()->getRepository(Members::class);
+        // $repo = $this->getDoctrine()->getRepository(ProdOfWeek::class);
+        // $repoM = $this->getDoctrine()->getRepository(Members::class);
         $prodOfWeek = $repo->findAll();
-        $memberCount = $repoM->find($id);
+        // $memberCount = $repoM->find($id);
         return $this->render('members/accountMembers.html.twig', [
-            'prodOfWeek' => $prodOfWeek,
-            'memberCount' => $memberCount
+            'prodOfWeek' => $prodOfWeek/*,*/
+            // 'memberCount' => $memberCount
         ]);
     }
     /**

@@ -92,37 +92,7 @@ class UsersController extends AbstractController
             'formTwo' => $formTwo->createView()
         ]);
     }
-
-    /**
-     * @Route("/members_access", name="users_members")
-     */
-    public function membersAccess(Request $request, ObjectManager $manager)
-    {
-        $member = new Members();
-
-        $formThree = $this->createFormBuilder($member)
-            ->add('pseudo')
-            ->add('password')
-            ->getForm();
-
-        $formThree->handleRequest($request);
-
-        if($formThree->isSubmitted() && $formTree->isValid()) {
-            // $member->setbaskettype("composés");
-            // $member->setnumberBasketRest(0);
-            // $member->setdayOfWeek("mardi");
-            // $member->setCreatedAt(new \DateTime());
-
-            // $manager->persist($member);
-            // $manager->flush();
-
-            return $this->redirectToRoute('my_compte');
-
-        }
-        return $this->render('users/membersUsers.html.twig', [
-            'formThree' => $formThree->createView()
-        ]);
-    }
+    
     /**
      * @Route("/administrator", name="users_administrator")
      */
