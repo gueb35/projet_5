@@ -3,22 +3,17 @@
 {% block title %}Votre compte !{% endblock %}
 
 {% block body %}
-    {# {% for memberInfo in memberCount %}
-        <h1 class="text-center">Bienvenue Mr/Mme {{ memberInfo.name }} {{memberInfo.surname}}!</h1>
-        <h5>Voici les informations relatives à votre compte :</h5>
-        Vous vous êtes inscrit(e) aux paniers {{ memberInfo.baskettype}} le {{ memberInfo.createdAt | date('d/m/Y') à {{memberInfo.createdAt | date('H:i')}}
-        Le lieu de ramassage de votre panier se situe sur la commune du {{memberInfo.dayOfWeek}} et votre nombre de paniers restant est de {{memberInfo.numberBasketRest}}!
-        Vous résidez à {{ memberInfo.town}} et votre email est : {{ memberInfo.email}}
-        {% endfor %} #}
-    <h5>Voici la liste des produits de la semaine :</h5>
-<section class="prodList1">
-        {% for prodOfWeeks in prodOfWeek %}
-            <div class="metadata">
-                Produit no {{ prodOfWeeks.id }} : {{prodOfWeeks.prodByUnity}}{{prodOfWeeks.prodByKg}} {{ prodOfWeeks.quantityProdUnity }}{{ prodOfWeeks.quantityProdKg }}
-            </div>
-            <div class="sepMemList"></div>
-        {% endfor %}
 
-</section>
+<h1 class="text-center">Voici les informations relatives à votre compte :</h1>
+    <section>
+            <h5>Bienvenue Mr/Mme {{ memberCount.name }} {{memberCount.surname}}!</h5>
+            <div class="metadata">
+                <p>
+                    Vous vous êtes inscrit(e) aux paniers {{ memberCount.baskettype}} le {{ memberCount.createdAt | date('d/m/Y')}} à {{memberCount.createdAt | date('H:i')}}.</br>
+                    Le lieu de ramassage de votre panier se situe sur la commune du {{memberCount.dayOfWeek}} et votre nombre de paniers restant est de {{memberCount.numberBasketRest}} !</br>
+                    Vous résidez à {{ memberCount.town}} et votre email est : {{ memberCount.email}} .
+                </p>
+            </div>
+    </section>
 
 {% endblock %}

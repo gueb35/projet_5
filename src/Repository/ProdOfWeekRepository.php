@@ -19,22 +19,23 @@ class ProdOfWeekRepository extends ServiceEntityRepository
         parent::__construct($registry, ProdOfWeek::class);
     }
 
-//    /**
-//     * @return ProdOfWeek[] Returns an array of ProdOfWeek objects
-//     */
-    /*
-    public function findByExampleField($value)
+    public function prodByUnity()
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->where('p.prodByUnity IS NOT NULL')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
+    public function prodByKg()
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.prodByKg IS NOT NULL')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     /*
     public function findOneBySomeField($value): ?ProdOfWeek

@@ -13,28 +13,27 @@ class MembersController extends AbstractController
 {
     /**
      * @Route("/members/{id}", name="my_compte")
-     * @Route("/members", name="my_compte")
      */
-    public function showListProdOfWeek(ProdOfWeekRepository $repo, MembersRepository $repoM/*, $id*/)
+    public function showListProdOfWeek(MembersRepository $repoM, $id)
     {
-        // $repo = $this->getDoctrine()->getRepository(ProdOfWeek::class);
-        // $repoM = $this->getDoctrine()->getRepository(Members::class);
-        $prodOfWeek/*comp*/ = $repo->findAll();//ligne à remplacer par celle du dessous
-        // $prodOfWeekComp = $repo->findBy('proByUnity');//doit permettre de récupérer tous les produits du champ proByUnity
-        // $prodOfWeekColl = $repo->findBy('proByKg');//doit permettre de récupérer tous les produits du champ proByKg
-        // $memberCount = $repoM->find($id);//doit permettre de récupérer les infos du membre identifier par l'id
+        $memberCount = $repoM->find($id);//permet de récupérer les infos du membre identifier par l'id
         return $this->render('members/accountMembers.html.twig', [
-            'prodOfWeek' => $prodOfWeek/*,*/
-            // 'prodOfWeekComp' => $prodOfWeekComp,
-            // 'prodOfWeekColl' => $prodOfWeekColl,
-            // 'memberCount' => $memberCount
+            'id' => $id,
+            'memberCount' => $memberCount
         ]);
     }
+
     /**
-     * @Route("/basket_compouned", name="basket_compouned")
+     * @Route("/basket_compouned/{id}", name="basket_compouned")
      */
-    public function basket_compouned()
+    public function basket_compouned(ProdOfWeekRepository $repo,$id)
     {
-        return $this->render('members/basketCompounedMembers.html.twig');
+        $prodOfWeekComp = $repo->prodByUnity();//permet de récupérer tous les produits du champ proByUnity
+        $prodOfWeekColl = $repo->prodByKg();//permet de récupérer tous les produits du champ proByKg
+        return $this->render('members/basketCompounedMembers.html.twig', [
+            'id' => $id,
+            'prodOfWeekComp' => $prodOfWeekComp,
+            'prodOfWeekColl' => $prodOfWeekColl
+        ]);
     }
 }

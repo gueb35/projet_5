@@ -4,4 +4,30 @@
 
 {% block body %}
 <h1 class="text-center">Bienvenue sur la page vous permettant de composer vous même votre panier !</h1>
+<h5 class="text-center">Afin de composer vous-même votre panier, voici la liste des produits de la semaine :</h5>
+    <section class="prodList1">
+        <h6><strong>Produits à l'unité :</strong></h6>
+        {% for prodUnity in prodOfWeekComp %}
+            <div class="metadata">
+                <p>
+                    Produit no {{ prodUnity.id }} : {{prodUnity.quantityProdUnity}} {{prodUnity.prodByUnity}}
+                </p>
+            </div>
+            <div class="sepMemList"></div>
+        {% endfor %}
+    
+    </section>
+    
+    <section class="prodList1">
+        <h6><strong>Produits au kilo :</strong></h6>
+        {% for prodUnity in prodOfWeekColl %}
+            <div class="metadata">
+                <p>
+                    Produit no {{ prodUnity.id }} : {{ prodUnity.quantityProdKg }}kg de {{ prodUnity.ProdByKg }}
+                </p>
+            </div>
+            <div class="sepMemList"></div>
+        {% endfor %}
+    
+    </section>
 {% endblock %}
