@@ -19,10 +19,14 @@ class MembersController extends AbstractController
     {
         // $repo = $this->getDoctrine()->getRepository(ProdOfWeek::class);
         // $repoM = $this->getDoctrine()->getRepository(Members::class);
-        $prodOfWeek = $repo->findAll();
-        // $memberCount = $repoM->find($id);
+        $prodOfWeek/*comp*/ = $repo->findAll();//ligne à remplacer par celle du dessous
+        // $prodOfWeekComp = $repo->findBy('proByUnity');//doit permettre de récupérer tous les produits du champ proByUnity
+        // $prodOfWeekColl = $repo->findBy('proByKg');//doit permettre de récupérer tous les produits du champ proByKg
+        // $memberCount = $repoM->find($id);//doit permettre de récupérer les infos du membre identifier par l'id
         return $this->render('members/accountMembers.html.twig', [
             'prodOfWeek' => $prodOfWeek/*,*/
+            // 'prodOfWeekComp' => $prodOfWeekComp,
+            // 'prodOfWeekColl' => $prodOfWeekColl,
             // 'memberCount' => $memberCount
         ]);
     }
