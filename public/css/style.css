@@ -101,13 +101,7 @@ h5{
     margin: auto;
 }
 /*page inscription*/
-.basketComp{
-    border: 4px solid black;
-    border-radius: 0 0 5px 5px;
-    opacity: 0.9;
-    padding: 15px;
-}
-.basketColl{
+.basketComp , .basketColl{
     border: 4px solid black;
     border-radius: 0 0 5px 5px;
     opacity: 0.9;
@@ -134,11 +128,9 @@ h5{
     border: 2px solid black;
 }
 /*prodWeek*/
-.formUnity{
+.formUnity , .formKg{
     border: 2px solid black;
-}
-.formKg{
-    border: 2px solid black;
+    border-radius: 0 0 5px 5px;
 }
 .form{
     border: 2px solid black;

@@ -29,6 +29,7 @@ class AdminController extends AbstractController
     public function createListProd(ProdOfWeekRepository $repo, Request $request, ObjectManager $manager)
     {
         $ProdOfWeeks = new ProdOfWeek();
+    
 /********************************** formbyunity**************************************/
         $prod1 = $repo->findOneBy(['id' => '1']);//permet de récupérer les infos du produit identifié par l'id
         $prod2 = $repo->findOneBy(['id' => '2']);//permet de récupérer les infos du produit identifié par l'id
@@ -36,26 +37,27 @@ class AdminController extends AbstractController
         $prod4 = $repo->findOneBy(['id' => '4']);//permet de récupérer les infos du produit identifié par l'id
         $prod5 = $repo->findOneBy(['id' => '5']);//permet de récupérer les infos du produit identifié par l'id
         // dump($prod1);
+
         $formProdOfWeekUnity1 = $this->createFormBuilder($ProdOfWeeks)
             ->add('prodByUnity',TextType::class)
             ->add('quantityProdUnity',IntegerType::class)
             ->getForm();
         $formProdOfWeekUnity2 = $this->createFormBuilder($ProdOfWeeks)
-        ->add('prodByUnity',TextType::class)
-        ->add('quantityProdUnity',IntegerType::class)
-        ->getForm();
+            ->add('prodByUnity',TextType::class)
+            ->add('quantityProdUnity',IntegerType::class)
+            ->getForm();
         $formProdOfWeekUnity3 = $this->createFormBuilder($ProdOfWeeks)
-        ->add('prodByUnity',TextType::class)
-        ->add('quantityProdUnity',IntegerType::class)
-        ->getForm();
+            ->add('prodByUnity',TextType::class)
+            ->add('quantityProdUnity',IntegerType::class)
+            ->getForm();
         $formProdOfWeekUnity4 = $this->createFormBuilder($ProdOfWeeks)
-        ->add('prodByUnity',TextType::class)
-        ->add('quantityProdUnity',IntegerType::class)
-        ->getForm();
+            ->add('prodByUnity',TextType::class)
+            ->add('quantityProdUnity',IntegerType::class)
+            ->getForm();
         $formProdOfWeekUnity5 = $this->createFormBuilder($ProdOfWeeks)
-        ->add('prodByUnity',TextType::class)
-        ->add('quantityProdUnity',IntegerType::class)
-        ->getForm();
+            ->add('prodByUnity',TextType::class)
+            ->add('quantityProdUnity',IntegerType::class)
+            ->getForm();
         $formProdOfWeekUnity1->handleRequest($request);
         $formProdOfWeekUnity2->handleRequest($request);
         $formProdOfWeekUnity3->handleRequest($request);
@@ -99,25 +101,25 @@ class AdminController extends AbstractController
         }
 /********************************** formbykg**************************************/
         $formProdOfWeekByKg1 = $this->createFormBuilder($ProdOfWeeks)
-        ->add('prodByKg',TextType::class)
-        ->add('quantityProdKg',IntegerType::class)
-        ->getForm();
+            ->add('prodByKg',TextType::class)
+            ->add('quantityProdKg',IntegerType::class)
+            ->getForm();
         $formProdOfWeekByKg2 = $this->createFormBuilder($ProdOfWeeks)
-        ->add('prodByKg',TextType::class)
-        ->add('quantityProdKg',IntegerType::class)
-        ->getForm();
+            ->add('prodByKg',TextType::class)
+            ->add('quantityProdKg',IntegerType::class)
+            ->getForm();
         $formProdOfWeekByKg3 = $this->createFormBuilder($ProdOfWeeks)
-        ->add('prodByKg',TextType::class)
-        ->add('quantityProdKg',IntegerType::class)
-        ->getForm();
+            ->add('prodByKg',TextType::class)
+            ->add('quantityProdKg',IntegerType::class)
+            ->getForm();
         $formProdOfWeekByKg4 = $this->createFormBuilder($ProdOfWeeks)
-        ->add('prodByKg',TextType::class)
-        ->add('quantityProdKg',IntegerType::class)
-        ->getForm();
+            ->add('prodByKg',TextType::class)
+            ->add('quantityProdKg',IntegerType::class)
+            ->getForm();
         $formProdOfWeekByKg5 = $this->createFormBuilder($ProdOfWeeks)
-        ->add('prodByKg',TextType::class)
-        ->add('quantityProdKg',IntegerType::class)
-        ->getForm();
+            ->add('prodByKg',TextType::class)
+            ->add('quantityProdKg',IntegerType::class)
+            ->getForm();
 
     $formProdOfWeekByKg1->handleRequest($request);
     $formProdOfWeekByKg2->handleRequest($request);
@@ -132,28 +134,28 @@ class AdminController extends AbstractController
 
         // return $this->redirectToRoute('product_of_the_week');
     }
-    if($formProdOfWeekByKg2->isSubmitted() && $formProdOfWeekByKg->isValid()) {
+    if($formProdOfWeekByKg2->isSubmitted() && $formProdOfWeekByKg2->isValid()) {
 
         $manager->persist($ProdOfWeeks);
         $manager->flush();
 
         // return $this->redirectToRoute('product_of_the_week');
     }
-    if($formProdOfWeekByKg3->isSubmitted() && $formProdOfWeekByKg->isValid()) {
+    if($formProdOfWeekByKg3->isSubmitted() && $formProdOfWeekByKg3->isValid()) {
 
         $manager->persist($ProdOfWeeks);
         $manager->flush();
 
         // return $this->redirectToRoute('product_of_the_week');
     }
-    if($formProdOfWeekByKg4->isSubmitted() && $formProdOfWeekByKg->isValid()) {
+    if($formProdOfWeekByKg4->isSubmitted() && $formProdOfWeekByKg4->isValid()) {
 
         $manager->persist($ProdOfWeeks);
         $manager->flush();
 
         // return $this->redirectToRoute('product_of_the_week');
     }
-    if($formProdOfWeekByKg5->isSubmitted() && $formProdOfWeekByKg->isValid()) {
+    if($formProdOfWeekByKg5->isSubmitted() && $formProdOfWeekByKg5->isValid()) {
 
         $manager->persist($ProdOfWeeks);
         $manager->flush();
