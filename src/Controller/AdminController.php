@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -24,163 +25,67 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/prodOfWeek", name="product_of_the_week")
+     * @Route("/deleteProd/{id}", name="delete_prod")
      */
-    public function createListProd(ProdOfWeekRepository $repo, Request $request, ObjectManager $manager)
-    {
-        $ProdOfWeeks = new ProdOfWeek();
-    
-/********************************** formbyunity**************************************/
-        $prod1 = $repo->findOneBy(['id' => '1']);//permet de récupérer les infos du produit identifié par l'id
-        $prod2 = $repo->findOneBy(['id' => '2']);//permet de récupérer les infos du produit identifié par l'id
-        $prod3 = $repo->findOneBy(['id' => '3']);//permet de récupérer les infos du produit identifié par l'id
-        $prod4 = $repo->findOneBy(['id' => '4']);//permet de récupérer les infos du produit identifié par l'id
-        $prod5 = $repo->findOneBy(['id' => '5']);//permet de récupérer les infos du produit identifié par l'id
-        // dump($prod1);
+    public function deleteProduct(ProdOfWeek $ProdOfWeek =null, ProdOfWeek $ProdOfWeek2 =null, ObjectManager $manager, $id=null)
+    {   
+        dump($id);//le numéro du produit existe
+        $manager->remove($ProdOfWeek);
+        $manager->remove($ProdOfWeek2);
+        $manager->flush();
+        dump($id);//le numéro du produit existe
 
-        $formProdOfWeekUnity1 = $this->createFormBuilder($ProdOfWeeks)
-            ->add('prodByUnity',TextType::class)
-            ->add('quantityProdUnity',IntegerType::class)
-            ->getForm();
-        $formProdOfWeekUnity2 = $this->createFormBuilder($ProdOfWeeks)
-            ->add('prodByUnity',TextType::class)
-            ->add('quantityProdUnity',IntegerType::class)
-            ->getForm();
-        $formProdOfWeekUnity3 = $this->createFormBuilder($ProdOfWeeks)
-            ->add('prodByUnity',TextType::class)
-            ->add('quantityProdUnity',IntegerType::class)
-            ->getForm();
-        $formProdOfWeekUnity4 = $this->createFormBuilder($ProdOfWeeks)
-            ->add('prodByUnity',TextType::class)
-            ->add('quantityProdUnity',IntegerType::class)
-            ->getForm();
-        $formProdOfWeekUnity5 = $this->createFormBuilder($ProdOfWeeks)
+        return $this->redirectToRoute('product_of_the_weeks',['id' => $id]);
+    }
+
+    /**
+     * @Route("/prodOfWeek/{id}", name="product_of_the_week")
+     * @Route("/prodOfWeek/new", name="product_of_the_weeks")
+     */
+    public function formProdOfWeek(ProdOfWeek $ProdOfWeek =null, ProdOfWeek $ProdOfWeek2 =null, ProdOfWeekRepository $repo, Request $request, ObjectManager $manager, $id)
+    {
+        $prodOfWeekComp = $repo->prodByUnity();//permet de récupérer tous les produits du champ proByUnity
+        $prodOfWeekColl = $repo->prodByKg();//permet de récupérer tous les produits du champ proByKg
+/********************************** formbyunity**************************************/
+        if(!$ProdOfWeek){//si le produit n'existe pas
+            $ProdOfWeek = new ProdOfWeek();//crée un nouvel objet
+        }
+        
+        $formProdOfWeekUnity1 = $this->createFormBuilder($ProdOfWeek)
+            // ->add('id', IntegerType::class)
             ->add('prodByUnity',TextType::class)
             ->add('quantityProdUnity',IntegerType::class)
             ->getForm();
         $formProdOfWeekUnity1->handleRequest($request);
-        $formProdOfWeekUnity2->handleRequest($request);
-        $formProdOfWeekUnity3->handleRequest($request);
-        $formProdOfWeekUnity4->handleRequest($request);
-        $formProdOfWeekUnity5->handleRequest($request);
-
         if($formProdOfWeekUnity1->isSubmitted() && $formProdOfWeekUnity1->isValid()) {
-
-            $manager->persist($ProdOfWeeks);
+            $manager->persist($ProdOfWeek);
             $manager->flush();
 
-            // return $this->redirectToRoute('product_of_the_week');
-        }
-        if($formProdOfWeekUnity2->isSubmitted() && $formProdOfWeekUnity2->isValid()) {
-
-            $manager->persist($ProdOfWeeks);
-            $manager->flush();
-
-            // return $this->redirectToRoute('product_of_the_week');
-        }
-        if($formProdOfWeekUnity3->isSubmitted() && $formProdOfWeekUnity2->isValid()) {
-
-            $manager->persist($ProdOfWeeks);
-            $manager->flush();
-
-            // return $this->redirectToRoute('product_of_the_week');
-        }
-        if($formProdOfWeekUnity4->isSubmitted() && $formProdOfWeekUnity2->isValid()) {
-
-            $manager->persist($ProdOfWeeks);
-            $manager->flush();
-
-            // return $this->redirectToRoute('product_of_the_week');
-        }
-        if($formProdOfWeekUnity5->isSubmitted() && $formProdOfWeekUnity2->isValid()) {
-
-            $manager->persist($ProdOfWeeks);
-            $manager->flush();
-
-            // return $this->redirectToRoute('product_of_the_week');
+            return $this->redirectToRoute('product_of_the_week', ['id' => $ProdOfWeek->getId()]);
         }
 /********************************** formbykg**************************************/
-        $formProdOfWeekByKg1 = $this->createFormBuilder($ProdOfWeeks)
+        if(!$ProdOfWeek2){//si le produit n'existe pas
+            $ProdOfWeek2 = new ProdOfWeek();//crée un nouvel objet
+        }
+        
+        $formProdOfWeekByKg1 = $this->createFormBuilder($ProdOfWeek2)
             ->add('prodByKg',TextType::class)
             ->add('quantityProdKg',IntegerType::class)
             ->getForm();
-        $formProdOfWeekByKg2 = $this->createFormBuilder($ProdOfWeeks)
-            ->add('prodByKg',TextType::class)
-            ->add('quantityProdKg',IntegerType::class)
-            ->getForm();
-        $formProdOfWeekByKg3 = $this->createFormBuilder($ProdOfWeeks)
-            ->add('prodByKg',TextType::class)
-            ->add('quantityProdKg',IntegerType::class)
-            ->getForm();
-        $formProdOfWeekByKg4 = $this->createFormBuilder($ProdOfWeeks)
-            ->add('prodByKg',TextType::class)
-            ->add('quantityProdKg',IntegerType::class)
-            ->getForm();
-        $formProdOfWeekByKg5 = $this->createFormBuilder($ProdOfWeeks)
-            ->add('prodByKg',TextType::class)
-            ->add('quantityProdKg',IntegerType::class)
-            ->getForm();
+        $formProdOfWeekByKg1->handleRequest($request);
+        if($formProdOfWeekByKg1->isSubmitted() && $formProdOfWeekByKg1->isValid()) {
+            $manager->persist($ProdOfWeek2);
+            $manager->flush();
 
-    $formProdOfWeekByKg1->handleRequest($request);
-    $formProdOfWeekByKg2->handleRequest($request);
-    $formProdOfWeekByKg3->handleRequest($request);
-    $formProdOfWeekByKg4->handleRequest($request);
-    $formProdOfWeekByKg5->handleRequest($request);
-
-    if($formProdOfWeekByKg1->isSubmitted() && $formProdOfWeekByKg1->isValid()) {
-
-        $manager->persist($ProdOfWeeks);
-        $manager->flush();
-
-        // return $this->redirectToRoute('product_of_the_week');
-    }
-    if($formProdOfWeekByKg2->isSubmitted() && $formProdOfWeekByKg2->isValid()) {
-
-        $manager->persist($ProdOfWeeks);
-        $manager->flush();
-
-        // return $this->redirectToRoute('product_of_the_week');
-    }
-    if($formProdOfWeekByKg3->isSubmitted() && $formProdOfWeekByKg3->isValid()) {
-
-        $manager->persist($ProdOfWeeks);
-        $manager->flush();
-
-        // return $this->redirectToRoute('product_of_the_week');
-    }
-    if($formProdOfWeekByKg4->isSubmitted() && $formProdOfWeekByKg4->isValid()) {
-
-        $manager->persist($ProdOfWeeks);
-        $manager->flush();
-
-        // return $this->redirectToRoute('product_of_the_week');
-    }
-    if($formProdOfWeekByKg5->isSubmitted() && $formProdOfWeekByKg5->isValid()) {
-
-        $manager->persist($ProdOfWeeks);
-        $manager->flush();
-
-        // return $this->redirectToRoute('product_of_the_week');
-    }
-
+            return $this->redirectToRoute('product_of_the_week', ['id' => $ProdOfWeek2->getId()]);
+        }
         return $this->render('admin/prodWeek.html.twig', [
 
-            'prod1' => $prod1,
-            'prod2' => $prod2,
-            'prod3' => $prod3,
-            'prod4' => $prod4,
-            'prod5' => $prod5,
+            'id' => $id,
             'formProdOfWeekUnity1' => $formProdOfWeekUnity1->createView(),
-            'formProdOfWeekUnity2' => $formProdOfWeekUnity2->createView(),
-            'formProdOfWeekUnity3' => $formProdOfWeekUnity3->createView(),
-            'formProdOfWeekUnity4' => $formProdOfWeekUnity4->createView(),
-            'formProdOfWeekUnity5' => $formProdOfWeekUnity5->createView(),
-
             'formProdOfWeekByKg1' => $formProdOfWeekByKg1->createView(),
-            'formProdOfWeekByKg2' => $formProdOfWeekByKg2->createView(),
-            'formProdOfWeekByKg3' => $formProdOfWeekByKg3->createView(),
-            'formProdOfWeekByKg4' => $formProdOfWeekByKg4->createView(),
-            'formProdOfWeekByKg5' => $formProdOfWeekByKg5->createView()
+            'prodOfWeekComp' => $prodOfWeekComp,
+            'prodOfWeekColl' => $prodOfWeekColl
         ]);
     }
 

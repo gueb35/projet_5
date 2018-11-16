@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="stylesheet" href="https://bootswatch.com/4/sketchy/bootstrap.min.css">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="../css/style.css">
         {% block stylesheets %}{% endblock %}
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark menu">
                     <div class="logo"></div>
@@ -18,7 +18,7 @@
                             <a class="nav-link" href="{{ path('home_admin') }}">Accueil de votre espace d'administration</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('product_of_the_week') }}">Produits de la semaine</a>
+                            <a class="nav-link" href="{{ path('product_of_the_week',{'id':id}) }}">Produits de la semaine</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('members_list') }}">Liste des membres</a>

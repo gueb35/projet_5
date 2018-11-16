@@ -1,133 +1,85 @@
 {% extends 'baseAdmin.html.twig' %}
 
 {% form_theme formProdOfWeekUnity1 'bootstrap_4_layout.html.twig' %}
-{% form_theme formProdOfWeekUnity2 'bootstrap_4_layout.html.twig' %}
-{% form_theme formProdOfWeekUnity3 'bootstrap_4_layout.html.twig' %}
-{% form_theme formProdOfWeekUnity4 'bootstrap_4_layout.html.twig' %}
-{% form_theme formProdOfWeekUnity5 'bootstrap_4_layout.html.twig' %}
-
 {% form_theme formProdOfWeekByKg1 'bootstrap_4_layout.html.twig' %}
-{% form_theme formProdOfWeekByKg2 'bootstrap_4_layout.html.twig' %}
-{% form_theme formProdOfWeekByKg3 'bootstrap_4_layout.html.twig' %}
-{% form_theme formProdOfWeekByKg4 'bootstrap_4_layout.html.twig' %}
-{% form_theme formProdOfWeekByKg5 'bootstrap_4_layout.html.twig' %}
-
 
 {% block title %}Produits de la semaine !{% endblock %}
 
 {% block body %}
 <p class="text-center">
     <h1 class="text-center">Définissez vos produits de la semaine.</h1>
-    Afin de vous aider dans l'élaboration de votre liste de produits, les champs sont pré-remplis avec le nom du produit ainsi que sa quantité.</br>
-    D'une semaine à l'autre, vous pouvez redéfinir le nom du/des produits ou seulement la quantité!</br>
-    Vous pouvez également supprimer un ou plusieurs produits en laissant le champ correspondant au numéro de produit vide.</br>
-    Chaque produit doit être validé ou non 1 par 1 !</br>
-    Vous pouvez définir au maximum 10 produits à l'unité et 10 produits au kilo !
+    Afin de vous aider dans l'élaboration de votre liste de produits, cette liste est présente avec pour chaque produit, son nom et sa quantité.</br>
+    Pour ce faire, 2 solutions :</br>
+    1/Pour modifier la quantité d'un produit ou remplacer un produit par un autre, cliquez dans la liste sur le bouton "Charger ce produit" correspondant au produit à modifier ou à remplacer.</br>
+    Ensuite, définissez son nom et sa quantité dans les champs correspondant, puis cliquez sur "Enregistrer ce produit dans les produits de la semaine".</br>
+    De cette manière, vous avez modifié sa quantité ou remplacer le produit .</br>
+    2/Pour créer un nouveau produit, <a href="new"><button type="submit" class="btn btn-success">cliquez ici!</button></a></br>
+    Puis, entrez dans les champs correspondant le nom et la quantité du nouveau produit !</br>
+    Et voilà, vous avez un nouveau produit dans la liste des produits de la semaine !!
 </p>
-<h4 class="text-center">Formulaire des produits à l'unité :</h4>
-<div class="formUnity">
-    <div class="form">
-        {{prod1.prodByUnity}}
-        {{prod1.quantityProdUnity}}
-        {{ form_start(formProdOfWeekUnity1) }}
-        {{ form_label(formProdOfWeekUnity1.prodByUnity,'Produit no 1') }}
-        {{ form_widget(formProdOfWeekUnity1.prodByUnity, {'attr' : {'placeholder': "Nom du produit no 1"}}) }}
-        {{ form_widget(formProdOfWeekUnity1.quantityProdUnity, {'attr' : {'placeholder': "Nombre d'unité du produit no 1 (2 unités max)"}}) }}
-        <button type="submit" class="btn btn-success">Enregistrer ce produit dans les produits de la semaine </button>
-        {{form_end(formProdOfWeekUnity1)}}
-    </div>
 
-    <div class="form">
-        {{prod2.prodByUnity}}
-        {{prod2.quantityProdUnity}}
-        {{ form_start(formProdOfWeekUnity2) }}
-        {{ form_label(formProdOfWeekUnity1.prodByUnity,'Produit no 2') }}
-        {{ form_widget(formProdOfWeekUnity2.prodByUnity, {'attr' : {'placeholder': "Nom du produit no 2"}}) }}
-        {{ form_widget(formProdOfWeekUnity2.quantityProdUnity, {'attr' : {'placeholder': "Nombre d'unité du produit no 2 (2 unités max)"}}) }}
-        <button type="submit" class="btn btn-success">Enregistrer ce produit dans les produits de la semaine </button>
-        {{form_end(formProdOfWeekUnity2)}}
-    </div>
+<div class="formListInscr">
+    <div class="formInscription">
+            <h4 class="text-center">Formulaire des produits à l'unité :</h4>
+        <div class="formUnity">
+            <div class="form">
+                {{ form_start(formProdOfWeekUnity1) }}
+                {{ form_label(formProdOfWeekUnity1.prodByUnity,'Nom du produit') }}
+                {{ form_widget(formProdOfWeekUnity1.prodByUnity, {'attr' : {'placeholder': "Nom du produit"}}) }}
+                {{ form_label(formProdOfWeekUnity1.quantityProdUnity,'Quantité') }}
+                {{ form_widget(formProdOfWeekUnity1.quantityProdUnity, {'attr' : {'placeholder': "Nombre d'unité du produit"}}) }}
+                <button type="submit" class="btn btn-success" href="product_of_the_week/{id}">Enregistrer ce produit dans les produits de la semaine </button></br>
+                {{form_end(formProdOfWeekUnity1)}}
+            </div>
+        </div>
 
-    <div class="form">
-        {{prod3.prodByUnity}}
-        {{prod3.quantityProdUnity}}
-        {{ form_start(formProdOfWeekUnity3) }}
-        {{ form_label(formProdOfWeekUnity1.prodByUnity,'Produit no 3') }}
-        {{ form_widget(formProdOfWeekUnity3.prodByUnity, {'attr' : {'placeholder': "Nom du produit no 3"}}) }}
-        {{ form_widget(formProdOfWeekUnity3.quantityProdUnity, {'attr' : {'placeholder': "Nombre d'unité du produit no 3 (2 unités max)"}}) }}
-        <button type="submit" class="btn btn-success">Enregistrer ce produit dans les produits de la semaine </button>
-        {{form_end(formProdOfWeekUnity3)}}
-    </div>
+        <h4 class="text-center">Formulaire des produits au kilo :</h4>
+        <div class="formKg">
+            <div class="form">
+                {{ form_start(formProdOfWeekByKg1) }}
+                {{ form_label(formProdOfWeekByKg1.prodByKg,'Nom du produit') }}
+                {{ form_widget(formProdOfWeekByKg1.prodByKg, {'attr' : {'placeholder': "Nom du produit"}}) }}
+                {{ form_label(formProdOfWeekByKg1.prodByKg,'Quantité') }}
+                {{ form_widget(formProdOfWeekByKg1.quantityProdKg, {'attr' : {'placeholder': "Nombre de kilo du produit"}}) }}
+                <button type="submit" class="btn btn-success">Enregistrer ce produit dans les produits de la semaine </button>
+                {{form_end(formProdOfWeekByKg1)}}
+            </div>
+        </div>
+    </div>{#formInscription#}
+    <div class="listinscription">
+        <h2 class="text-center">Liste des produits de la semaine !</h2>
+        <h4>Produits à l'unité :</h4>
+        <section class="prodList">
+            {% for prodUnity in prodOfWeekComp %}
+                <div class="metadata">
+                    <p>
+                        Nom du produit : <strong class="refProd">{{prodUnity.prodByUnity}}</strong></br>
+                        Quantité du produit : <strong class="refProd">{{prodUnity.quantityProdUnity}}</strong></br>
+                        <a href="{{ path('product_of_the_week',{'id':prodUnity.id})}}"><button type="submit" class="btn btn-success">Charger ce produit</button></a></br>
+                        <a href="{{ path('delete_prod',{'id':prodUnity.id})}}"><button type="submit" class="btn btn-success">Supprimer ce produit</button></a>
 
-    <div class="form">
-        {{prod4.prodByUnity}}
-        {{prod4.quantityProdUnity}}
-        {{ form_start(formProdOfWeekUnity4) }}
-        {{ form_label(formProdOfWeekUnity1.prodByUnity,'Produit no 4') }}
-        {{ form_widget(formProdOfWeekUnity4.prodByUnity, {'attr' : {'placeholder': "Nom du produit no 4"}}) }}
-        {{ form_widget(formProdOfWeekUnity4.quantityProdUnity, {'attr' : {'placeholder': "Nombre d'unité du produit no 4 (2 unités max)"}}) }}
-        <button type="submit" class="btn btn-success">Enregistrer ce produit dans les produits de la semaine </button>
-        {{form_end(formProdOfWeekUnity4)}}
+                    </p>
+                </div>
+                <div class="sepMemList"></div>
+            {% endfor %}
+        
+        </section>
+        
+        <h4>Produits au kilo :</h4>
+        <section class="prodList">
+            {% for prodKg in prodOfWeekColl %}
+                <div class="metadata">
+                    <p>
+                        Nom du produit : <strong class="refProd">{{prodKg.prodByKg}}</strong></br>
+                        Quantité du produit : <strong class="refProd">{{prodKg.quantityProdKg}}</strong></br>
+                        <a href="{{ path('product_of_the_week',{'id':prodKg.id})}}"><button type="submit" class="btn btn-success">Charger ce produit</button></a></br>
+                        <a href="{{ path('delete_prod',{'id':prodKg.id})}}"><button type="submit" class="btn btn-success">Supprimer ce produit</button></a>
+                    </p>
+                </div>
+                <div class="sepMemList"></div>
+            {% endfor %}
+        
+        </section>
     </div>
-
-    <div class="form">
-        {{prod5.prodByUnity}}
-        {{prod5.quantityProdUnity}}
-        {{ form_start(formProdOfWeekUnity5) }}
-        {{ form_label(formProdOfWeekUnity1.prodByUnity,'Produit no 5') }}
-        {{ form_widget(formProdOfWeekUnity5.prodByUnity, {'attr' : {'placeholder': "Nom du produit no 5"}}) }}
-        {{ form_widget(formProdOfWeekUnity5.quantityProdUnity, {'attr' : {'placeholder': "Nombre d'unité du produit no 5 (2 unités max)"}}) }}
-        <button type="submit" class="btn btn-success">Enregistrer ce produit dans les produits de la semaine </button>
-        {{form_end(formProdOfWeekUnity5)}}
-    </div>
-</div>
-
-<h4 class="text-center">Formulaire des produits au kilo :</h4>
-<div class="formKg">
-    <div class="form">
-        {{ form_start(formProdOfWeekByKg1) }}
-        {{ form_label(formProdOfWeekUnity1.prodByUnity,'Produit no 6') }}
-        {{ form_widget(formProdOfWeekByKg1.prodByKg, {'attr' : {'placeholder': "Nom du produit no 6"}}) }}
-        {{ form_widget(formProdOfWeekByKg1.quantityProdKg, {'attr' : {'placeholder': "Nombre de kilo du produit no 6 (2kg max)"}}) }}
-        <button type="submit" class="btn btn-success">Enregistrer ce produit dans les produits de la semaine </button>
-        {{form_end(formProdOfWeekByKg1)}}
-    </div>
-
-    <div class="form">
-        {{ form_start(formProdOfWeekByKg2) }}
-        {{ form_label(formProdOfWeekUnity1.prodByUnity,'Produit no 7') }}
-        {{ form_widget(formProdOfWeekByKg2.prodByKg, {'attr' : {'placeholder': "Nom du produit no 7"}}) }}
-        {{ form_widget(formProdOfWeekByKg2.quantityProdKg, {'attr' : {'placeholder': "Nombre de kilo du produit no 7 (2kg max)"}}) }}
-        <button type="submit" class="btn btn-success">Enregistrer ce produit dans les produits de la semaine </button>
-        {{form_end(formProdOfWeekByKg2)}}
-    </div>
-
-    <div class="form">
-        {{ form_start(formProdOfWeekByKg3) }}
-        {{ form_label(formProdOfWeekUnity1.prodByUnity,'Produit no 8') }}
-        {{ form_widget(formProdOfWeekByKg3.prodByKg, {'attr' : {'placeholder': "Nom du produit no 8"}}) }}
-        {{ form_widget(formProdOfWeekByKg3.quantityProdKg, {'attr' : {'placeholder': "Nombre de kilo du produit no 8 (2kg max)"}}) }}
-        <button type="submit" class="btn btn-success">Enregistrer ce produit dans les produits de la semaine </button>
-        {{form_end(formProdOfWeekByKg3)}}
-    </div>
-
-    <div class="form">
-        {{ form_start(formProdOfWeekByKg4) }}
-        {{ form_label(formProdOfWeekUnity1.prodByUnity,'Produit no 9') }}
-        {{ form_widget(formProdOfWeekByKg4.prodByKg, {'attr' : {'placeholder': "Nom du produit no 9"}}) }}
-        {{ form_widget(formProdOfWeekByKg4.quantityProdKg, {'attr' : {'placeholder': "Nombre de kilo du produit no 9 (2kg max)"}}) }}
-        <button type="submit" class="btn btn-success">Enregistrer ce produit dans les produits de la semaine </button>
-        {{form_end(formProdOfWeekByKg4)}}
-    </div>
-
-    <div class="form">
-        {{ form_start(formProdOfWeekByKg5) }}
-        {{ form_label(formProdOfWeekUnity1.prodByUnity,'Produit no 10') }}
-        {{ form_widget(formProdOfWeekByKg5.prodByKg, {'attr' : {'placeholder': "Nom du produit no 10"}}) }}
-        {{ form_widget(formProdOfWeekByKg5.quantityProdKg, {'attr' : {'placeholder': "Nombre de kilo du produit no 10 (2kg max)"}}) }}
-        <button type="submit" class="btn btn-success">Enregistrer ce produit dans les produits de la semaine </button>
-        {{form_end(formProdOfWeekByKg5)}}
-    </div>
-</div>
-
+</div>{#formListInscr#}
 {% endblock %}
