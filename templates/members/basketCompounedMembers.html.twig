@@ -4,30 +4,57 @@
 
 {% block body %}
 <h1 class="text-center">Bienvenue sur la page vous permettant de composer vous même votre panier !</h1>
-<h5 class="text-center">Afin de composer vous-même votre panier, voici la liste des produits de la semaine :</h5>
-    <section class="prodList1">
-        <h6><strong>Produits à l'unité :</strong></h6>
-        {% for prodUnity in prodOfWeekComp %}
-            <div class="metadata">
-                <p>
-                    Produit no {{ prodUnity.id }} : {{prodUnity.quantityProdUnity}} {{prodUnity.prodByUnity}}
-                </p>
-            </div>
-            <div class="sepMemList"></div>
-        {% endfor %}
-    
-    </section>
-    
-    <section class="prodList1">
-        <h6><strong>Produits au kilo :</strong></h6>
-        {% for prodUnity in prodOfWeekColl %}
-            <div class="metadata">
-                <p>
-                    Produit no {{ prodUnity.id }} : {{ prodUnity.quantityProdKg }}kg de {{ prodUnity.ProdByKg }}
-                </p>
-            </div>
-            <div class="sepMemList"></div>
-        {% endfor %}
-    
-    </section>
+<p>
+    Afin de composer vous-même votre panier, cliquez sur le bouton "Mettre ce produit dans votre panier !"</br>
+    Le prix sera bien évidement en fonction de ce que vous prenez et sera à régler sur place !</br>
+    Alors, faites-vous plaisir !!!
+</p>
+
+<div class="formListInscr">
+    <div class="formInscription">
+        <h3 class="text-center">Voici la liste des produits de la semaine :</h3>
+        <h4 class="text-center">Produits à l'unité :</h4>
+            <section class="prodList">
+                {% for prodUnity in prodByUnity %}
+                    <div class="metadata">
+                        <p>
+                            Produit no {{ prodUnity.id }} : {{prodUnity.quantityProdUnity}} {{prodUnity.prodByUnity}}</br>
+                            <a href="{{ path('basket_comp',{'id':id,'name':prodUnity.prodByUnity})}}"><button type="submit" class="btn btn-success">Mettre ce produit dans votre panier !</button></a></br>
+                        </p>
+                    </div>
+                    <div class="sepMemList"></div>
+                {% endfor %}
+            
+            </section>
+            
+            <h4 class="text-center">Produits au kilo :</h4>
+            <section class="prodList">
+                {% for prodKg in prodByKg %}
+                    <div class="metadata">
+                        <p>
+                            Produit no {{ prodKg.id }} : {{ prodKg.quantityProdKg }}kg de {{ prodKg.ProdByKg }}</br>
+                            <a href="{{ path('basket_comp',{'id':id,'name':prodKg.ProdByKg})}}"><button type="submit" class="btn btn-success">Mettre ce produit dans votre panier !</button></a></br>
+                        </p>
+                    </div>
+                    <div class="sepMemList"></div>
+                {% endfor %}
+            
+            </section>
+    </div>
+
+    <div class="listinscription">
+            <h4 class="text-center">Votre panier :</h4>
+            <section class="prodList">
+                {% for basketOfMember in basketMember %}
+                    <div class="metadata">
+                        <p>
+                                <strong class="refProd">{{ basketOfMember.quantityProd }} {{ basketOfMember.kgOrUntity }} de {{ basketOfMember.nameProd }}</strong>
+                        </p>
+                    </div>
+                    <div class="sepMemList"></div>
+                {% endfor %}
+            
+            </section>
+    </div>
+</div>
 {% endblock %}

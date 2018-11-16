@@ -19,9 +19,11 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin", name="home_admin")
      */
-    public function homeAdmin()
+    public function homeAdmin($id = null)
     {
-        return $this->render('admin/homeAdmin.html.twig');
+        return $this->render('admin/homeAdmin.html.twig',[
+            'id' => $id
+        ]);
     }
 
     /**
@@ -92,7 +94,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/membersList", name="members_list")
      */
-    public function membersList()
+    public function membersList($id = null)
     {
         $repo = $this->getDoctrine()->getRepository(Members::class);
         $membersComp = $repo->findBy(
@@ -110,13 +112,14 @@ class AdminController extends AbstractController
     /**
      * @Route("/basketComp", name="basket_compouned_list")
      */
-    public function showBaskCompList()
+    public function showBaskCompList($id = null)
     {
         $repo = $this->getDoctrine()->getRepository(Members::class);
         $baskComps = $repo->findBy(
             array('baskettype' => 'composés')
         );
         return $this->render('admin/basketComp.html.twig', [
+            'id' => $id,
             'baskComps' => $baskComps
         ]);
     }
@@ -124,7 +127,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/basketColl", name="basket_collected")
      */
-    public function showBaskCollList()
+    public function showBaskCollList($id = null)
     {
         $repo = $this->getDoctrine()->getRepository(Members::class);
         $dayBaskColl1 = $repo->findBy(
@@ -143,6 +146,7 @@ class AdminController extends AbstractController
             array('dayOfWeek' => 'vendredi')
         );
         return $this->render('admin/basketColl.html.twig', [
+            'id' => $id,
             'day1' => $dayBaskColl1,
             'day2' => $dayBaskColl2,
             'day3' => $dayBaskColl3,
