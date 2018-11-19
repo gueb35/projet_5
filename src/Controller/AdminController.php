@@ -30,12 +30,10 @@ class AdminController extends AbstractController
      * @Route("/deleteProd/{id}", name="delete_prod")
      */
     public function deleteProduct(ProdOfWeek $ProdOfWeek =null, ProdOfWeek $ProdOfWeek2 =null, ObjectManager $manager, $id=null)
-    {   
-        dump($id);//le numéro du produit existe
+    {
         $manager->remove($ProdOfWeek);
         $manager->remove($ProdOfWeek2);
         $manager->flush();
-        dump($id);//le numéro du produit existe
 
         return $this->redirectToRoute('product_of_the_weeks',['id' => $id]);
     }
@@ -54,7 +52,6 @@ class AdminController extends AbstractController
         }
         
         $formProdOfWeekUnity1 = $this->createFormBuilder($ProdOfWeek)
-            // ->add('id', IntegerType::class)
             ->add('prodByUnity',TextType::class)
             ->add('quantityProdUnity',IntegerType::class)
             ->getForm();

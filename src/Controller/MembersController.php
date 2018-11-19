@@ -34,39 +34,71 @@ class MembersController extends AbstractController
     public function basket_compouned(ProdBaskComp $ProdBaskComp = null, ProdOfWeekRepository $repo, ProdBaskCompRepository $repoC, ObjectManager $manager, $id = null, $name = null)
     {
         $memberId = $id;
-        dump($memberId);
         $nameProd = $name;
-        $prodByUnity = $repo->prodByUnity();//permet de récupérer tous les produits du champ proByUnity
-        $prodByKg = $repo->prodByKg();//permet de récupérer tous les produits du champ proByKg
 
-        
-        $prodcomp = $repo->findBy(//va chercher ds le champ prodByUnity de la table des produits celui dont le nom correspond au nom du produit $nameProd
+        /*permet de savoir si le produit correspondant au nom du produit($nameProd) ds la colonne des prod à l'unité*/
+        $prodUnityExist = $repo->findBy(//va chercher ds le champ prodByUnity de la table des produits celui
+            // dont le nom correspond au nom du produit $nameProd
             array('prodByUnity' => $nameProd)//afin de vérifier si c'est un produit au kilo ou à l'unité
-        );
-        dump($prodcomp);
-        if($prodcomp == null){//vérifie si ce nom existe(est null)
-            $unityOrKg = 'kg';
-        }else{
-            $unityOrKg = 'unité';
+        );dump($prodUnityExist);
+
+        foreach($prodUnityExist as $quantity){
+            $newQuantityProdUnity = $quantity->getQuantityProdUnity();//récupère le nombre de produit
+            $idProdUnity = $quantity->getId();
         }
 
-
-        $basketMember = $repoC->findBy(//va chercher ds le champ member_id de la table des paniers composés toutes les entrées correspondant au numéro du membre
-            array('member_id' => $memberId)
+        /*permet de savoir si le produit correspondant au nom du produit($nameProd) ds la colonne des prod au kg*/
+        $prodKgExist = $repo->findBy(
+            array('prodByKg' => $nameProd)
         );
-        dump($basketMember);
-        dump($name);
-        dump($nameProd);
+        foreach($prodKgExist as $quantity){
+            $newQuantityProdKg = $quantity->getQuantityProdKg();//récupère le nombre de produit
+            $idProdKg = $quantity->getId();
+        }
+
+        if($prodUnityExist == null){//vérifie si ce nom existe(est null)
+            $unityOrKg = 'kg';
+            if($newQuantityProdKg == '1'){
+                $prodToDelete = $repo->find($idProdKg);
+                $manager->remove($prodToDelete);
+            }else{
+                $newQuantity = $quantity->setQuantityProdKg($newQuantityProdKg + '-1');//permet de déduire la quantité de produits ds la table des produits de la semaine
+                $manager->persist($newQuantity);
+                $manager->flush();
+            }
+        }else{
+            $unityOrKg = 'unité';
+            if($newQuantityProdUnity == '1'){
+                $prodToDelete = $repo->find($idProdUnity);
+                $manager->remove($prodToDelete);
+            }else{
+                $newQuantity = $quantity->setQuantityProdUnity($newQuantityProdUnity + '-1');//permet de déduire la quantité de produits ds la table des produits de la semaine
+                $manager->persist($newQuantity);
+                $manager->flush();
+            }
+        }
+        /***/
+
+        /*insère un produit ds la table des paniers composés en relation avec l'id du membre*/
             $ProdBaskComp = new ProdBaskComp();
             $ProdBaskComp->setMemberId($id);
             $ProdBaskComp->setNameProd($name);
             $ProdBaskComp->setKgOrUntity($unityOrKg);
             $ProdBaskComp->setQuantityProd('1');
+
             $manager->persist($ProdBaskComp);
             $manager->flush();
+        /***/
 
+        //va chercher ds le champ member_id de la table des paniers composés
+        //toutes les entrées correspondant au numéro du membre
+            $basketMember = $repoC->findBy(
+                array('member_id' => $memberId)
+            );
 
-        // return $this->redirectToRoute('basket_compouned', ['id' => $memberId]);
+            $prodByUnity = $repo->prodByUnity();//permet de récupérer tous les produits du champ proByUnity pour afficher la liste
+            $prodByKg = $repo->prodByKg();//permet de récupérer tous les produits du champ proByKg
+
         return $this->render('members/basketCompounedMembers.html.twig', [
             'id' => $id,
             'basketMember' => $basketMember,//en lien avec la ligne 49
