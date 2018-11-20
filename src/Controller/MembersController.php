@@ -36,38 +36,38 @@ class MembersController extends AbstractController
         $memberId = $id;
         $nameProd = $name;
 
-        /*permet de savoir si le produit correspondant au nom du produit($nameProd) ds la colonne des prod à l'unité*/
-        $prodUnityExist = $repo->findBy(//va chercher ds le champ prodByUnity de la table des produits celui
+        /*récupère l'entrée corresp au nom du produit $nameProd*/
+        $prodUnityExist = $repo->findBy(//récupère ds le champ prodByUnity de la table des produits celui
             // dont le nom correspond au nom du produit $nameProd
             array('prodByUnity' => $nameProd)//afin de vérifier si c'est un produit au kilo ou à l'unité
-        );dump($prodUnityExist);
-
+        );
         foreach($prodUnityExist as $quantity){
             $newQuantityProdUnity = $quantity->getQuantityProdUnity();//récupère le nombre de produit
-            $idProdUnity = $quantity->getId();
+            $idProdUnity = $quantity->getId();//récupère l'identifiant
         }
 
-        /*permet de savoir si le produit correspondant au nom du produit($nameProd) ds la colonne des prod au kg*/
+        /*récupère l'entrée corresp au nom du produit $nameProd*/
         $prodKgExist = $repo->findBy(
             array('prodByKg' => $nameProd)
         );
         foreach($prodKgExist as $quantity){
             $newQuantityProdKg = $quantity->getQuantityProdKg();//récupère le nombre de produit
-            $idProdKg = $quantity->getId();
+            $idProdKg = $quantity->getId();//récupère l'identifiant
         }
 
-        if($prodUnityExist == null){//vérifie si ce nom existe(est null)
-            $unityOrKg = 'kg';
-            if($newQuantityProdKg == '1'){
-                $prodToDelete = $repo->find($idProdKg);
-                $manager->remove($prodToDelete);
+        //vérifie si le produit insérer ds la panier est au poids ou à l'unité
+        if($prodUnityExist == null){//vérifie si ce produit n'existe pas(est null), si il n'existe pas c'est que c'est un produit au kilo
+            $unityOrKg = 'kg';//définit le mode de vente
+            if($newQuantityProdKg == '1'){//si la quantité du produit est de 1
+                $prodToDelete = $repo->find($idProdKg);//récupère l'entrée corresp à l'id du produit
+                $manager->remove($prodToDelete);//efface ce produit des produits de la semaine
             }else{
                 $newQuantity = $quantity->setQuantityProdKg($newQuantityProdKg + '-1');//permet de déduire la quantité de produits ds la table des produits de la semaine
                 $manager->persist($newQuantity);
                 $manager->flush();
             }
-        }else{
-            $unityOrKg = 'unité';
+        }else{//donc produit à l'unité !!
+            $unityOrKg = 'unité';//définit le mode de vente
             if($newQuantityProdUnity == '1'){
                 $prodToDelete = $repo->find($idProdUnity);
                 $manager->remove($prodToDelete);

@@ -66,6 +66,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
         $user = $this->entityManager->getRepository(Members::class)->findOneBy(['pseudo' => $credentials['username']]);
 
+        dump($user);
+        dump($credentials);
         if (!$user) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Votre pseudo n\'a pas été trouvé !');
