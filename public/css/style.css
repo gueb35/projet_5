@@ -17,6 +17,12 @@ body{
     background-color:gray;
     border-radius: 10px;
 }
+.btn{
+    padding: 0;
+}
+p{
+    margin: 0;
+}
 footer{
     position: absolute;
     bottom: 0;
@@ -51,6 +57,9 @@ footer{
 .image{
     width: 200px;
     height: 100px;
+}
+h3{
+    margin-bottom: 0;
 }
 h4{
     color: white;
@@ -109,6 +118,10 @@ h5{
 }
 /************espace members***************/
 /*page accountMembers.html.twig*/
+/*basket_compouned*/
+.listBasketComp{
+    margin-top: 0;
+}
 
 /*************espace admin****************/
 /*membersList*/
@@ -146,4 +159,13 @@ h5{
 .prodList{
     border: 4px solid black;
     border-radius: 0 0 5px 5px;
+}
+.listinscription{
+    margin-top: 106px;
+}
+.listProds{
+    display: inline-flex;
+}
+.listProd{
+    flex-direction: column;
 }

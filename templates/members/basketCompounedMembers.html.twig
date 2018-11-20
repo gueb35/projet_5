@@ -6,6 +6,8 @@
 <h1 class="text-center">Bienvenue sur la page vous permettant de composer vous même votre panier !</h1>
 <p>
     Afin de composer vous-même votre panier, cliquez sur le bouton "Mettre ce produit dans votre panier !"</br>
+    Afin de proposer à tous une grande variété de produits, merci de ne prendre qu'un exemplaire par produit.</br>
+    Si vous désirez en prendre plusieurs, vous le pourrez sur place!</br>
     Le prix sera bien évidement en fonction de ce que vous prenez et sera à régler sur place !</br>
     Alors, faites-vous plaisir !!!
 </p>
@@ -18,7 +20,7 @@
                 {% for prodUnity in prodByUnity %}
                     <div class="metadata">
                         <p>
-                            Produit no {{ prodUnity.id }} : {{prodUnity.quantityProdUnity}} {{prodUnity.prodByUnity}}</br>
+                            Produit no {{ prodUnity.id }} : {{prodUnity.quantityProdUnity}} {{prodUnity.prodByUnity}}
                             <a href="{{ path('basket_comp',{'id':id,'name':prodUnity.prodByUnity})}}"><button type="submit" class="btn btn-success">Mettre ce produit dans votre panier !</button></a></br>
                         </p>
                     </div>
@@ -32,7 +34,7 @@
                 {% for prodKg in prodByKg %}
                     <div class="metadata">
                         <p>
-                            Produit no {{ prodKg.id }} : {{ prodKg.quantityProdKg }}kg de {{ prodKg.ProdByKg }}</br>
+                            Produit no {{ prodKg.id }} : {{ prodKg.quantityProdKg }}kg de {{ prodKg.ProdByKg }}
                             <a href="{{ path('basket_comp',{'id':id,'name':prodKg.ProdByKg})}}"><button type="submit" class="btn btn-success">Mettre ce produit dans votre panier !</button></a></br>
                         </p>
                     </div>
@@ -42,13 +44,15 @@
             </section>
     </div>
 
-    <div class="listinscription">
+    <div class="listBasketComp">
+        <h3 class="text-center">Voici la liste des produits de votre panier :</h3>
             <h4 class="text-center">Votre panier :</h4>
             <section class="prodList">
                 {% for basketOfMember in basketMember %}
                     <div class="metadata">
                         <p>
                                 <strong class="refProd">{{ basketOfMember.quantityProd }} {{ basketOfMember.kgOrUntity }} de {{ basketOfMember.nameProd }}</strong>
+                                <a href="{{ path('delete_prod_bask_comp',{'id':basketOfMember.id,'name':basketOfMember.nameProd })}}"><button type="submit" class="btn btn-success">Supprimer ce produit du panier !</button></a>
                         </p>
                     </div>
                     <div class="sepMemList"></div>

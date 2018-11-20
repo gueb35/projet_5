@@ -28,6 +28,36 @@ class MembersController extends AbstractController
     }
 
     /**
+     *@Route("/delete_prod_bask_comp/{id}/{name}", name="delete_prod_bask_comp") 
+     */
+    public function deleteProdBaskComp(ProdBaskCompRepository $repoC, ProdOfWeekRepository $repo, ObjectManager $manager, $id, $name)
+    {
+        $prodNameUnity = $repo->findBy(array('prodByUnity' => $name));
+        foreach($prodNameUnity as $quantity){
+            $newQuantityProdUnity = $quantity->getQuantityProdUnity();//récupère le nombre de produit
+        }
+        $prodNameKg = $repo->findBy(array('prodByKg' => $name));
+        foreach($prodNameKg as $quantity){
+            $newQuantityProdKg = $quantity->getQuantityProdKg();//récupère le nombre de produit
+        }
+
+        if($prodNameUnity == null){
+            $newQuantity = $quantity->setQuantityProdKg($newQuantityProdKg + '+1');
+        }else{
+            $newQuantity = $quantity->setQuantityProdUnity($newQuantityProdUnity + '+1');
+        }
+        $manager->persist($newQuantity);
+        $manager->flush();
+
+        $prodToDelete = $repoC->find($id);
+        $memberId = $prodToDelete->getMemberId();
+        $manager->remove($prodToDelete);
+        $manager->flush();
+
+        return $this->redirectToRoute('basket_compouned',['id' => $memberId]);
+    }
+
+    /**
      * @Route("/basket_compouned/{id}", name="basket_compouned")//appel via le lien du menu
      * @Route("/basket_compouned/{id}/{name}", name="basket_comp")//appel lors de la compositon du panier
      */
@@ -80,6 +110,7 @@ class MembersController extends AbstractController
         /***/
 
         /*insère un produit ds la table des paniers composés en relation avec l'id du membre*/
+        if($nameProd){
             $ProdBaskComp = new ProdBaskComp();
             $ProdBaskComp->setMemberId($id);
             $ProdBaskComp->setNameProd($name);
@@ -88,6 +119,7 @@ class MembersController extends AbstractController
 
             $manager->persist($ProdBaskComp);
             $manager->flush();
+        }
         /***/
 
         //va chercher ds le champ member_id de la table des paniers composés

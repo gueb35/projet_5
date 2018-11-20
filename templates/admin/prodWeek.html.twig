@@ -21,7 +21,8 @@
 
 <div class="formListInscr">
     <div class="formInscription">
-            <h4 class="text-center">Formulaire des produits à l'unité :</h4>
+        <h2 class="text-center">Formulaires de création/modification des produits de la semaine !</h2>
+        <h4 class="text-center">Formulaire des produits à l'unité :</h4>
         <div class="formUnity">
             <div class="form">
                 {{ form_start(formProdOfWeekUnity1) }}
@@ -47,40 +48,47 @@
             </div>
         </div>
     </div>{#formInscription#}
+
     <div class="listinscription">
         <h2 class="text-center">Liste des produits de la semaine !</h2>
-        <h4>Produits à l'unité :</h4>
-        <section class="prodList">
-            {% for prodUnity in prodOfWeekComp %}
-                <div class="metadata">
-                    <p>
-                        Nom du produit : <strong class="refProd">{{prodUnity.prodByUnity}}</strong></br>
-                        Quantité du produit : <strong class="refProd">{{prodUnity.quantityProdUnity}}</strong></br>
-                        <a href="{{ path('product_of_the_week',{'id':prodUnity.id})}}"><button type="submit" class="btn btn-success">Charger ce produit</button></a></br>
-                        <a href="{{ path('delete_prod',{'id':prodUnity.id})}}"><button type="submit" class="btn btn-success">Supprimer ce produit</button></a>
+        <div class="listProds">
+            <div class="listProd">
+            <h4 class="text-center">Produits à l'unité :</h4>
+            <div class="prodList">
+                {% for prodUnity in prodOfWeekComp %}
+                    <div class="metadata">
+                        <p>
+                            Nom du produit : <strong class="refProd">{{prodUnity.prodByUnity}}</strong> ;
+                            Quantité du produit : <strong class="refProd">{{prodUnity.quantityProdUnity}}</strong></br>
+                            <a href="{{ path('product_of_the_week',{'id':prodUnity.id})}}"><button type="submit" class="btn btn-success">Charger ce produit</button></a>
+                            <a href="{{ path('delete_prod',{'id':prodUnity.id})}}"><button type="submit" class="btn btn-success">Supprimer ce produit</button></a>
 
-                    </p>
-                </div>
-                <div class="sepMemList"></div>
-            {% endfor %}
-        
-        </section>
-        
-        <h4>Produits au kilo :</h4>
-        <section class="prodList">
-            {% for prodKg in prodOfWeekColl %}
-                <div class="metadata">
-                    <p>
-                        Nom du produit : <strong class="refProd">{{prodKg.prodByKg}}</strong></br>
-                        Quantité du produit : <strong class="refProd">{{prodKg.quantityProdKg}}</strong></br>
-                        <a href="{{ path('product_of_the_week',{'id':prodKg.id})}}"><button type="submit" class="btn btn-success">Charger ce produit</button></a></br>
-                        <a href="{{ path('delete_prod',{'id':prodKg.id})}}"><button type="submit" class="btn btn-success">Supprimer ce produit</button></a>
-                    </p>
-                </div>
-                <div class="sepMemList"></div>
-            {% endfor %}
-        
-        </section>
+                        </p>
+                    </div>
+                    <div class="sepMemList"></div>
+                {% endfor %}
+            
+                </div>{#prodList#}
+            </div>{#listProd#}
+            
+            <div class="listProd">
+            <h4 class="text-center">Produits au kilo :</h4>
+            <div class="prodList">
+                {% for prodKg in prodOfWeekColl %}
+                    <div class="metadata">
+                        <p>
+                            Nom du produit : <strong class="refProd">{{prodKg.prodByKg}}</strong> ;
+                            Quantité du produit : <strong class="refProd">{{prodKg.quantityProdKg}}</strong></br>
+                            <a href="{{ path('product_of_the_week',{'id':prodKg.id})}}"><button type="submit" class="btn btn-success">Charger ce produit</button></a>
+                            <a href="{{ path('delete_prod',{'id':prodKg.id})}}"><button type="submit" class="btn btn-success">Supprimer ce produit</button></a>
+                        </p>
+                    </div>
+                    <div class="sepMemList"></div>
+                {% endfor %}
+            
+                </div>{#prodList#}
+            </div>{#listProd#}
+        </div>{#listProds#}
     </div>
 </div>{#formListInscr#}
 {% endblock %}
