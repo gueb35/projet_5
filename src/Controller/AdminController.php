@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Repository\ProdOfWeekRepository;
+use App\Repository\ProdBaskCompRepository;
+use App\Repository\MembersRepository;
 use App\Entity\Members;
 use App\Entity\ProdOfWeek;
 
@@ -107,11 +109,10 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/basketComp", name="basket_compouned_list")
+     * @Route("/basketComp/{id}", name="basket_compouned_list")
      */
-    public function showBaskCompList($id = null)
+    public function showBaskCompList(MembersRepository $repo, ProdBaskCompRepository $repoC, $id = null)
     {
-        $repo = $this->getDoctrine()->getRepository(Members::class);
         $baskComps = $repo->findBy(
             array('baskettype' => 'composés')
         );
@@ -122,7 +123,7 @@ class AdminController extends AbstractController
     }
     
     /**
-     * @Route("/basketColl", name="basket_collected")
+     * @Route("/basketColl/{id}", name="basket_collected")
      */
     public function showBaskCollList($id = null)
     {

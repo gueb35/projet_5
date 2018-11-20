@@ -9,32 +9,38 @@
     Cette liste se divise en 2 parties :</h1>
 </p>
 
-<section class="MembersComp">
-    <h2 class="title1MemberList">Membres du panier composés de la semaine(du mercredi matin au mardi midi 12h):</h2>
-        {% for member in members1 %}
-            <div class="metadata">
-                Mr/Mme {{member.name}} {{member.surname}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
-                résidant à {{member.town}} .</br>
-                Inscrit(e) aux paniers {{member.baskettype}} .</br>
-                E-mail : {{member.email}}
+<div class="MembersList">
+    <div class="memberList1">
+        <h4 class="text-center">Membres du panier composés :</h4>
+            <div class="MembersComp">
+                    {% for member in members1 %}
+                        <div class="metadata">
+                            Mr/Mme {{member.name}} {{member.surname}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
+                            résidant à {{member.town}} .</br>
+                            Inscrit(e) aux paniers {{member.baskettype}} .</br>
+                            E-mail : {{member.email}}
+                        </div>
+                        <div class="sepMemList"></div>
+                    {% endfor %}
             </div>
-            <div class="sepMemList"></div>
-        {% endfor %}
-</section>
+    </div>
 
-<section class="MembersColl">
-    <h2 class="title2MemberList">Membres du panier collectés :</h2>
-        {% for member in members2 %}
-            <div class="metadata">
-                Mr/Mme {{member.name}} {{member.surname}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
-                résidant à {{member.town}} .</br>
-                Inscrit(e) aux paniers {{member.baskettype}}.</br>
-                Nombre de paniers restant dû : {{member.numberBasketRest}} .</br>
-                Le lieu de ramassage de ce panier se situe sur la commune du {{member.dayOfWeek}} !</br>
-                E-mail : {{member.email}}
+    <div class="memberList2">
+        <h4 class="text-center">Membres du panier collectés :</h4>
+            <div class="MembersColl">
+                    {% for member in members2 %}
+                        <div class="metadata">
+                            Mr/Mme {{member.name}} {{member.surname}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
+                            résidant à {{member.town}} .</br>
+                            Inscrit(e) aux paniers {{member.baskettype}}.</br>
+                            Nombre de paniers restant dû : {{member.numberBasketRest}} .</br>
+                            Le lieu de ramassage de ce panier se situe sur la commune du {{member.dayOfWeek}} !</br>
+                            E-mail : {{member.email}}
+                        </div>
+                        <div class="sepMemList"></div>
+                    {% endfor %}
             </div>
-            <div class="sepMemList"></div>
-        {% endfor %}
-</section>
+    </div>
+</div>
 
 {% endblock %}
