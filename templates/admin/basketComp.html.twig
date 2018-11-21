@@ -12,17 +12,9 @@
         <div class="metadata">
             -1 panier pour : Mr/Mme {{baskComp.name}} {{baskComp.surname}},</br>
             comprenant :</br>
-            -</br>
-            -</br>
-            -</br>
-            -</br>
-            -</br>
-            -</br>
-            -</br>
-            -</br>
-            -</br>
-            -</br>
-            -
+            {% for prodBaskMembers in prodBaskMember %}
+            {{prodBaskMembers.memberId}}    {{prodBaskMembers.quantityProd}}{{prodBaskMembers.nameProd}}</br>
+            {% endfor %}
         </div>
         <div class="sepMemList"></div>
         {% endfor %}

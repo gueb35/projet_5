@@ -113,13 +113,32 @@ class AdminController extends AbstractController
      */
     public function showBaskCompList(MembersRepository $repo, ProdBaskCompRepository $repoC, $id = null)
     {
-        $baskComps = $repo->findBy(
-            array('baskettype' => 'composés')
+        $baskComps = $repo->findBy(//récupère toutes les entrées
+            array('baskettype' => 'composés')//correspondant à "composés" ds le champ "baskettype"
         );
-        return $this->render('admin/basketComp.html.twig', [
-            'id' => $id,
-            'baskComps' => $baskComps
-        ]);
+        dump($baskComps);
+        foreach($baskComps as $memberId){
+            $membersId = $memberId->getId();//récupère l'identifiant en référence avec l'id du membre
+            dump($membersId);//récupère tous les id des membre du panier composé
+            $member = $repo->find($memberId);
+            dump($member);
+            // $prodBaskMember = $repoC->findBy(
+            //     array('member_id' => $membersId)
+            // );
+            // dump($prodBaskMember);
+            // dump($prodBaskMember);exit;
+        }
+        // dump($membersId);exit;//sert seulement a stoppé le traitement
+        $prodBaskMember = $repoC->findBy(
+            array('member_id' => $membersId)
+        );
+        dump($prodBaskMember);exit;
+        
+        // return $this->render('admin/basketComp.html.twig', [
+        //     'id' => $id,
+        //     'baskComps' => $baskComps,
+        //     'prodBaskMember' => $prodBaskMember
+        // ]);
     }
     
     /**
