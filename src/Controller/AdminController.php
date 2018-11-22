@@ -14,6 +14,7 @@ use App\Repository\ProdOfWeekRepository;
 use App\Repository\ProdBaskCompRepository;
 use App\Repository\MembersRepository;
 use App\Entity\Members;
+use App\Entity\ProdBaskComp;
 use App\Entity\ProdOfWeek;
 
 class AdminController extends AbstractController
@@ -124,7 +125,38 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/basketComp/{id}", name="basket_compouned_list")
+     * fonction permettant de vider la table des produits des paniers composés
+     * 
+     * @Route("/deleteAllBask", name="delete_all_bask")
+     */
+    public function deleteAllBask( ObjectManager $manager,ProdBaskCompRepository $repoC)
+    {
+        //permet de vider la table des produits du panier composés lors de la fermeture du lieu de vente
+        $prodBask = $repoC->findAll();
+        // dump($prodBask);
+
+        foreach($prodBask as $delete){
+            $manager->remove($delete);
+            // dump($prodBask);exit;
+            $manager->flush();
+        }
+
+        // $object = $this->createObject();
+        // dump($object);exit;
+
+        // $baskComp = $repoC->findBy(
+        //     array('member_id' => $id)
+        // );
+        // dump($baskComp);
+        // $manager->remove($prodBask);
+        // dump($prodBask);exit;
+        // $manager->flush();
+
+        return $this->redirectToRoute('basket_compouned_list');
+    }
+
+    /**
+     * @Route("/basketComp", name="basket_compouned_list")
      */
     public function showBaskCompList(MembersRepository $repoM, ProdBaskCompRepository $repoC, $id = null)
     {
@@ -147,21 +179,22 @@ class AdminController extends AbstractController
         $prodBaskMember = $repoC->findBy(
             array('member_id' => $membersId)
         );
-        dump($prodBaskMember);exit;
+        dump($prodBaskMember);
         
-        // return $this->render('admin/basketComp.html.twig', [
-        //     'id' => $id,
-        //     'baskComps' => $baskComps,
-        //     'prodBaskMember' => $prodBaskMember
-        // ]);
+        return $this->render('admin/basketComp.html.twig', [
+            'id' => $id,
+            'baskComps' => $baskComps,
+            'prodBaskMember' => $prodBaskMember
+        ]);
     }
 
     /**
      *@Route("/numberBasketRest/{id}", name="defined_number_basket_rest") 
      */
-    public function definedNumberBasketRest(MembersRepository $repoM, ObjectManager $manager, $id)
+    public function definedNumberBasketRest(MembersRepository $repoM, ProdBaskCompRepository $repoC, ObjectManager $manager, $id)
     {
         $memberId = $repoM->find($id);
+        dump($id);
         dump($memberId);
         $newQuantityBasketRest = $memberId->getNumberBasketRest();//récupère le nombre de panier
         dump($newQuantityBasketRest);
