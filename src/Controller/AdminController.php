@@ -93,13 +93,12 @@ class AdminController extends AbstractController
     /**
      * @Route("/membersList", name="members_list")
      */
-    public function membersList($id = null)
+    public function membersList(MembersRepository $repoM, $id = null)
     {
-        $repo = $this->getDoctrine()->getRepository(Members::class);
-        $membersComp = $repo->findBy(
+        $membersComp = $repoM->findBy(
             array('basketType' => 'composés')
         );
-        $membersColl = $repo->findBy(
+        $membersColl = $repoM->findBy(
             array('basketType' => 'collectés')
         );
         return $this->render('admin/membersList.html.twig', [
@@ -111,16 +110,16 @@ class AdminController extends AbstractController
     /**
      * @Route("/basketComp/{id}", name="basket_compouned_list")
      */
-    public function showBaskCompList(MembersRepository $repo, ProdBaskCompRepository $repoC, $id = null)
+    public function showBaskCompList(MembersRepository $repoM, ProdBaskCompRepository $repoC, $id = null)
     {
-        $baskComps = $repo->findBy(//récupère toutes les entrées
+        $baskComps = $repoM->findBy(//récupère toutes les entrées
             array('basketType' => 'composés')//correspondant à "composés" ds le champ "basketType"
         );
         dump($baskComps);
         foreach($baskComps as $memberId){
             $membersId = $memberId->getId();//récupère l'identifiant en référence avec l'id du membre
             dump($membersId);//récupère tous les id des membre du panier composé
-            $member = $repo->find($memberId);
+            $member = $repoM->find($memberId);
             dump($member);
             // $prodBaskMember = $repoC->findBy(
             //     array('member_id' => $membersId)
@@ -140,26 +139,41 @@ class AdminController extends AbstractController
         //     'prodBaskMember' => $prodBaskMember
         // ]);
     }
+
+    /**
+     *@Route("/numberBasketRest/{id}", name="defined_number_basket_rest") 
+     */
+    public function definedNumberBasketRest(MembersRepository $repoM, ObjectManager $manager, $id)
+    {
+        $memberId = $repoM->find($id);
+        dump($memberId);
+        $newQuantityBasketRest = $memberId->getNumberBasketRest();//récupère le nombre de panier
+        dump($newQuantityBasketRest);
+        $newQuantity = $memberId->setNumberBasketRest($newQuantityBasketRest + '-1');//permet de déduire la quantité de produits ds la table des produits de la semaine
+        $manager->persist($newQuantity);
+        $manager->flush();
+
+        return $this->redirectToRoute('basket_collected');
+    }
     
     /**
      * @Route("/basketColl/{id}", name="basket_collected")
      */
-    public function showBaskCollList($id = null)
+    public function showBaskCollList(MembersRepository $repoM, $id = null)
     {
-        $repo = $this->getDoctrine()->getRepository(Members::class);
-        $dayBaskColl1 = $repo->findBy(
+        $dayBaskColl1 = $repoM->findBy(
             array('dayOfWeek' => 'lundi')
         );
-        $dayBaskColl2 = $repo->findBy(
+        $dayBaskColl2 = $repoM->findBy(
             array('dayOfWeek' => 'mardi')
         );
-        $dayBaskColl3 = $repo->findBy(
+        $dayBaskColl3 = $repoM->findBy(
             array('dayOfWeek' => 'mercredi')
         );
-        $dayBaskColl4 = $repo->findBy(
+        $dayBaskColl4 = $repoM->findBy(
             array('dayOfWeek' => 'jeudi')
         );
-        $dayBaskColl5 = $repo->findBy(
+        $dayBaskColl5 = $repoM->findBy(
             array('dayOfWeek' => 'vendredi')
         );
         return $this->render('admin/basketColl.html.twig', [
