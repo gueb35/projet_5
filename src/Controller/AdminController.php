@@ -97,10 +97,10 @@ class AdminController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(Members::class);
         $membersComp = $repo->findBy(
-            array('baskettype' => 'composés')
+            array('basketType' => 'composés')
         );
         $membersColl = $repo->findBy(
-            array('baskettype' => 'collectés')
+            array('basketType' => 'collectés')
         );
         return $this->render('admin/membersList.html.twig', [
             'members1' => $membersComp,
@@ -114,7 +114,7 @@ class AdminController extends AbstractController
     public function showBaskCompList(MembersRepository $repo, ProdBaskCompRepository $repoC, $id = null)
     {
         $baskComps = $repo->findBy(//récupère toutes les entrées
-            array('baskettype' => 'composés')//correspondant à "composés" ds le champ "baskettype"
+            array('basketType' => 'composés')//correspondant à "composés" ds le champ "basketType"
         );
         dump($baskComps);
         foreach($baskComps as $memberId){

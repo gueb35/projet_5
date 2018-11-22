@@ -24,7 +24,7 @@ class Members
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $surname;
+    private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -34,7 +34,7 @@ class Members
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $baskettype;
+    private $basketType;
 
     /**
      * @ORM\Column(type="integer")
@@ -83,14 +83,14 @@ class Members
         return $this;
     }
 
-    public function getSurname(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->surname;
+        return $this->firstName;
     }
 
-    public function setSurname(string $surname): self
+    public function setFirstName(string $firstName): self
     {
-        $this->surname = $surname;
+        $this->firstName = $firstName;
 
         return $this;
     }
@@ -107,14 +107,14 @@ class Members
         return $this;
     }
 
-    public function getBaskettype(): ?string
+    public function getBasketType(): ?string
     {
-        return $this->baskettype;
+        return $this->basketType;
     }
 
-    public function setBaskettype(string $baskettype): self
+    public function setBaskettype(string $basketType): self
     {
-        $this->baskettype = $baskettype;
+        $this->basketType = $basketType;
 
         return $this;
     }

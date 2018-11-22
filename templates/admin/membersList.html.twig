@@ -15,9 +15,9 @@
             <div class="MembersComp">
                     {% for member in members1 %}
                         <div class="metadata">
-                            Mr/Mme {{member.name}} {{member.surname}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
+                            Mr/Mme {{member.name}} {{member.firstName}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
                             résidant à {{member.town}} .</br>
-                            Inscrit(e) aux paniers {{member.baskettype}} .</br>
+                            Inscrit(e) aux paniers {{member.basketType}} .</br>
                             E-mail : {{member.email}}
                         </div>
                         <div class="sepMemList"></div>
@@ -30,9 +30,9 @@
             <div class="MembersColl">
                     {% for member in members2 %}
                         <div class="metadata">
-                            Mr/Mme {{member.name}} {{member.surname}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
+                            Mr/Mme {{member.name}} {{member.firstName}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
                             résidant à {{member.town}} .</br>
-                            Inscrit(e) aux paniers {{member.baskettype}}.</br>
+                            Inscrit(e) aux paniers {{member.basketType}}.</br>
                             Nombre de paniers restant dû : {{member.numberBasketRest}} .</br>
                             Le lieu de ramassage de ce panier se situe sur la commune du {{member.dayOfWeek}} !</br>
                             E-mail : {{member.email}}

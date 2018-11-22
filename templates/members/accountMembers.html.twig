@@ -6,7 +6,7 @@
 
 <h1 class="text-center">Voici les informations relatives à votre compte :</h1>
     <section>
-            <h5>Bienvenue Mr/Mme {{ memberCount.name }} {{memberCount.surname}}!</h5>
+            <h5>Bienvenue Mr/Mme {{ memberCount.name }} {{memberCount.firstName}}!</h5>
             <div class="metadata">
                 <p>
                     Vous vous êtes inscrit(e) aux paniers {{ memberCount.baskettype}} le {{ memberCount.createdAt | date('d/m/Y')}} à {{memberCount.createdAt | date('H:i')}}.</br>
