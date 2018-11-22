@@ -91,6 +91,22 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/initialize/{id}", name="initialize_number_basket_rest")
+     */
+    public function initializeNumberBasketRest(MembersRepository $repoM, ObjectManager $manager, $id)
+    {
+        $memberId = $repoM->find($id);
+        dump($memberId);
+        $newQuantityBasketRest = $memberId->getNumberBasketRest();//récupère le nombre de panier
+        dump($newQuantityBasketRest);
+        $newQuantity = $memberId->setNumberBasketRest('44');//permet de déduire la quantité de produits ds la table des produits de la semaine
+        $manager->persist($newQuantity);
+        $manager->flush();
+
+        return $this->redirectToRoute('members_list');
+    }
+
+    /**
      * @Route("/membersList", name="members_list")
      */
     public function membersList(MembersRepository $repoM, $id = null)

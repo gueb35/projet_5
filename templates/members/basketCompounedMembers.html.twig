@@ -8,7 +8,8 @@
     Afin de composer vous-même votre panier, cliquez sur le bouton "Mettre ce produit dans votre panier !"</br>
     Afin de proposer à tous une grande variété de produits, merci de ne prendre qu'un exemplaire par produit.</br>
     Si vous désirez en prendre plusieurs, vous le pourrez sur place!</br>
-    Le prix sera bien évidement en fonction de ce que vous prenez et sera à régler sur place !</br>
+    Le prix sera bien évidement en fonction de ce que vous prendrez et sera à régler sur place !</br>
+    Et n'oubliez pas de valider votre panier grâce au bouton "Valider votre panier !"</br>
     Alors, faites-vous plaisir !!!
 </p>
 
@@ -46,7 +47,10 @@
 
     <div class="listBasketComp">
         <h3 class="text-center">Voici la liste des produits de votre panier :</h3>
-            <h4 class="text-center">Votre panier :</h4>
+        <div class="text-center">
+        <a href="{{ path('validate_bask',{'id':id})}}"><button type="submit" class="btn btn-success">Valider votre panier !</button></a>   
+        </div>
+        <h4 class="text-center">Votre panier :</h4>
             <section class="prodList">
                 {% for basketOfMember in basketMember %}
                     <div class="metadata">
@@ -59,6 +63,9 @@
                 {% endfor %}
             
             </section>
+            <div class="text-center">
+            <a href="{{ path('validate_bask',{'id':id})}}"><button type="submit" class="btn btn-success">Valider votre panier !</button></a>   
+            </div>
     </div>
 </div>
 {% endblock %}

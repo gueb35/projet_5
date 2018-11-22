@@ -5,12 +5,19 @@
 {% block body %}
 
 <p>
-    <h1 class="text-center">Bienvenue sur la page représentant la liste de vos membres!</br>
-    Cette liste se divise en 2 parties :</h1>
+    <h1 class="text-center">Bienvenue sur la page représentant la liste de vos membres!</h1></br>
+    <h1 class="text-center">Cette liste se divise en 2 parties :</h1>
 </p>
 
 <div class="MembersList">
     <div class="memberList1">
+        <p>
+            Dans cette liste sont présent l'ensemble des membres ayant adhéré au paniers composés.</br>
+            Le nombre de paniers est définit par défaut à 0 lors de l'inscription du membre, puis à 1 lors de la</br>
+            validation du panier ce qui lui permet de lancer sa commande sachant que le réglement se fera à la ferme !</br>
+            Lorsque le membre viendra récupérer son panier, vous pourrez re-définir son nombre de panier à 0</br>
+            sur la page des paniers composés pour lui permettre de re-composer un nouveau panier la semaine suivante!
+        </p>
         <h4 class="text-center">Membres du panier composés :</h4>
             <div class="MembersComp">
                     {% for member in members1 %}
@@ -26,6 +33,13 @@
     </div>
 
     <div class="memberList2">
+    <p>
+        Afin d'avoir un contrôle sur le réglement des paniers collectés lors de l'inscription des membres,</br>
+        le nombre de paniers est définit par défaut à 0 pour vous permettre de recevoir le réglement puis,</br>
+        à reception ou encaissement, de définir le nombre de paniers à 44 unités en cliquant sur le bouton </br>
+        "Initialiser le nombre de paniers !".Cela validera son inscription et lancera son abonnement!</br>
+        Après chaque livraison, vous pourrez diminuer de 1 le nombre de paniers restant sur la page des paniers collectés !
+    </p>
         <h4 class="text-center">Membres du panier collectés :</h4>
             <div class="MembersColl">
                     {% for member in members2 %}
@@ -33,7 +47,8 @@
                             Mr/Mme {{member.name}} {{member.firstName}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
                             résidant à {{member.town}} .</br>
                             Inscrit(e) aux paniers {{member.basketType}}.</br>
-                            Nombre de paniers restant dû : {{member.numberBasketRest}} .</br>
+                            Nombre de paniers restant dû : {{member.numberBasketRest}} .
+                            <a href="{{ path('initialize_number_basket_rest',{'id':member.id})}}"><button type="submit" class="btn btn-success">Initialiser le nombre de paniers !</button></a></br>
                             Le lieu de ramassage de ce panier se situe sur la commune du {{member.dayOfWeek}} !</br>
                             E-mail : {{member.email}}
                         </div>

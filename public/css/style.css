@@ -119,6 +119,10 @@ h5{
 /************espace members***************/
 /*page accountMembers.html.twig*/
 /*basket_compouned*/
+.formListInscr{
+    display: flex;
+    justify-content: space-between;
+}
 .listBasketComp{
     margin-top: 0;
 }

@@ -28,7 +28,21 @@ class MembersController extends AbstractController
     }
 
     /**
-     *@Route("/delete_prod_bask_comp/{id}/{name}", name="delete_prod_bask_comp") 
+     * @Route ("/validateBask/{id}", name="validate_bask")
+     */
+    public function validateBask(MembersRepository $repoM, ObjectManager $manager, $id)
+    {
+        $newNumberBaskRest = $repoM->find($id);
+        dump($newNumberBaskRest);
+        $newNumberBaskRest = $newNumberBaskRest->setnumberBasketRest('1');
+        $manager->persist($newNumberBaskRest);
+        $manager->flush();
+
+        return $this->redirectToRoute('basket_compouned',['id' => $id]);
+    }
+
+    /**
+     *@Route("/deleteProdBaskComp/{id}/{name}", name="delete_prod_bask_comp") 
      */
     public function deleteProdBaskComp(ProdBaskCompRepository $repoC, ProdOfWeekRepository $repo, ObjectManager $manager, $id, $name)
     {
@@ -122,6 +136,7 @@ class MembersController extends AbstractController
         }
         /***/
 
+        
         //va chercher ds le champ member_id de la table des paniers composés
         //toutes les entrées correspondant au numéro du membre
             $basketMember = $repoC->findBy(

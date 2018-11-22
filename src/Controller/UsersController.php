@@ -51,7 +51,7 @@ class UsersController extends AbstractController
 
         if($formOne->isSubmitted() && $formOne->isValid()) {
             $member->setbaskettype("composés");
-            $member->setnumberBasketRest(1);
+            $member->setnumberBasketRest(0);
             $member->setdayOfWeek("mardi");
             $member->setCreatedAt(new \DateTime());
 
