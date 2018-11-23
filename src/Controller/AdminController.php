@@ -171,13 +171,18 @@ class AdminController extends AbstractController
             dump($membersId);//récupère tous les id des membre du panier composé
             $member = $repoM->find($memberId);
             dump($member);
+
+            $member = $repoM->findBy(
+                array('id' => $memberId));
+                dump($member);
+
             // $prodBaskMember = $repoC->findBy(
             //     array('member_id' => $membersId)
             // );
             // dump($prodBaskMember);
             // dump($prodBaskMember);exit;
         }
-        // dump($membersId);exit;//sert seulement a stoppé le traitement
+        dump($member);exit;//sert seulement a stoppé le traitement
         $prodBaskMember = $repoC->findBy(
             array('member_id' => $membersId)
         );
@@ -185,7 +190,7 @@ class AdminController extends AbstractController
         
         return $this->render('admin/basketComp.html.twig', [
             'id' => $id,
-            'baskComps' => $baskComps,
+            'baskComps' => $baskComps,//renvoie les infos des membres ds un tableau bouclé à l'affichage 
             'prodBaskMember' => $prodBaskMember
         ]);
     }

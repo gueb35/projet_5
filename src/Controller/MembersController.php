@@ -75,8 +75,10 @@ class MembersController extends AbstractController
      * @Route("/basket_compouned/{id}", name="basket_compouned")//appel via le lien du menu
      * @Route("/basket_compouned/{id}/{name}", name="basket_comp")//appel lors de la compositon du panier
      */
-    public function basket_compouned(ProdBaskComp $ProdBaskComp = null, ProdOfWeekRepository $repo, ProdBaskCompRepository $repoC, ObjectManager $manager, $id = null, $name = null)
+    public function basket_compouned(MembersRepository $repoM, ProdBaskComp $ProdBaskComp = null, ProdOfWeekRepository $repo, ProdBaskCompRepository $repoC, ObjectManager $manager, $id = null, $name = null)
     {
+        $memberCount = $repoM->find($id);//permet de récupérer les infos du membre identifier par l'id
+
         $memberId = $id;
         $nameProd = $name;
 
@@ -139,18 +141,19 @@ class MembersController extends AbstractController
         
         //va chercher ds le champ member_id de la table des paniers composés
         //toutes les entrées correspondant au numéro du membre
-            $basketMember = $repoC->findBy(
-                array('member_id' => $memberId)
-            );
+        $basketMember = $repoC->findBy(
+            array('member_id' => $memberId)
+        );
 
-            $prodByUnity = $repo->prodByUnity();//permet de récupérer tous les produits du champ proByUnity pour afficher la liste
-            $prodByKg = $repo->prodByKg();//permet de récupérer tous les produits du champ proByKg
+        $prodByUnity = $repo->prodByUnity();//permet de récupérer tous les produits du champ proByUnity pour afficher la liste
+        $prodByKg = $repo->prodByKg();//permet de récupérer tous les produits du champ proByKg
 
         return $this->render('members/basketCompounedMembers.html.twig', [
             'id' => $id,
             'basketMember' => $basketMember,//en lien avec la ligne 49
             'prodByUnity' => $prodByUnity,//en lien à la ligne 38
-            'prodByKg' => $prodByKg//en lien à la ligne 39
+            'prodByKg' => $prodByKg,//en lien à la ligne 39
+            'memberCount' => $memberCount
         ]);
     }
 }

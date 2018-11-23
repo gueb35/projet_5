@@ -40,7 +40,7 @@ class UsersController extends AbstractController
         /*paniers composés*/
         $formOne = $this->createFormBuilder($member)
             ->add('name',TextType::class)
-            ->add('surname',TextType::class)
+            ->add('firstName',TextType::class)
             ->add('email', EmailType::class)
             ->add('town',TextType::class)
             ->add('pseudo',TextType::class)
@@ -65,7 +65,7 @@ class UsersController extends AbstractController
         /*paniers collectés*/
         $formTwo = $this->createFormBuilder($member)
             ->add('name',TextType::class)
-            ->add('surname',TextType::class)
+            ->add('firstName',TextType::class)
             ->add('email', EmailType::class)
             ->add('town',TextType::class)
             ->add('dayOfWeek',TextType::class)
