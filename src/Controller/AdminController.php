@@ -20,7 +20,7 @@ use App\Entity\ProdOfWeek;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/admin", name="home_admin")
+     * @Route("/admin/{id}", name="home_admin")
      */
     public function homeAdmin($id = null)
     {
@@ -129,29 +129,31 @@ class AdminController extends AbstractController
      * 
      * @Route("/deleteAllBask", name="delete_all_bask")
      */
-    public function deleteAllBask( ObjectManager $manager,ProdBaskCompRepository $repoC)
+    public function deleteAllBask(ObjectManager $manager, ProdBaskCompRepository $repoC)
     {
         //permet de vider la table des produits du panier composés lors de la fermeture du lieu de vente
         $prodBask = $repoC->findAll();
-        // dump($prodBask);
 
-        foreach($prodBask as $delete){
-            $manager->remove($delete);
-            // dump($prodBask);exit;
+        foreach($prodBask as $deleteAll){
+            $manager->remove($deleteAll);
             $manager->flush();
         }
+        return $this->redirectToRoute('basket_compouned_list');
+    }
 
-        // $object = $this->createObject();
-        // dump($object);exit;
-
-        // $baskComp = $repoC->findBy(
-        //     array('member_id' => $id)
-        // );
-        // dump($baskComp);
-        // $manager->remove($prodBask);
-        // dump($prodBask);exit;
-        // $manager->flush();
-
+    /**
+     * @Route("/deleteBaskMember/{id}", name="delete_bask_member")
+     */
+    public function deleteBaskMember(ObjectManager $manager, ProdBaskCompRepository $repoC, $id)
+    {
+        $prodsBAskCompOfMember = $repoC->findBy(
+            array('member_id' => $id)
+        );
+        dump($prodsBAskCompOfMember);
+        foreach($prodsBAskCompOfMember as $delete){
+            $manager->remove($delete);
+            $manager->flush();
+        }
         return $this->redirectToRoute('basket_compouned_list');
     }
 
