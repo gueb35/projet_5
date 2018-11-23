@@ -22,7 +22,7 @@
                     <div class="metadata">
                         <p>
                             Produit no {{ prodUnity.id }} : {{prodUnity.quantityProdUnity}} {{prodUnity.prodByUnity}}
-                            <a href="{{ path('basket_comp',{'id':id,'name':prodUnity.prodByUnity})}}"><button type="submit" class="btn btn-success">Mettre ce produit dans votre panier !</button></a></br>
+                            <a href="{{ path('basket_comp',{'name':prodUnity.prodByUnity})}}"><button type="submit" class="btn btn-success">Mettre ce produit dans votre panier !</button></a></br>
                         </p>
                     </div>
                     <div class="sepMemList"></div>
@@ -36,7 +36,7 @@
                     <div class="metadata">
                         <p>
                             Produit no {{ prodKg.id }} : {{ prodKg.quantityProdKg }}kg de {{ prodKg.ProdByKg }}
-                            <a href="{{ path('basket_comp',{'id':id,'name':prodKg.ProdByKg})}}"><button type="submit" class="btn btn-success">Mettre ce produit dans votre panier !</button></a></br>
+                            <a href="{{ path('basket_comp',{'name':prodKg.ProdByKg})}}"><button type="submit" class="btn btn-success">Mettre ce produit dans votre panier !</button></a></br>
                         </p>
                     </div>
                     <div class="sepMemList"></div>
@@ -48,7 +48,7 @@
     <div class="listBasketComp">
         <h3 class="text-center">Voici la liste des produits de votre panier :</h3>
         <div class="text-center">
-        <a href="{{ path('validate_bask',{'id':id})}}"><button type="submit" class="btn btn-success">Valider votre panier !</button></a>   
+        <a href="{{ path('validate_bask')}}"><button type="submit" class="btn btn-success">Valider votre panier !</button></a>   
         </div>
         <h4 class="text-center">Votre panier :</h4>
             <section class="prodList">
@@ -64,7 +64,7 @@
             
             </section>
             <div class="text-center">
-            <a href="{{ path('validate_bask',{'id':id})}}"><button type="submit" class="btn btn-success">Valider votre panier !</button></a>   
+            <a href="{{ path('validate_bask')}}"><button type="submit" class="btn btn-success">Valider votre panier !</button></a>   
             </div>
     </div>
 </div>

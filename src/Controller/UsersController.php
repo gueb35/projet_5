@@ -60,16 +60,10 @@ class UsersController extends AbstractController
             $manager->persist($member);
             $manager->flush();
 
-            //version native
-            // $memberId = $member->getId();//fonctionnel
-            // $_SESSION['memberId'] = $memberId;//fonctionnel
-            // dump($_SESSION['memberId']);exit;//fonctionnel
-
             //version symfony
             $session = new Session();
             $memberId = $member->getId();
             $session->set('memberId', $memberId);
-            // dump($session->get('memberId'));exit;
 
             return $this->redirectToRoute('my_compte');
 
@@ -95,14 +89,8 @@ class UsersController extends AbstractController
 
             $manager->persist($member);
             $manager->flush();
-
-            //version symfony
-            $session = new Session();
-            $memberId = $member->getId();
-            $session->set('memberId', $memberId);
             
             return $this->redirectToRoute('my_compte');
-
         }
 
         return $this->render('users/inscriptionUsers.html.twig', [

@@ -12,17 +12,24 @@ use App\Repository\MembersRepository;
 use App\Entity\Members;
 use App\Entity\ProdOfWeek;
 use App\Entity\ProdBaskComp;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class MembersController extends AbstractController
 {
+
+    public function __construct(){
+        $this->session = new Session();
+        $this->memberId = $this->session->get('memberId');
+    }
+
     /**
-     * @Route("/members/{id}", name="my_compte")
+     * @Route("/members", name="my_compte")
      */
-    public function showListProdOfWeek(MembersRepository $repoM, $id)
+    public function showListProdOfWeek(MembersRepository $repoM)
     {
-        $memberCount = $repoM->find($id);//permet de récupérer les infos du membre identifier par l'id
+        $memberCount = $repoM->find($this->memberId);//permet de récupérer les infos du membre identifier par l'id
         return $this->render('members/accountMembers.html.twig', [
-            'id' => $id,
+            'id' => $this->memberId,
             'memberCount' => $memberCount
         ]);
     }
@@ -30,21 +37,27 @@ class MembersController extends AbstractController
     /**
      * fonction permmettant de valider le panier en initialisant le nombre de panier restant à 1
      * 
-     * @Route ("/validateBask/{id}", name="validate_bask")
+     * @Route ("/validateBask", name="validate_bask")
      */
-    public function validateBask(ProdOfWeekRepository $repo, MembersRepository $repoM, ObjectManager $manager, $id)
+    public function validateBask(ProdOfWeekRepository $repo, MembersRepository $repoM, ObjectManager $manager)
     {
-        $checkDispoProd = $repo->findBy(array('quantityProdKg' => '0'));
-        dump($checkDispoProd);exit;
-        $manager->remove($checkDispoProd);
-        $manager->flush();
+        $checkDispoProdU = $repo->findBy(array('quantityProdUnity' => '0'));
+        foreach($checkDispoProdU as $noDispoU){
+            $manager->remove($noDispoU); 
+            $manager->flush(); 
+        }
+        $checkDispoProdK = $repo->findBy(array('quantityProdKg' => '0'));
+        foreach($checkDispoProdU as $noDispoK){
+            $manager->remove($noDispoK);  
+            $manager->flush();
+        }
 
-        $newNumberBaskRest = $repoM->find($id);
+        $newNumberBaskRest = $repoM->find($this->memberId);
         $newNumberBaskRest = $newNumberBaskRest->setnumberBasketRest('1');
         $manager->persist($newNumberBaskRest);
         $manager->flush();
 
-        return $this->redirectToRoute('basket_compouned',['id' => $id]);
+        return $this->redirectToRoute('basket_compouned');
     }
 
     /**
@@ -52,7 +65,7 @@ class MembersController extends AbstractController
      * 
      *@Route("/deleteProdBaskComp/{id}/{name}", name="delete_prod_bask_comp") 
      */
-    public function deleteProdBaskComp(ProdBaskCompRepository $repoC, ProdOfWeekRepository $repo, ObjectManager $manager, $id, $name)
+    public function deleteProdBaskComp(ProdBaskCompRepository $repoC, ProdOfWeekRepository $repo, ObjectManager $manager, $name, $id=null)
     {
         $prodNameUnity = $repo->findBy(array('prodByUnity' => $name));
         foreach($prodNameUnity as $quantityU){
@@ -76,18 +89,18 @@ class MembersController extends AbstractController
         $manager->remove($prodToDelete);
         $manager->flush();
 
-        return $this->redirectToRoute('basket_compouned',['id' => $memberId]);
+        return $this->redirectToRoute('basket_compouned');
     }
 
     /**
-     * @Route("/basket_compouned/{id}", name="basket_compouned")//appel via le lien du menu
-     * @Route("/basket_compouned/{id}/{name}", name="basket_comp")//appel lors de la compositon du panier
+     * @Route("/basket_compouned", name="basket_compouned")//appel via le lien du menu
+     * @Route("/basket_compouned/{name}", name="basket_comp")//appel lors de la compositon du panier
      */
-    public function basket_compouned(MembersRepository $repoM, ProdBaskComp $ProdBaskComp = null, ProdOfWeekRepository $repo, ProdBaskCompRepository $repoC, ObjectManager $manager, $id = null, $name = null)
+    public function basket_compouned(MembersRepository $repoM, ProdBaskComp $ProdBaskComp = null, ProdOfWeekRepository $repo, ProdBaskCompRepository $repoC, ObjectManager $manager, $name = null)
     {
-        $memberCount = $repoM->find($id);//permet de récupérer les infos du membre identifier par l'id pour afficher un bonjour perso
+        $memberCount = $repoM->find($this->memberId);//permet de récupérer les infos du membre identifier par l'id pour afficher un bonjour perso
 
-        $memberId = $id;
+        $memberId = $this->memberId;
         $nameProd = $name;
 
         /*récupère l'entrée corresp au nom du produit $nameProd*/
@@ -112,9 +125,8 @@ class MembersController extends AbstractController
         //vérifie si le produit insérer ds la panier est au poids ou à l'unité
         if($prodUnityExist == null){//vérifie si ce produit n'existe pas(est null), si il n'existe pas c'est que c'est un produit au kilo
             $unityOrKg = 'kg';//définit le mode de vente
-            if($newQuantityProdKg == '1'){//si la quantité du produit est de 1
-                $prodToDelete = $repo->find($idProdKg);//récupère l'entrée corresp à l'id du produit
-                $manager->remove($prodToDelete);//efface ce produit des produits de la semaine
+            if($newQuantityProdKg == '0'){
+                $nameProd = null;
             }else{
                 $newQuantity = $quantity->setQuantityProdKg($newQuantityProdKg + '-1');//permet de déduire la quantité de produits ds la table des produits de la semaine
                 $manager->persist($newQuantity);
@@ -122,9 +134,8 @@ class MembersController extends AbstractController
             }
         }else{//donc produit à l'unité !!
             $unityOrKg = 'unité';//définit le mode de vente
-            if($newQuantityProdUnity == '1'){
-                $prodToDelete = $repo->find($idProdUnity);
-                $manager->remove($prodToDelete);
+            if($newQuantityProdUnity == '0'){
+                $nameProd = null;
             }else{
                 $newQuantity = $quantityU->setQuantityProdUnity($newQuantityProdUnity + '-1');//permet de déduire la quantité de produits ds la table des produits de la semaine
                 $manager->persist($newQuantity);
@@ -136,7 +147,7 @@ class MembersController extends AbstractController
         /*insère un produit ds la table des paniers composés en relation avec l'id du membre*/
         if($nameProd){
             $ProdBaskComp = new ProdBaskComp();
-            $ProdBaskComp->setMemberId($id);
+            $ProdBaskComp->setMemberId($this->memberId);
             $ProdBaskComp->setNameProd($name);
             $ProdBaskComp->setKgOrUntity($unityOrKg);
             $ProdBaskComp->setQuantityProd('1');
@@ -157,7 +168,7 @@ class MembersController extends AbstractController
         $prodByKg = $repo->prodByKg();//permet de récupérer tous les produits du champ proByKg
 
         return $this->render('members/basketCompounedMembers.html.twig', [
-            'id' => $id,
+            'id' => $this->memberId,
             'basketMember' => $basketMember,//en lien avec la ligne 49
             'prodByUnity' => $prodByUnity,//en lien à la ligne 38
             'prodByKg' => $prodByKg,//en lien à la ligne 39
