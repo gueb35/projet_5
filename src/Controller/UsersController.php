@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use App\Entity\Members;
+use Symfony\Component\HttpFoundation\Session\Session;
+
 
 class UsersController extends AbstractController
 {
@@ -58,7 +60,18 @@ class UsersController extends AbstractController
             $manager->persist($member);
             $manager->flush();
 
-            return $this->redirectToRoute('my_compte', ['id' => $member->getId()]);
+            //version native
+            // $memberId = $member->getId();//fonctionnel
+            // $_SESSION['memberId'] = $memberId;//fonctionnel
+            // dump($_SESSION['memberId']);exit;//fonctionnel
+
+            //version symfony
+            $session = new Session();
+            $memberId = $member->getId();
+            $session->set('memberId', $memberId);
+            // dump($session->get('memberId'));exit;
+
+            return $this->redirectToRoute('my_compte');
 
         }
 
@@ -82,8 +95,13 @@ class UsersController extends AbstractController
 
             $manager->persist($member);
             $manager->flush();
+
+            //version symfony
+            $session = new Session();
+            $memberId = $member->getId();
+            $session->set('memberId', $memberId);
             
-            return $this->redirectToRoute('my_compte', ['id' => $member->getId()]);
+            return $this->redirectToRoute('my_compte');
 
         }
 

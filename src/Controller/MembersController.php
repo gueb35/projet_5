@@ -28,12 +28,18 @@ class MembersController extends AbstractController
     }
 
     /**
+     * fonction permmettant de valider le panier en initialisant le nombre de panier restant à 1
+     * 
      * @Route ("/validateBask/{id}", name="validate_bask")
      */
-    public function validateBask(MembersRepository $repoM, ObjectManager $manager, $id)
+    public function validateBask(ProdOfWeekRepository $repo, MembersRepository $repoM, ObjectManager $manager, $id)
     {
+        $checkDispoProd = $repo->findBy(array('quantityProdKg' => '0'));
+        dump($checkDispoProd);exit;
+        $manager->remove($checkDispoProd);
+        $manager->flush();
+
         $newNumberBaskRest = $repoM->find($id);
-        dump($newNumberBaskRest);
         $newNumberBaskRest = $newNumberBaskRest->setnumberBasketRest('1');
         $manager->persist($newNumberBaskRest);
         $manager->flush();
@@ -42,13 +48,15 @@ class MembersController extends AbstractController
     }
 
     /**
+     * fonction servant à enlever un produit du panier composé et le rajouter aux produits de la semaine
+     * 
      *@Route("/deleteProdBaskComp/{id}/{name}", name="delete_prod_bask_comp") 
      */
     public function deleteProdBaskComp(ProdBaskCompRepository $repoC, ProdOfWeekRepository $repo, ObjectManager $manager, $id, $name)
     {
         $prodNameUnity = $repo->findBy(array('prodByUnity' => $name));
-        foreach($prodNameUnity as $quantity){
-            $newQuantityProdUnity = $quantity->getQuantityProdUnity();//récupère le nombre de produit
+        foreach($prodNameUnity as $quantityU){
+            $newQuantityProdUnity = $quantityU->getQuantityProdUnity();//récupère le nombre de produit
         }
         $prodNameKg = $repo->findBy(array('prodByKg' => $name));
         foreach($prodNameKg as $quantity){
@@ -58,7 +66,7 @@ class MembersController extends AbstractController
         if($prodNameUnity == null){
             $newQuantity = $quantity->setQuantityProdKg($newQuantityProdKg + '+1');
         }else{
-            $newQuantity = $quantity->setQuantityProdUnity($newQuantityProdUnity + '+1');
+            $newQuantity = $quantityU->setQuantityProdUnity($newQuantityProdUnity + '+1');
         }
         $manager->persist($newQuantity);
         $manager->flush();
@@ -77,7 +85,7 @@ class MembersController extends AbstractController
      */
     public function basket_compouned(MembersRepository $repoM, ProdBaskComp $ProdBaskComp = null, ProdOfWeekRepository $repo, ProdBaskCompRepository $repoC, ObjectManager $manager, $id = null, $name = null)
     {
-        $memberCount = $repoM->find($id);//permet de récupérer les infos du membre identifier par l'id
+        $memberCount = $repoM->find($id);//permet de récupérer les infos du membre identifier par l'id pour afficher un bonjour perso
 
         $memberId = $id;
         $nameProd = $name;
@@ -87,9 +95,9 @@ class MembersController extends AbstractController
             // dont le nom correspond au nom du produit $nameProd
             array('prodByUnity' => $nameProd)//afin de vérifier si c'est un produit au kilo ou à l'unité
         );
-        foreach($prodUnityExist as $quantity){
-            $newQuantityProdUnity = $quantity->getQuantityProdUnity();//récupère le nombre de produit
-            $idProdUnity = $quantity->getId();//récupère l'identifiant
+        foreach($prodUnityExist as $quantityU){
+            $newQuantityProdUnity = $quantityU->getQuantityProdUnity();//récupère le nombre de produit
+            $idProdUnity = $quantityU->getId();//récupère l'identifiant
         }
 
         /*récupère l'entrée corresp au nom du produit $nameProd*/
@@ -118,7 +126,7 @@ class MembersController extends AbstractController
                 $prodToDelete = $repo->find($idProdUnity);
                 $manager->remove($prodToDelete);
             }else{
-                $newQuantity = $quantity->setQuantityProdUnity($newQuantityProdUnity + '-1');//permet de déduire la quantité de produits ds la table des produits de la semaine
+                $newQuantity = $quantityU->setQuantityProdUnity($newQuantityProdUnity + '-1');//permet de déduire la quantité de produits ds la table des produits de la semaine
                 $manager->persist($newQuantity);
                 $manager->flush();
             }

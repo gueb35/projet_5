@@ -4,6 +4,19 @@ use App\Kernel;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
+// use Symfony\Component\HttpFoundation\Session\Session;
+// use Symfony\Component\HttpFoundation\Session\Storage\PhpBridgeSessionStorage;
+
+// legacy application configures session
+// ini_set('session.save_handler', 'files');
+// ini_set('session.save_path', '/tmp');
+// session_start();
+
+// Get Symfony to interface with this existing session
+// $session = new Session(new PhpBridgeSessionStorage());
+
+// symfony will now interface with the existing PHP session
+// $session->start();
 
 require __DIR__.'/../vendor/autoload.php';
 
