@@ -76,10 +76,14 @@ class MembersController extends AbstractController
             $newQuantityProdKg = $quantity->getQuantityProdKg();//récupère le nombre de produit
         }
 
+        $prodsOfMember = $repoC->find($id);
+        $quantityProdOfMember = $prodsOfMember->getQuantityProd();
+
+
         if($prodNameUnity == null){
-            $newQuantity = $quantity->setQuantityProdKg($newQuantityProdKg + '+1');
+            $newQuantity = $quantity->setQuantityProdKg($newQuantityProdKg + $quantityProdOfMember);
         }else{
-            $newQuantity = $quantityU->setQuantityProdUnity($newQuantityProdUnity + '+1');
+            $newQuantity = $quantityU->setQuantityProdUnity($newQuantityProdUnity + $quantityProdOfMember);
         }
         $manager->persist($newQuantity);
         $manager->flush();
@@ -145,7 +149,24 @@ class MembersController extends AbstractController
         /***/
 
         /*insère un produit ds la table des paniers composés en relation avec l'id du membre*/
-        if($nameProd){
+        if($nameProd){//si un nom de produit est présent ds l'url
+            $prodsOfMember = $repoC->findBy(//récupère tous les prod correspondant à l'id du membre
+                array('member_id' => $memberId)
+            );
+            foreach($prodsOfMember as $memberIdProd){
+                $prodExist = $memberIdProd->getNameProd();//récupère les noms de prod ds le tableau
+                if($prodExist == $nameProd){//si un nom correspond
+                    $idProd = $memberIdProd->getId();//récupère son id
+                    $updateProd = $repoC->find($idProd);//récupère l'entrée correspondant à l'id
+                    $moreQuantity = $updateProd->getQuantityProd();
+                    $updateProd->setQuantityProd($moreQuantity + '1');
+        
+                    $manager->persist($updateProd);
+                    $manager->flush();
+                    return $this->redirectToRoute('basket_compouned');
+                }
+            }
+
             $ProdBaskComp = new ProdBaskComp();
             $ProdBaskComp->setMemberId($this->memberId);
             $ProdBaskComp->setNameProd($name);
@@ -156,7 +177,6 @@ class MembersController extends AbstractController
             $manager->flush();
         }
         /***/
-
         
         //va chercher ds le champ member_id de la table des paniers composés
         //toutes les entrées correspondant au numéro du membre
