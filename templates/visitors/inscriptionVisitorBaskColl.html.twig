@@ -1,0 +1,40 @@
+{% extends 'baseVisitor.html.twig' %}
+
+{% form_theme formTwo 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Page d'inscription !{% endblock %}
+
+{% block body %}
+<h1 class="text-center">Bienvenue sur la page d'inscription aux paniers collectés !</h1>
+<p>Vous désirez récupérer chaque semaine un panier composé par nos nos soins !,</br>
+Inscrivez-vous grâce au formulaire ci-dessous :</br>
+
+    <h4 class="text-center">Formulaire d'inscritpion au panier collectés :</h4>
+    <div class="basketColl">
+        <p>2/ Il vous est possible également  de récupérer un panier confectionné par nos soins de 10 légumes et/ou fruits au sein d'un dépot hebdomadaire correspondant à une liste de 5 communes</br>
+        -lundi : Chateaugiron ;</br>
+        -mardi : Nouvoitou, directement à la ferme ;</br>
+        -mercredi : Vern/seiche ;</br>
+        -jeudi : Amanlis ;</br>
+        -vendredi : Bourg Barré.</br>
+        Pour ce faire, inscrivez-vous grâce au formulaire ci-dessous .</br>
+        Ensuite, cliquez sur "Inscription à la collecte de paniers".</br>
+        Votre inscription sera effective à la réception du chèque de réglement pour l'année soit un montant de 440€ pour un total de 44 paniers .</br>
+        Dès réception de votre réglement, nous avertirons par mail !</br>
+        Les dépots des paniers collectés se déroule de septembre à mi-juillet avec une semaine de pause sur la semaine de noël !</p>
+
+        {{ form_start(formTwo) }}
+
+        {{ form_widget(formTwo.name, {'attr' : {'placeholder': "Votre nom"}}) }}
+        {{ form_widget(formTwo.firstName, {'attr' : {'placeholder': "Votre prénom"}}) }}
+        {{ form_widget(formTwo.email, {'attr' : {'placeholder': "Votre email"}}) }}
+        {{ form_widget(formTwo.town, {'attr' : {'placeholder': "Votre lieu de résidence"}}) }}
+        {{ form_widget(formTwo.dayOfWeek, {'attr' : {'placeholder': "Jour ou vous désirez récupérer votre panier chaque semaine"}}) }}
+        {{ form_widget(formTwo.pseudo, {'attr' : {'placeholder': "Votre pseudo (retenez le bien !)"}}) }}
+        {{ form_widget(formTwo.password, {'attr' : {'placeholder': "Votre mot de passe (retenez le bien également !)"}}) }}
+        <button type="submit" class="btn btn-success">Inscription à la collecte de paniers</button>
+
+        {{form_end(formTwo)}}
+    </div>
+
+{% endblock %}

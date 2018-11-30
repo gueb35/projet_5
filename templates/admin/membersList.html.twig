@@ -4,21 +4,21 @@
 
 {% block body %}
 
-<p>
+<p class="text-center">
     <h1 class="text-center">Bienvenue sur la page représentant la liste de vos membres!</h1></br>
     <h1 class="text-center">Cette liste se divise en 2 parties :</h1>
 </p>
 
 <div class="MembersList">
     <div class="memberList1">
-        <p>
-            Dans cette liste sont présent l'ensemble des membres ayant adhéré au paniers composés.</br>
-            Le nombre de paniers est définit par défaut à 0 lors de l'inscription du membre, puis à 1 lors de la</br>
-            validation du panier ce qui lui permet de lancer sa commande sachant que le réglement se fera à la ferme !</br>
-            Lorsque le membre viendra récupérer son panier, vous pourrez re-définir son nombre de panier à 0</br>
+        <p class="borderMemberList">
+            Dans cette liste sont présent l'ensemble des membres ayant adhéré au paniers composés.
+            Le nombre de paniers est définit par défaut à 0 lors de l'inscription du membre, puis à 1 lors de la
+            validation du panier ce qui lui permet de lancer sa commande sachant que le réglement se fera à la ferme !
+            Lorsque le membre viendra récupérer son panier, vous pourrez re-définir son nombre de panier à 0
             sur la page des paniers composés pour lui permettre de re-composer un nouveau panier la semaine suivante!
         </p>
-        <h4 class="text-center">Membres du panier composés :</h4>
+        <h4 class="text-center noMargin">Membres du panier composés :</h4>
             <div class="MembersComp">
                     {% for member in members1 %}
                         <div class="metadata">
@@ -33,14 +33,15 @@
     </div>
 
     <div class="memberList2">
-    <p>
-        Afin d'avoir un contrôle sur le réglement des paniers collectés lors de l'inscription des membres,</br>
-        le nombre de paniers est définit par défaut à 0 pour vous permettre de recevoir le réglement puis,</br>
-        à reception ou encaissement, de définir le nombre de paniers à 44 unités en cliquant sur le bouton </br>
-        "Initialiser le nombre de paniers !".Cela validera son inscription et lancera son abonnement!</br>
+    <p class="borderMemberList">
+        Afin d'avoir un contrôle sur le réglement des paniers collectés lors de l'inscription des membres,
+        le nombre de paniers est définit par défaut à 0 pour vous permettre de recevoir le réglement puis,
+        à reception ou encaissement, de définir le nombre de paniers à 44 unités en cliquant sur le bouton
+        "Initialiser le nombre de paniers !".Cela validera son inscription et lancera son abonnement!
         Après chaque livraison, vous pourrez diminuer de 1 le nombre de paniers restant sur la page des paniers collectés !
+        </br>
     </p>
-        <h4 class="text-center">Membres du panier collectés :</h4>
+        <h4 class="text-center noMargin">Membres du panier collectés :</h4>
             <div class="MembersColl">
                     {% for member in members2 %}
                         <div class="metadata">

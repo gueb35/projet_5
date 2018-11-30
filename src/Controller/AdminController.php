@@ -19,17 +19,51 @@ use App\Entity\ProdOfWeek;
 
 class AdminController extends AbstractController
 {
+    // public function __construct()
+    // {
+    //     $this->session = new Session();
+    //     dump($this->session->has('adminId'));//retourne false
+    //     $attrExist = $this->session->has('adminId');
+    //     dump($attrExist);//retourne false
+    //     if($attrExist == false){
+    //         return $this->redirectToRoute('users_inscription');
+    //     }else{
+    //         $this->adminId = $this->session->get('adminId');
+    //     }
+    //     dump($this->adminId);
+    // }
+
     /**
-     * @Route("/admin/{id}", name="home_admin")
+     * @Route("/deconnectAdmin", name="deconnect_admin")
      */
-    public function homeAdmin($id = null)
+    public function deconnectAdmin()
     {
-        return $this->render('admin/homeAdmin.html.twig',[
-            'id' => $id
-        ]);
+        $this->session->clear();
+        return $this->redirectToRoute('visitor_home');
     }
 
     /**
+     * fonction qui affiche la page d'accueil de la partie admin
+     * 
+     * @Route("/admin", name="home_admin")
+     */
+    public function homeAdmin()
+    {
+        return $this->render('admin/homeAdmin.html.twig');
+    }
+
+    /**
+     * fonction permettant d'actualiser la quantité de produits dans les produits de la semaine
+     * 
+     * @param object $ProdOfWeek
+     * objet représentant les produits de la semaine
+     * @param object $ProdOfWeek2
+     * objet représentant les produits de la semaine
+     * @param object $manager
+     * parameter converter pour manipuler des données
+     * @param int $id
+     * identifiant du produit
+     * 
      * @Route("/deleteProd/{id}", name="delete_prod")
      */
     public function deleteProduct(ProdOfWeek $ProdOfWeek =null, ProdOfWeek $ProdOfWeek2 =null, ObjectManager $manager, $id=null)
@@ -42,64 +76,67 @@ class AdminController extends AbstractController
     }
 
     /**
+     * fonction pour définir les produits de la semaine
+     * 
+     * @param object $ProdOfWeek
+     * objet représentant les produits de la semaine
+     * @param object $ProdOfWeek2
+     * objet représentant les produits de la semaine
+     * @param repository $repo
+     * parameter converter pour parler avec la table prodOfWeek
+     * @param object $request
+     * @param object $manager
+     * parameter converter pour manipuler des données
+     * @param int $id
+     * identifiant du produit
+     * 
      * @Route("/prodOfWeek/{id}", name="product_of_the_week")
      * @Route("/prodOfWeek/new", name="product_of_the_weeks")
      */
     public function formProdOfWeek(ProdOfWeek $ProdOfWeek =null, ProdOfWeek $ProdOfWeek2 =null, ProdOfWeekRepository $repo, Request $request, ObjectManager $manager, $id)
     {
-        $prodOfWeekComp = $repo->prodByUnity();//permet de récupérer tous les produits du champ proByUnity
-        $prodOfWeekColl = $repo->prodByKg();//permet de récupérer tous les produits du champ proByKg
+        $prodsOfWeek = $repo->findAll('nameProd');//permet de récupérer tous les produits du champ nameProd
 /********************************** formbyunity**************************************/
         if(!$ProdOfWeek){//si le produit n'existe pas
             $ProdOfWeek = new ProdOfWeek();//crée un nouvel objet
         }
         
-        $formProdOfWeekUnity1 = $this->createFormBuilder($ProdOfWeek)
-            ->add('prodByUnity',TextType::class)
-            ->add('quantityProdUnity',IntegerType::class)
+        $formProdOfWeek= $this->createFormBuilder($ProdOfWeek)
+            ->add('nameProd',TextType::class)
+            ->add('quantity',IntegerType::class)
+            ->add('saleType' ,TextType::class)
             ->getForm();
-        $formProdOfWeekUnity1->handleRequest($request);
-        if($formProdOfWeekUnity1->isSubmitted() && $formProdOfWeekUnity1->isValid()) {
+        $formProdOfWeek->handleRequest($request);
+        if($formProdOfWeek->isSubmitted() && $formProdOfWeek->isValid()) {
             $manager->persist($ProdOfWeek);
             $manager->flush();
 
             return $this->redirectToRoute('product_of_the_week', ['id' => $ProdOfWeek->getId()]);
         }
-/********************************** formbykg**************************************/
-        if(!$ProdOfWeek2){//si le produit n'existe pas
-            $ProdOfWeek2 = new ProdOfWeek();//crée un nouvel objet
-        }
-        
-        $formProdOfWeekByKg1 = $this->createFormBuilder($ProdOfWeek2)
-            ->add('prodByKg',TextType::class)
-            ->add('quantityProdKg',IntegerType::class)
-            ->getForm();
-        $formProdOfWeekByKg1->handleRequest($request);
-        if($formProdOfWeekByKg1->isSubmitted() && $formProdOfWeekByKg1->isValid()) {
-            $manager->persist($ProdOfWeek2);
-            $manager->flush();
-
-            return $this->redirectToRoute('product_of_the_week', ['id' => $ProdOfWeek2->getId()]);
-        }
         return $this->render('admin/prodWeek.html.twig', [
 
             'id' => $id,
-            'formProdOfWeekUnity1' => $formProdOfWeekUnity1->createView(),
-            'formProdOfWeekByKg1' => $formProdOfWeekByKg1->createView(),
-            'prodOfWeekComp' => $prodOfWeekComp,
-            'prodOfWeekColl' => $prodOfWeekColl
+            'formProdOfWeek' => $formProdOfWeek->createView(),
+            'prodsOfWeek' => $prodsOfWeek,
         ]);
     }
 
     /**
+     * fonction qui initialise le nombre de panier collectés restant dû(validation du compte)
+     * 
+     * @param repository $repoM
+     * parameter converter pour parler avec la table members
+     * @param object $manager
+     * parameter converter pour manipuler des données
+     * @param int $id
+     * identifiant du membre
+     * 
      * @Route("/initialize/{id}", name="initialize_number_basket_rest")
      */
     public function initializeNumberBasketRest(MembersRepository $repoM, ObjectManager $manager, $id)
     {
         $memberId = $repoM->find($id);
-        dump($memberId);
         $newQuantityBasketRest = $memberId->getNumberBasketRest();//récupère le nombre de panier
-        dump($newQuantityBasketRest);
         $newQuantity = $memberId->setNumberBasketRest('44');//permet de déduire la quantité de produits ds la table des produits de la semaine
         $manager->persist($newQuantity);
         $manager->flush();
@@ -108,9 +145,14 @@ class AdminController extends AbstractController
     }
 
     /**
+     * fonction qui affiche la liste des membres
+     * 
+     * @param repository $repoM
+     * parameter converter pour parler avec la table members
+     * 
      * @Route("/membersList", name="members_list")
      */
-    public function membersList(MembersRepository $repoM, $id = null)
+    public function membersList(MembersRepository $repoM)
     {
         $membersComp = $repoM->findBy(
             array('basketType' => 'composés')
@@ -127,10 +169,25 @@ class AdminController extends AbstractController
     /**
      * fonction permettant de vider la table des produits des paniers composés
      * 
+     * @param repository $repoM
+     * parameter converter pour parler avec la table members
+     * @param object $manager
+     * parameter converter pour manipuler des données
+     * @param repository $repoC
+     * parameter converter pour parler avec la table prodBaskComp
+     * 
      * @Route("/deleteAllBask", name="delete_all_bask")
      */
-    public function deleteAllBask(ObjectManager $manager, ProdBaskCompRepository $repoC)
+    public function deleteAllBask(MembersRepository $repoM, ObjectManager $manager, ProdBaskCompRepository $repoC)
     {
+        //re-définit le nombre de paniers restants à 0 pour tous les membres
+        $definedAllBaskRest = $repoM->findBy(
+            array('basketType' => 'composés')
+        );
+        foreach($definedAllBaskRest as $newQuantityBAskRest){
+            $newQuantity = $newQuantityBAskRest->setNumberBasketRest('0');
+        }
+
         //permet de vider la table des produits du panier composés lors de la fermeture du lieu de vente
         $prodBask = $repoC->findAll();
 
@@ -142,14 +199,31 @@ class AdminController extends AbstractController
     }
 
     /**
+     * fonction qui efface le panier composés d'un membre après sa remise au membre
+     * 
+     * @param repository $repoM
+     * parameter converter pour parler avec la table members
+     * @param object $manager
+     * parameter converter pour manipuler des données
+     * @param repository $repoC
+     * parameter converter pour parler avec la table prodBaskComp
+     * @param int $id
+     * identifiant du membre
+     * 
      * @Route("/deleteBaskMember/{id}", name="delete_bask_member")
      */
-    public function deleteBaskMember(ObjectManager $manager, ProdBaskCompRepository $repoC, $id)
+    public function deleteBaskMember(MembersRepository $repoM, ObjectManager $manager, ProdBaskCompRepository $repoC, $id)
     {
+        /*re-définit le nombre de paniers restant pour un membre*/
+        $member = $repoM->find($id);
+        $newQuantity = $member->setNumberBasketRest('0');//permet de déduire la quantité de produits ds la table des produits de la semaine
+        $manager->persist($newQuantity);
+        $manager->flush();
+
+        /*supprime le panier correspondant au membre*/
         $prodsBAskCompOfMember = $repoC->findBy(
             array('member_id' => $id)
         );
-        dump($prodsBAskCompOfMember);
         foreach($prodsBAskCompOfMember as $delete){
             $manager->remove($delete);
             $manager->flush();
@@ -158,9 +232,16 @@ class AdminController extends AbstractController
     }
 
     /**
+     * fonction qui affiche la liste des membres du panier composés
+     * 
+     * @param repository $repoM
+     * parameter converter pour parler avec la table members
+     * @param repository $repoC
+     * parameter converter pour parler avec la table prodBaskComp
+     * 
      * @Route("/basketComp", name="basket_compouned_list")
      */
-    public function showBaskCompList(MembersRepository $repoM, ProdBaskCompRepository $repoC, $id = null)
+    public function showBaskCompList(MembersRepository $repoM, ProdBaskCompRepository $repoC)
     {
         $baskComps = $repoM->findBy(//récupère toutes les entrées
             array('basketType' => 'composés')//correspondant à "composés" ds le champ "basketType"
@@ -172,7 +253,6 @@ class AdminController extends AbstractController
         $prodBaskMember = $repoC->findAll();
         
         return $this->render('admin/basketComp.html.twig', [
-            'id' => $id,
             'baskComps' => $baskComps,//renvoie les infos des membres ds un tableau bouclé à l'affichage 
             'prodBaskMember' => $prodBaskMember
 
@@ -180,15 +260,23 @@ class AdminController extends AbstractController
     }
 
     /**
+     * fonction qui définit le nombre de paniers composés restant dû
+     * 
+     * @param repository $repoM
+     * parameter converter pour parler avec la table members
+     * @param repository $repoC
+     * parameter converter pour parler avec la table prodBaskComp
+     * @param object $manager
+     * parameter converter pour manipuler des données
+     * @param int $id
+     * identifiant du membre
+     * 
      *@Route("/numberBasketRest/{id}", name="defined_number_basket_rest") 
      */
     public function definedNumberBasketRest(MembersRepository $repoM, ProdBaskCompRepository $repoC, ObjectManager $manager, $id)
     {
         $memberId = $repoM->find($id);
-        dump($id);
-        dump($memberId);
         $newQuantityBasketRest = $memberId->getNumberBasketRest();//récupère le nombre de panier
-        dump($newQuantityBasketRest);
         $newQuantity = $memberId->setNumberBasketRest($newQuantityBasketRest + '-1');//permet de déduire la quantité de produits ds la table des produits de la semaine
         $manager->persist($newQuantity);
         $manager->flush();
@@ -197,6 +285,13 @@ class AdminController extends AbstractController
     }
     
     /**
+     * fonction qui affiche la liste des membres du panier collectés
+     * 
+     * @param repository $repoM
+     * parameter converter pour parler avec la table members
+     * @param int $id
+     * identifiant du membre
+     * 
      * @Route("/basketColl/{id}", name="basket_collected")
      */
     public function showBaskCollList(MembersRepository $repoM, $id = null)

@@ -12,7 +12,7 @@
                     <div class="collapse navbar-collapse" id="navbarColor02">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('users_home') }}">Accueil du site</a>
+                            <a class="nav-link" href="{{ path('visitor_home') }}">Accueil du site</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('home_admin') }}">Accueil de votre espace d'administration</a>
@@ -30,7 +30,7 @@
                             <a class="nav-link" href="{{ path('basket_collected') }}">Paniers collectés</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Déconnexion</a>
+                            <a class="nav-link" href="{{ path('deconnect_admin') }}">Déconnexion</a>
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
@@ -41,7 +41,7 @@
                 </nav>
     </head>
     <body>
-        <div class="container-fluid">
+        <div class="container">
             {% block body %}
 
             {% endblock %}

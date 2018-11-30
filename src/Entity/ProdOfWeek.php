@@ -17,74 +17,57 @@ class ProdOfWeek
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $prodByUnity;
+    private $nameProd;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
-    private $quantityProdUnity;
+    private $quantity;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=6)
      */
-    private $prodByKg;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $quantityProdKg;
+    private $saleType;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getProdByUnity(): ?string
+    public function getNameProd(): ?string
     {
-        return $this->prodByUnity;
+        return $this->nameProd;
     }
 
-    public function setProdByUnity(?string $prodByUnity): self
+    public function setNameProd(string $nameProd): self
     {
-        $this->prodByUnity = $prodByUnity;
+        $this->nameProd = $nameProd;
 
         return $this;
     }
 
-    public function getQuantityProdUnity(): ?int
+    public function getQuantity(): ?int
     {
-        return $this->quantityProdUnity;
+        return $this->quantity;
     }
 
-    public function setQuantityProdUnity(?int $quantityProdUnity): self
+    public function setQuantity(int $quantity): self
     {
-        $this->quantityProdUnity = $quantityProdUnity;
+        $this->quantity = $quantity;
 
         return $this;
     }
 
-    public function getProdByKg(): ?string
+    public function getSaleType(): ?string
     {
-        return $this->prodByKg;
+        return $this->saleType;
     }
 
-    public function setProdByKg(?string $prodByKg): self
+    public function setSaleType(string $saleType): self
     {
-        $this->prodByKg = $prodByKg;
-
-        return $this;
-    }
-
-    public function getQuantityProdKg(): ?int
-    {
-        return $this->quantityProdKg;
-    }
-
-    public function setQuantityProdKg(?int $quantityProdKg): self
-    {
-        $this->quantityProdKg = $quantityProdKg;
+        $this->saleType = $saleType;
 
         return $this;
     }

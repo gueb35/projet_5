@@ -14,32 +14,37 @@ use App\Entity\Members;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 
-class UsersController extends AbstractController
+class VisitorController extends AbstractController
 {
     /**
-     * @Route("/", name="users_home")
+     * @Route("/", name="visitor_home")
      */
     public function homeUsers()
     {
-        return $this->render('users/homeUsers.html.twig');
+        return $this->render('visitors/homeVisitor.html.twig');
     }
 
     /**
-     * @Route("/presentation", name="users_presentation")
+     * @Route("/presentation", name="visitor_presentation")
      */
     public function presentation()
     {
-        return $this->render('users/presentationUsers.html.twig');
+        return $this->render('visitors/presentationVisitor.html.twig');
     }
 
     /**
-     * @Route("/inscription", name="users_inscription")
+     * fonction qui permet de s'inscrire aux paniers composés
+     * 
+     * @param object $request
+     * @param object $manager
+     * parameter converter permettant de manipuler des données
+     * 
+     * @Route("/inscriptionBaskComp", name="inscription_bask_comp")
      */
-    public function inscription(Request $request, ObjectManager $manager)
+    public function inscriptionBaskComp(Request $request, ObjectManager $manager)
     {
         $member = new Members();
 
-        /*paniers composés*/
         $formOne = $this->createFormBuilder($member)
             ->add('name',TextType::class)
             ->add('firstName',TextType::class)
@@ -68,6 +73,23 @@ class UsersController extends AbstractController
             return $this->redirectToRoute('my_compte');
 
         }
+        return $this->render('visitors/inscriptionVisitorBaskComp.html.twig', [
+            'formOne' => $formOne->createView()
+        ]);
+    }
+
+    /**
+     * fonction qui permet de s'inscrire aux paniers collectés
+     * 
+     * @param object $request
+     * @param object $manager
+     * parameter converter permettant de manipuler des données
+     * 
+     * @Route("/inscriptionBaskColl", name="inscription_bask_coll")
+     */
+    public function inscriptionBaskColl(Request $request, ObjectManager $manager)
+    {
+        $member = new Members();
 
         /*paniers collectés*/
         $formTwo = $this->createFormBuilder($member)
@@ -89,44 +111,17 @@ class UsersController extends AbstractController
 
             $manager->persist($member);
             $manager->flush();
+
+            //version symfony
+            $session = new Session();
+            $memberId = $member->getId();
+            $session->set('memberId', $memberId);
             
             return $this->redirectToRoute('my_compte');
         }
 
-        return $this->render('users/inscriptionUsers.html.twig', [
-            'formOne' => $formOne->createView(),
+        return $this->render('visitors/inscriptionVisitorBaskColl.html.twig', [
             'formTwo' => $formTwo->createView()
-        ]);
-    }
-    
-    /**
-     * @Route("/administrator", name="users_administrator")
-     */
-    public function administratorAccess(Request $request, ObjectManager $manager)
-    {
-        $member = new Members();
-
-        $formFour = $this->createFormBuilder($member)
-            ->add('pseudo')
-            ->add('password')
-            ->getForm();
-
-        $formFour->handleRequest($request);
-
-        if($formFour->isSubmitted() && $formFour->isValid()) {
-            // $member->setbaskettype("composés");
-            // $member->setnumberBasketRest(0);
-            // $member->setdayOfWeek("mardi");
-            // $member->setCreatedAt(new \DateTime());
-
-            // $manager->persist($member);
-            // $manager->flush();
-
-            return $this->redirectToRoute('my_compte');
-
-        }
-        return $this->render('users/administratorUsers.html.twig', [
-            'formFour' => $formFour->createView()
         ]);
     }
 }

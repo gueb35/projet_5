@@ -4,8 +4,8 @@
 
 {% block body %}
 <p class="text-center">
-        <h1>Bienvenue sur la page représentant la liste des paniers collectés à préparer !</h1>
-    </p>
+    <h1>Bienvenue sur la page représentant la liste des paniers collectés à préparer !</h1>
+</p>
     <section class="listBaskComp">
 
         <div class="baskColl">
@@ -16,17 +16,6 @@
                         <a href="{{ path('defined_number_basket_rest',{'id':day.id})}}"><button type="submit" class="btn btn-success">redéfinir le nombre de paniers restant !</button></a>
                     </div>
                 {% endfor %}
-        </div>
-
-        <div class="baskColl">
-            <h2>Paniers collectés du <strong>mardi</strong> à récupérés <strong>chez nous</strong> de 16h à 18h30:</h2>
-                {% for day in day2 %}
-                    <div class="metadata">
-                        {{day.numberBasketRest}} panier pour : Mr/Mme {{day.name}} {{day.firstName}}
-                        <a href="{{ path('defined_number_basket_rest',{'id':day.id})}}"><button type="submit" class="btn btn-success">redéfinir le nombre de paniers restant !</button></a>
-                    </div>
-                {% endfor %}
-        
         </div>
 
         <div class="baskColl">
@@ -58,5 +47,5 @@
                     </div>
                 {% endfor %}
         </div>
-        </section>
+    </section>
 {% endblock %}

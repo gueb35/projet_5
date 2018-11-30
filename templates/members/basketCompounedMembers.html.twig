@@ -6,37 +6,22 @@
 <h1 class="text-center">Bienvenue {{memberCount.firstName}} {{ memberCount.name }} sur la page vous permettant de composer vous même votre panier !</h1>
 <p>
     Afin de composer vous-même votre panier, cliquez sur le bouton "Mettre ce produit dans votre panier !"</br>
-    Afin de proposer à tous une grande variété de produits, merci de ne prendre qu'un exemplaire par produit.</br>
-    Si vous désirez en prendre plusieurs, vous le pourrez sur place!</br>
     Le prix sera bien évidement en fonction de ce que vous prendrez et sera à régler sur place !</br>
-    Et n'oubliez pas de valider votre panier grâce au bouton "Valider votre panier !"</br>
+    <span class="strong">N'oubliez pas de valider votre panier grâce au bouton "Valider votre panier" sinon votre panier ne sera pas préparé !</span></br>
+    <span class="strong">Dans le cas ou vous commencez à composer un panier et que vous ne désirez plus récupérer ce panier, merci de le vider !</span></br>
     Alors, faites-vous plaisir !!!
 </p>
 
 <div class="formListInscr">
     <div class="formInscription">
         <h3 class="text-center">Voici la liste des produits de la semaine :</h3>
-        <h4 class="text-center">Produits à l'unité :</h4>
+        <h4 class="text-center downTitle">Produits :</h4>
             <section class="prodList">
-                {% for prodUnity in prodByUnity %}
+                {% for prods in prod %}
                     <div class="metadata">
                         <p>
-                            Produit no {{ prodUnity.id }} : {{prodUnity.quantityProdUnity}} {{prodUnity.prodByUnity}}
-                            <a href="{{ path('basket_comp',{'name':prodUnity.prodByUnity})}}"><button type="submit" class="btn btn-success">Mettre ce produit dans votre panier !</button></a></br>
-                        </p>
-                    </div>
-                    <div class="sepMemList"></div>
-                {% endfor %}
-            
-            </section>
-            
-            <h4 class="text-center">Produits au kilo :</h4>
-            <section class="prodList">
-                {% for prodKg in prodByKg %}
-                    <div class="metadata">
-                        <p>
-                            Produit no {{ prodKg.id }} : {{ prodKg.quantityProdKg }}kg de {{ prodKg.ProdByKg }}
-                            <a href="{{ path('basket_comp',{'name':prodKg.ProdByKg})}}"><button type="submit" class="btn btn-success">Mettre ce produit dans votre panier !</button></a></br>
+                            {{prods.quantity}} {{prods.saleType}} {{prods.nameProd}}
+                            <a href="{{ path('basket_comp',{'name':prods.nameProd})}}"><button type="submit" class="btn btn-success">Mettre ce produit dans votre panier !</button></a></br>
                         </p>
                     </div>
                     <div class="sepMemList"></div>

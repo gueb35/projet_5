@@ -1,0 +1,35 @@
+{% extends 'baseVisitor.html.twig' %}
+
+{% form_theme formOne 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Page d'inscription !{% endblock %}
+
+{% block body %}
+<h1 class="text-center">Bienvenue sur la page d'inscription aux paniers composés !</h1>
+<p>Vous désirez composer votre panier vous-même !</br>
+Inscrivez-vous grâce au formulaire ci-dessous :</br>
+
+    <h4 class="text-center">Formulaire d'inscription au panier composé :</h4>
+    <div class="basketComp">
+        1/ Chaque semaine, nous vous offrons la possibilité de composer vous-même votre panier en fonction des fruits et légumes de saisons .</br>
+        Le panier est à retirer le mardi de 16h à 18h30 directement à la ferme .Le montant du panier sera en fonction de ce que vous prendrez.</br>
+        Les réservations se déroule sur ce site du mercredi au mardi matin à 12h.</br>
+        Pour vous inscrire, devenez membre en remplissant le formulaire ci-dessous .</br>
+        Une fois le formulaire rempli, cliquez sur "M'inscrire", cela vous aménera sur la page de composition de votre panier.</br>
+        Pour une prochaine composition de panier, rendez-vous directement dans votre espace membre!
+        </p>
+        {{ form_start(formOne) }}
+
+        {{ form_widget(formOne.name, {'attr' : {'placeholder': "Votre nom"}}) }}
+        {{ form_widget(formOne.firstName, {'attr' : {'placeholder': "Votre prénom"}}) }}
+        {{ form_widget(formOne.email, {'attr' : {'placeholder': "Votre email"}}) }}
+        {{ form_widget(formOne.town, {'attr' : {'placeholder': "votre lieu de résidence"}}) }}
+        {{ form_widget(formOne.pseudo, {'attr' : {'placeholder': "Votre pseudo (retenez le bien !)"}}) }}
+        {{ form_widget(formOne.password, {'attr' : {'placeholder': "Votre mot de passe (retenez le bien également !)"}}) }}
+
+        <button type="submit" class="btn btn-success">M'inscrire</button>
+
+        {{form_end(formOne)}}
+    </div>
+
+{% endblock %}
