@@ -17,6 +17,11 @@ body{
     background-color:gray;
     border-radius: 10px;
 }
+footer{
+    position: absolute;
+    bottom: 0;
+}
+/*************espace users***************/
 .btn{
     padding: 0;
 }
@@ -24,10 +29,9 @@ p{
     margin: 0;
 }
 footer{
-    position: absolute;
-    bottom: 0;
+    margin-top: 120px;
 }
-/*************espace users***************/
+/*************espace visitor***************/
 /*page de présentation*/
 #titlePresentation{
     width: 75%;
@@ -110,6 +114,28 @@ h5{
     margin: auto;
 }
 /*page inscription*/
+.basketComp{
+    border: 2px solid black;
+    border-radius: 5px;
+    opacity: 0.9;
+    padding: 15px;
+}
+.basketColl{
+    border: 2px solid black;
+    border-radius: 5px;
+    opacity: 0.9;
+    padding: 15px;
+    margin-top: 15px;
+}
+/************espace members***************/
+/*page accountMembers.html.twig*/
+
+/*************espace admin****************/
+/*membersList*/
+.sepMemList{
+    height: 3px;
+    width: 500px;
+}
 .basketComp , .basketColl{
     border: 4px solid black;
     border-radius: 0 0 5px 5px;
@@ -126,19 +152,33 @@ h5{
 .listBasketComp{
     margin-top: 0;
 }
+.strong{
+    color: red;
+}
+.downTitle
+{
+    margin-top: 48px;
+}
 
 /*************espace admin****************/
 /*membersList*/
+.borderMemberList{
+    border: 4px solid black;
+    border-radius: 2px;
+    padding: 10px;
+}
+.noMargin{
+    margin-top: 0;
+}
 .sepMemList{
     height: 3px;
-    width: 500px;
+    width: 100%;
     left: 0;
     background-color: black;
     border-radius: 5px;
 }
 .MembersList{
     display: flex;
-    justify-content: space-around;
 }
 .MembersComp , .MembersColl{
     border: 4px solid black;
@@ -152,10 +192,24 @@ h5{
 .baskColl{
     border: 2px solid black;
 }
-/*prodWeek*/
-.textProdOfWeek{
-    margin-left: 70px;
+/*basketComp*/
+.listBaskComp{
+    width: 50%;
+    margin: auto;
 }
+.titleAndFormComp{
+    border: 4px solid black;
+    border-radius: 0 0 5px 5px;
+}
+.pCenter{
+    width: 50%;
+    margin: auto;
+}
+/*basketColl*/
+.baskColl{
+    border: 2px solid black;
+}
+/*prodWeek*/
 .formAndLists{
     display: flex;
     justify-content: space-around;
@@ -165,17 +219,14 @@ h5{
     position: fixed;
     bottom: 0;
 }
-.formUnity , .formKg{
-    border: 2px solid black;
-    border-radius: 0 0 5px 5px;
-}
 .form{
-    border: 2px solid black;
+    border: 4px solid black;
+    border-radius: 0 0 5px 5px;
     padding: 15px;
 }
 .listsProd{
-    margin-top: 45px;
-    margin-left: 50px;
+    margin-top: 67px;
+    margin-left: 175px;
     width: 40%;
 }
 .refProd{
@@ -184,4 +235,45 @@ h5{
 .prodList{
     border: 4px solid black;
     border-radius: 0 0 5px 5px;
+}
+.sepProdList{
+    height: 3px;
+    width: 100%;
+    left: 0;
+    background-color: black;
+}
+/* ***************version pc*****************
+@media all and (min-width: 1025px){
+    body{
+        
+    }
+}  */
+/****************version ipad pro******************/
+@media all and (min-width: 1024px) and (max-width: 1224px){
+    .titleAndForms
+    {
+        width: 82%;
+    }
+    .listsProd
+    {
+        margin-left: 0;
+        width: 100%;
+    }
+    .titleAndForm
+    {
+        position: fixed;
+        top: 463px;
+    }
+    .formInscription
+    {
+        margin-left: 2px;
+    }
+} 
+/***********version ipad******************/
+@media all and (min-width: 768px) and (max-width: 1024px){
+
+}
+/***********version smartphone**************/
+@media all and (max-width: 480px){
+
 }
