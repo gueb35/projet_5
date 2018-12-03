@@ -1,34 +1,30 @@
 security:
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
-        # App\Entity\Admin:
-        #     algorithm: bcrypt
-        #     cost: 12
-
-    role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        App\Entity\Members:
+            algorithm: bcrypt
 
     providers:
-        # app_user_provider:
-        #     entity:
-        #         class: App\Entity\Admin
-        #         property: username
-        in_memory:
-            memory:
-                users:
-                    user:  { password: user, roles: [ 'ROLE_USER' ] }
-                    admin: { password: admin, roles: [ 'ROLE_ADMIN' ] }
+        in_memory: { memory: ~ }
+        in_database_members:
+            entity:
+                class: App\Entity\Members
+                property: email
 
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: ~
-            # guard:
-            #     authenticators:
-                    # - App\Security\AdminFormAuthenticator
+            anonymous: true
 
+            provider: in_database_members
+
+            form_login:
+                login_path: security_login_members
+                check_path: security_login_members
+
+            logout: 
+                path: security_deconnect_member
+                target: visitor_home
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

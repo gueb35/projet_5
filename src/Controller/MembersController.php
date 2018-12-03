@@ -49,16 +49,6 @@ class MembersController extends AbstractController
     //     return $this->session->has('memberId');
     // }
 
-    /**
-     * fonction permettant la déconnexion à l'espace membre puis la re-direction sur la page d'acceuil du site
-     * 
-     * @Route("/deconnectMember", name="deconnect_member")
-     */
-    public function deconnectMember()
-    {
-        $this->session->clear();
-        return $this->redirectToRoute('visitor_home');
-    }
 
     /**
      * fonction pour accéder à la page du compte du membre

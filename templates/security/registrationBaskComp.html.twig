@@ -11,7 +11,7 @@ Inscrivez-vous grâce au formulaire ci-dessous :</br>
 
     <h4 class="text-center">Formulaire d'inscription au panier composé :</h4>
     <div class="basketComp">
-        1/ Chaque semaine, nous vous offrons la possibilité de composer vous-même votre panier en fonction des fruits et légumes de saisons .</br>
+        Chaque semaine, nous vous offrons la possibilité de composer vous-même votre panier en fonction des fruits et légumes de saisons .</br>
         Le panier est à retirer le mardi de 16h à 18h30 directement à la ferme .Le montant du panier sera en fonction de ce que vous prendrez.</br>
         Les réservations se déroule sur ce site du mercredi au mardi matin à 12h.</br>
         Pour vous inscrire, devenez membre en remplissant le formulaire ci-dessous .</br>
@@ -22,10 +22,14 @@ Inscrivez-vous grâce au formulaire ci-dessous :</br>
 
         {{ form_widget(formOne.name, {'attr' : {'placeholder': "Votre nom"}}) }}
         {{ form_widget(formOne.firstName, {'attr' : {'placeholder': "Votre prénom"}}) }}
+        {{form_errors(formOne.email)}}
         {{ form_widget(formOne.email, {'attr' : {'placeholder': "Votre email"}}) }}
         {{ form_widget(formOne.town, {'attr' : {'placeholder': "votre lieu de résidence"}}) }}
-        {{ form_widget(formOne.pseudo, {'attr' : {'placeholder': "Votre pseudo (retenez le bien !)"}}) }}
+        {{ form_widget(formOne.username, {'attr' : {'placeholder': "Votre nom d'utilisateur (retenez le bien !)"}}) }}
+        {{form_errors(formOne.password)}} 
         {{ form_widget(formOne.password, {'attr' : {'placeholder': "Votre mot de passe (retenez le bien également !)"}}) }}
+        {{form_errors(formOne.confirm_password)}}
+        {{ form_widget(formOne.confirm_password, {'attr' : {'placeholder': "Confirmez votre mot de passe"}}) }}
 
         <button type="submit" class="btn btn-success">M'inscrire</button>
 

@@ -33,14 +33,6 @@ class AdminController extends AbstractController
     //     dump($this->adminId);
     // }
 
-    /**
-     * @Route("/deconnectAdmin", name="deconnect_admin")
-     */
-    public function deconnectAdmin()
-    {
-        $this->session->clear();
-        return $this->redirectToRoute('visitor_home');
-    }
 
     /**
      * fonction qui affiche la page d'accueil de la partie admin

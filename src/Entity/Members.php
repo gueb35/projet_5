@@ -3,11 +3,18 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MembersRepository")
+ * @UniqueEntity(
+ *  fields= {"email"},
+ *  message= "L'email que vous avez indiqué est déjà utilisé !"
+ * )
  */
-class Members
+class Members implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -28,6 +35,7 @@ class Members
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
      */
     private $email;
 
@@ -54,12 +62,18 @@ class Members
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $pseudo;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimum 8 caractères")
      */
     private $password;
+
+    /**
+     * @Assert\EqualTo(propertyPath="password", message="Votre mot de passe et la confirmation de votre mot de passe doivent être identiques")
+     */
+    public $confirm_password;
 
     /**
      * @ORM\Column(type="datetime")
@@ -155,14 +169,14 @@ class Members
         return $this;
     }
 
-    public function getPseudo(): ?string
+    public function getUsername(): ?string
     {
-        return $this->pseudo;
+        return $this->username;
     }
 
-    public function setPseudo(string $pseudo): self
+    public function setUsername(string $username): self
     {
-        $this->pseudo = $pseudo;
+        $this->username = $username;
 
         return $this;
     }
@@ -189,5 +203,13 @@ class Members
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    public function eraseCredentials(){}
+
+    public function getSalt(){}
+
+    public function getRoles(){
+        return['ROLE_USER'];
     }
 }
