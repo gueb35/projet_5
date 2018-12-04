@@ -16,40 +16,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class MembersController extends AbstractController
 {
-
-    public function __construct()
-    {
-        $this->session = new Session();
-        // dump($this->session->has('memberId'));//retourne false
-        // $attrExist = $this->session->has('memberId');
-        // dump($attrExist);//retourne false
-        // if($attrExist == false){
-        //     dump($attrExist);
-        //     return $this->redirectToRoute('users_inscription');
-        // }else{
-            $this->memberId = $this->session->get('memberId');
-        // }
-
-
-        // $this->session = new Session();
-        // dump($this->session->has('memberId'));//retourne false
-        // if($this->session->has('memberId') == false){
-        //     return $this->redirectToRoute('users_home');
-        // }else{
-        //     $this->memberId = $this->session->get('memberId');
-        // }
-        // dump($this->memberId);
-    }
-
-    /**
-     * fonction permettant de vérifier l'accès aux pages de l'espace membre
-     */
-    // private function checkAccess()
-    // {
-    //     return $this->session->has('memberId');
-    // }
-
-
     /**
      * fonction pour accéder à la page du compte du membre
      * 
@@ -59,15 +25,9 @@ class MembersController extends AbstractController
      * @Route("/members", name="my_compte")
      */
     public function showListProdOfWeek(MembersRepository $repoM)
-    {      
-        // if($this->checkAccess() == false){
-        //     return $this->redirectToRoute('users_inscription');
-        // }
-        // dump($this->checkAccess());
-        $memberCount = $repoM->find($this->memberId);//permet de récupérer les infos du membre identifier par l'id
+    {
         return $this->render('members/accountMembers.html.twig', [
-            'id' => $this->memberId,
-            'memberCount' => $memberCount
+            'user' => $this->getUser()
         ]);
     }
 
@@ -91,7 +51,7 @@ class MembersController extends AbstractController
             $manager->flush(); 
         }
 
-        $newNumberBaskRest = $repoM->find($this->memberId);
+        $newNumberBaskRest = $repoM->find($this->getUser()->getId());
         $newNumberBaskRest = $newNumberBaskRest->setnumberBasketRest('1');
         $manager->persist($newNumberBaskRest);
         $manager->flush();
@@ -158,13 +118,7 @@ class MembersController extends AbstractController
      */
     public function basket_compouned(MembersRepository $repoM, ProdBaskComp $ProdBaskComp = null, ProdOfWeekRepository $repo, ProdBaskCompRepository $repoC, ObjectManager $manager, $name = null)
     {
-        // if($this->checkAccess() == false){
-        //     return $this->redirectToRoute('users_inscription');
-        // }
-
-        $memberCount = $repoM->find($this->memberId);//permet de récupérer les infos du membre identifier par l'id pour afficher un bonjour perso
-
-        $memberId = $this->memberId;
+        $member = $this->getUser();
         $nameProd = $name;
 
         /*récupère l'entrée corresp au nom du produit $nameProd*/
@@ -177,7 +131,7 @@ class MembersController extends AbstractController
             $saleType = $quantity->getSaleType();
             $idProdUnity = $quantity->getId();//récupère l'identifiant
         }
-        //vérifie si le produit insérer ds la panier est au poids ou à l'unité
+        
         if(!empty($prodExist)){//vérifie si ce produit n'existe pas(est null), si il n'existe pas c'est que c'est un produit au kilo
             if($newQuantityProd == '0'){
                 $nameProd = null;
@@ -191,7 +145,7 @@ class MembersController extends AbstractController
         /*insère un produit ds la table des paniers composés en relation avec l'id du membre*/
         if($nameProd){//si un nom de produit est présent ds l'url
             $prodsOfMember = $repoC->findBy(//récupère tous les prod correspondant à l'id du membre
-                array('member_id' => $memberId)
+                array('member_id' => $member)
             );
             foreach($prodsOfMember as $memberIdProd){
                 $prodExist = $memberIdProd->getNameProd();//récupère les noms de prod ds le tableau
@@ -208,7 +162,7 @@ class MembersController extends AbstractController
             }
 
             $ProdBaskComp = new ProdBaskComp();
-            $ProdBaskComp->setMemberId($this->memberId);
+            $ProdBaskComp->setMemberId($member->getId());
             $ProdBaskComp->setNameProd($name);
             $ProdBaskComp->setKgOrUntity($saleType);
             $ProdBaskComp->setQuantityProd('1');
@@ -216,21 +170,18 @@ class MembersController extends AbstractController
             $manager->persist($ProdBaskComp);
             $manager->flush();
         }
-        /***/
         
         //va chercher ds le champ member_id de la table des paniers composés
         //toutes les entrées correspondant au numéro du membre
-        $basketMember = $repoC->findBy(
-            array('member_id' => $memberId)
-        );
+        $basketMember = $repoC->findBy(array('member_id' => $member));
 
-        $prod = $repo->findAll('nameProd');//permet de récupérer tous les produits du champ nameprod pour afficher la liste
+        //permet de récupérer tous les produits du champ nameprod pour afficher la liste
+        $prod = $repo->findAll('nameProd');
 
         return $this->render('members/basketCompounedMembers.html.twig', [
-            'id' => $this->memberId,
-            'basketMember' => $basketMember,//en lien avec la ligne 49
-            'prod' => $prod,//en lien à la ligne 38
-            'memberCount' => $memberCount
+            'member' => $member,
+            'basketMember' => $basketMember,//en lien avec la ligne 216
+            'prod' => $prod//en lien à la ligne 219
         ]);
     }
 }

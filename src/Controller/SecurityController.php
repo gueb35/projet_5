@@ -12,7 +12,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class SecurityController extends AbstractController
@@ -40,11 +39,6 @@ class SecurityController extends AbstractController
 
             $manager->persist($member);
             $manager->flush();
-
-            //version symfony
-            $session = new Session();
-            $memberId = $member->getId();
-            $session->set('memberId', $memberId);
 
             return $this->redirectToRoute('security_login_members');
             }
@@ -76,11 +70,6 @@ class SecurityController extends AbstractController
             $manager->persist($member);
             $manager->flush();
 
-            //version symfony
-            $session = new Session();
-            $memberId = $member->getId();
-            $session->set('memberId', $memberId);
-
             return $this->redirectToRoute('security_login_members');
             }
 
@@ -95,12 +84,6 @@ class SecurityController extends AbstractController
      * @Route("/connexionMembres", name="security_login_members")
      */
     public function loginMember(MembersRepository $repoM){
-        // $session = new Session();
-        // dump($session);
-        // $memberId = $member->getId();
-        // dump($memberId);
-        // $session->set('memberId', $memberId);
-
         return $this->render('security/loginMembers.html.twig');
     }
 

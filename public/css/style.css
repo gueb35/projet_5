@@ -37,7 +37,7 @@ footer{
     width: 30%;
 }
 /*page de présentation*/
-#titlePresentation{
+#titles{
     width: 75%;
     margin: auto;
 }
@@ -119,17 +119,16 @@ h5{
 }
 /*page inscription*/
 .basketComp{
-    border: 2px solid black;
-    border-radius: 5px;
+    border: 4px solid black;
+    border-radius: 0 0 5px 5px;
     opacity: 0.9;
     padding: 15px;
 }
 .basketColl{
-    border: 2px solid black;
-    border-radius: 5px;
+    border: 4px solid black;
+    border-radius: 0 0 5px 5px;
     opacity: 0.9;
     padding: 15px;
-    margin-top: 15px;
 }
 /************espace members***************/
 /*page accountMembers.html.twig*/
@@ -277,12 +276,115 @@ h5{
     {
         margin-left: 2px;
     }
+
+    /*partie visitor*/
+    /*page presentationvisitor.html.twig*/
+    .titlePresentation{
+        margin-top: 200px;
+    }
+    #slideshow{
+        margin-top: 100px;
+    }
+    #titles{
+        margin-top: 195px;
+    }
+    /*page registrationBaskComp.html.twig*/
+    .titleBaskComp{
+        margin-top: 200px;
+    }
+    .titleAndBaskComp{
+        margin-top: 70px;
+    }
+    /*page registrationBaskColl.html.twig*/
+    .titleAndBaskColl{
+        margin-top: 70px;
+    }
+    /*page loginMembers.html.twig*/
+    .loginMember{
+        margin-top: 300px;
+    }
+    .formLoginMember{
+        margin-top: 50px;
+    }
+
+    /*partie member*/
+    /*page accountMembers.html.twig*/
+    .accountMember{
+        margin-top: 150px;
+    }
+    .infoMember{
+        margin-top: 50px;
+    }
+    /*page basketCompounedMembers.html.twig*/
+    .viewForCompBask{
+        margin-top: 150px;
+    }
+    .viewPForCompBask{
+        margin-top: 50px;
+    }
+    .formListInscr{
+        margin-top: 50px;
+    }
 } 
 /***********version ipad******************/
 @media all and (min-width: 768px) and (max-width: 1024px){
+    /*partie visitor*/
+    /*page presentationvisitor.html.twig*/
+    .titlePresentation{
+        margin-top: 200px;
+    }
+    #slideshow{
+        margin-top: 100px;
+    }
+    #titlePresentation{
+        margin-top: 195px;
+    }
+    /*page registrationBaskComp.html.twig*/
+    .titleBaskComp{
+        margin-top: 126px;
+    }
+    .titleAndBaskComp{
+        margin-top: 70px;
+    }
+    /*page registrationBaskColl.html.twig*/
+    .titleAndBaskColl{
+        margin-top: 70px;
+    }
+    /*page loginMembers.html.twig*/
+    .loginMember{
+        margin-top: 300px;
+    }
+    .formLoginMember{
+        margin-top: 50px;
+    }
 
+    /*partie member*/
+    /*page accountMembers.html.twig*/
+    .accountMember{
+        margin-top: 150px;
+    }
+    .infoMember{
+        margin-top: 50px;
+    }
+    /*page basketCompounedMembers.html.twig*/
+    .viewPForCompBask{
+        margin-top: 50px;
+    }
+    .formListInscr{
+        margin-top: 50px;
+    }
 }
 /***********version smartphone**************/
 @media all and (max-width: 480px){
-
+    /*partie member*/
+    /*page basketCompounedMembers.html.twig*/
+    .viewForCompBask{
+        margin-top: 150px;
+    }
+    .viewPForCompBask{
+        margin-top: 50px;
+    }
+    .formListInscr{
+        margin-top: 50px;
+    }
 }

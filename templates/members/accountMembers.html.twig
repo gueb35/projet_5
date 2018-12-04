@@ -4,16 +4,19 @@
 
 {% block body %}
 
-<h1 class="text-center">Voici les informations relatives à votre compte :</h1>
-    <section>
-            <h5>Bienvenue Mr/Mme {{ memberCount.name }} {{memberCount.firstName}}!</h5>
-            <div class="metadata">
-                <p>
-                    Vous vous êtes inscrit(e) aux paniers {{ memberCount.baskettype}} le {{ memberCount.createdAt | date('d/m/Y')}} à {{memberCount.createdAt | date('H:i')}}.</br>
-                    Le lieu de ramassage de votre panier se situe sur la commune du {{memberCount.dayOfWeek}} et votre nombre de paniers restant est de {{memberCount.numberBasketRest}} !</br>
-                    Vous résidez à {{ memberCount.town}} et votre email est : {{ memberCount.email}} .
-                </p>
-            </div>
-    </section>
-
+<div class="accountMember">
+    <h1 class="text-center">Voici les informations relatives à votre compte :</h1>
+    <div class="infoMember">
+        <section>
+                <h5 class="text-center">Bienvenue Mr/Mme {{ user.name }} {{user.firstName}}!</h5>
+                <div class="metadata">
+                    <p>
+                        Vous vous êtes inscrit(e) aux paniers {{ user.baskettype}} le {{ user.createdAt | date('d/m/Y')}} à {{user.createdAt | date('H:i')}}.</br>
+                        Le lieu de ramassage de votre panier se situe sur la commune du {{user.dayOfWeek}} et votre nombre de paniers restant est de {{user.numberBasketRest}} !</br>
+                        Vous résidez à {{ user.town}} et votre email est : {{ user.email}} .
+                    </p>
+                </div>
+        </section>
+    </div>
+</div>
 {% endblock %}

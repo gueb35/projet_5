@@ -22,6 +22,7 @@ security:
             form_login:
                 login_path: security_login_members
                 check_path: security_login_members
+                default_target_path: my_compte
 
             logout: 
                 path: security_deconnect_member

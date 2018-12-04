@@ -3,54 +3,56 @@
 {% block title %}Composition de votre panier !{% endblock %}
 
 {% block body %}
-<h1 class="text-center">Bienvenue {{memberCount.firstName}} {{ memberCount.name }} sur la page vous permettant de composer vous même votre panier !</h1>
-<p>
-    Afin de composer vous-même votre panier, cliquez sur le bouton "Mettre ce produit dans votre panier !"</br>
-    Le prix sera bien évidement en fonction de ce que vous prendrez et sera à régler sur place !</br>
-    <span class="strong">N'oubliez pas de valider votre panier grâce au bouton "Valider votre panier" sinon votre panier ne sera pas préparé !</span></br>
-    <span class="strong">Dans le cas ou vous commencez à composer un panier et que vous ne désirez plus récupérer ce panier, merci de le vider !</span></br>
-    Alors, faites-vous plaisir !!!
-</p>
+<div class="viewForCompBask">
+    <h1 class="text-center">Bienvenue {{member.firstName}} {{ member.name }} sur la page vous permettant de composer vous même votre panier !</h1>
+    <p class="viewPForCompBask">
+        Afin de composer vous-même votre panier, cliquez sur le bouton "Mettre ce produit dans votre panier !"</br>
+        Le prix sera bien évidement en fonction de ce que vous prendrez et sera à régler sur place !</br>
+        <span class="strong">N'oubliez pas de valider votre panier grâce au bouton "Valider votre panier" sinon votre panier ne sera pas préparé !</span></br>
+        <span class="strong">Dans le cas ou vous commencez à composer un panier et que vous ne désirez plus récupérer ce panier, merci de le vider !</span></br>
+        Alors, faites-vous plaisir !!!
+    </p>
 
-<div class="formListInscr">
-    <div class="formInscription">
-        <h3 class="text-center">Voici la liste des produits de la semaine :</h3>
-        <h4 class="text-center downTitle">Produits :</h4>
-            <section class="prodList">
-                {% for prods in prod %}
-                    <div class="metadata">
-                        <p>
-                            {{prods.quantity}} {{prods.saleType}} {{prods.nameProd}}
-                            <a href="{{ path('basket_comp',{'name':prods.nameProd})}}"><button type="submit" class="btn btn-success">Mettre ce produit dans votre panier !</button></a></br>
-                        </p>
-                    </div>
-                    <div class="sepMemList"></div>
-                {% endfor %}
-            
-            </section>
-    </div>
-
-    <div class="listBasketComp">
-        <h3 class="text-center">Voici la liste des produits de votre panier :</h3>
-        <div class="text-center">
-        <a href="{{ path('validate_bask')}}"><button type="submit" class="btn btn-success">Valider votre panier !</button></a>   
+    <div class="formListInscr">
+        <div class="formInscription">
+            <h3 class="text-center">Voici la liste des produits de la semaine :</h3>
+            <h4 class="text-center downTitle">Produits :</h4>
+                <section class="prodList">
+                    {% for prods in prod %}
+                        <div class="metadata">
+                            <p>
+                                {{prods.quantity}} {{prods.saleType}} {{prods.nameProd}}
+                                <a href="{{ path('basket_comp',{'name':prods.nameProd})}}"><button type="submit" class="btn btn-success">Mettre ce produit dans votre panier !</button></a></br>
+                            </p>
+                        </div>
+                        <div class="sepMemList"></div>
+                    {% endfor %}
+                
+                </section>
         </div>
-        <h4 class="text-center">Votre panier :</h4>
-            <section class="prodList">
-                {% for basketOfMember in basketMember %}
-                    <div class="metadata">
-                        <p>
-                                <strong class="refProd">{{ basketOfMember.quantityProd }} {{ basketOfMember.kgOrUntity }} de {{ basketOfMember.nameProd }}</strong>
-                                <a href="{{ path('delete_prod_bask_comp',{'id':basketOfMember.id,'name':basketOfMember.nameProd })}}"><button type="submit" class="btn btn-success">Supprimer ce produit du panier !</button></a>
-                        </p>
-                    </div>
-                    <div class="sepMemList"></div>
-                {% endfor %}
-            
-            </section>
+
+        <div class="listBasketComp">
+            <h3 class="text-center">Voici la liste des produits de votre panier :</h3>
             <div class="text-center">
             <a href="{{ path('validate_bask')}}"><button type="submit" class="btn btn-success">Valider votre panier !</button></a>   
             </div>
+            <h4 class="text-center">Votre panier :</h4>
+                <section class="prodList">
+                    {% for basketOfMember in basketMember %}
+                        <div class="metadata">
+                            <p>
+                                    <strong class="refProd">{{ basketOfMember.quantityProd }} {{ basketOfMember.kgOrUntity }} de {{ basketOfMember.nameProd }}</strong>
+                                    <a href="{{ path('delete_prod_bask_comp',{'id':basketOfMember.id,'name':basketOfMember.nameProd })}}"><button type="submit" class="btn btn-success">Supprimer ce produit du panier !</button></a>
+                            </p>
+                        </div>
+                        <div class="sepMemList"></div>
+                    {% endfor %}
+                
+                </section>
+                <div class="text-center">
+                <a href="{{ path('validate_bask')}}"><button type="submit" class="btn btn-success">Valider votre panier !</button></a>   
+                </div>
+        </div>
     </div>
 </div>
 {% endblock %}
