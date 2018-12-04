@@ -4,11 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Members;
 use App\Repository\MembersRepository;
-use App\Form\RegistrationBaskCollType;
 
+use App\Form\RegistrationBaskCollType;
 use App\Form\RegistrationBaskCompType;
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -18,9 +18,18 @@ class SecurityController extends AbstractController
 {
 
     /**
+     * fonction qui affiche le formulaire d'inscription au panier composés
+     * 
+     * @param object $request
+     * @param object $manager
+     * parameter converter pour manipuler des données
+     * @param interface
+     * permet d'encoder les mots de passe
+     * 
      * @Route("/inscriptionBaskComp", name="security_registration_bask_comp")
      */
-    public function registrationBaskComp(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder){
+    public function registrationBaskComp(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    {
         $member = new Members();
 
         $form = $this->createForm(RegistrationBaskCompType::class, $member);
@@ -49,9 +58,18 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * fonction qui affiche le formulaire d'inscription au panier collectés 
+     * 
+     * @param object $request
+     * @param object $manager
+     * parameter converter pour manipuler des données
+     * @param interface
+     * permet d'encoder les mots de passe
+     * 
      * @Route("/inscriptionBaskColl", name="security_registration_bask_coll")
      */
-    public function registrationBaskColl(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder){
+    public function registrationBaskColl(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    {
         $member = new Members();
 
         $form = $this->createForm(RegistrationBaskCollType::class, $member);
@@ -83,17 +101,14 @@ class SecurityController extends AbstractController
      * 
      * @Route("/connexionMembres", name="security_login_members")
      */
-    public function loginMember(MembersRepository $repoM){
+    public function loginMember(){
         return $this->render('security/loginMembers.html.twig');
     }
 
     /**
-     * fonction permettant la déconnexion à l'espace membre puis la re-direction sur la page d'acceuil du site
+     * fonction permettant la déconnexion à l'espace membre puis la re-direction sur la page d'accueil du site
      * 
      * @Route("/deconnexion", name="security_deconnect_member")
      */
-    public function deconnectMember()
-    {
-        $this->session->clear();
-    }
+    public function deconnectMember(){}
 }

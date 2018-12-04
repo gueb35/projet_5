@@ -12,10 +12,21 @@ use App\Repository\MembersRepository;
 use App\Entity\Members;
 use App\Entity\ProdOfWeek;
 use App\Entity\ProdBaskComp;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 class MembersController extends AbstractController
 {
+    // public function checkAccess()
+    // {
+    //     dump($this->getUser());
+    //     if($this->getUser()){
+    //         dump($this->getUser());
+    //         return;
+    //     }else{
+    //         dump($this->getUser());
+    //         return $this->redirectToRoute('visitor_home');            
+    //     }
+    // }
+
     /**
      * fonction pour accéder à la page du compte du membre
      * 
@@ -26,13 +37,15 @@ class MembersController extends AbstractController
      */
     public function showListProdOfWeek(MembersRepository $repoM)
     {
+        // dump($this->getUser());
+        // $this->checkAccess();
         return $this->render('members/accountMembers.html.twig', [
             'user' => $this->getUser()
         ]);
     }
 
     /**
-     * fonction permmettant de valider le panier en initialisant le nombre de panier restant à 1
+     * fonction permettant de valider le panier en initialisant le nombre de panier restant à 1
      * 
      * @param repository $repo
      * parameter converter pour parler avec la table prodOfWeek
@@ -122,17 +135,15 @@ class MembersController extends AbstractController
         $nameProd = $name;
 
         /*récupère l'entrée corresp au nom du produit $nameProd*/
-        $prodExist = $repo->findBy(//récupère ds le champ nameProd de la table des produits celui
-            // dont le nom correspond au nom du produit $nameProd
-            array('nameProd' => $nameProd)//($nameProd) afin de vérifier si c'est un produit au kilo ou à l'unité
-        );
+        $prodExist = $repo->findBy(array('nameProd' => $nameProd));//($nameProd) afin de vérifier si c'est un produit au kilo ou à l'unité
+
         foreach($prodExist as $quantity){
             $newQuantityProd = $quantity->getQuantity();//récupère le nombre de produit
             $saleType = $quantity->getSaleType();
             $idProdUnity = $quantity->getId();//récupère l'identifiant
         }
         
-        if(!empty($prodExist)){//vérifie si ce produit n'existe pas(est null), si il n'existe pas c'est que c'est un produit au kilo
+        if(!empty($prodExist)){//vérifie si le tableau est vide
             if($newQuantityProd == '0'){
                 $nameProd = null;
             }else{

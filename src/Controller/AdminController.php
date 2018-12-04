@@ -19,21 +19,6 @@ use App\Entity\ProdOfWeek;
 
 class AdminController extends AbstractController
 {
-    // public function __construct()
-    // {
-    //     $this->session = new Session();
-    //     dump($this->session->has('adminId'));//retourne false
-    //     $attrExist = $this->session->has('adminId');
-    //     dump($attrExist);//retourne false
-    //     if($attrExist == false){
-    //         return $this->redirectToRoute('users_inscription');
-    //     }else{
-    //         $this->adminId = $this->session->get('adminId');
-    //     }
-    //     dump($this->adminId);
-    // }
-
-
     /**
      * fonction qui affiche la page d'accueil de la partie admin
      * 
@@ -49,8 +34,6 @@ class AdminController extends AbstractController
      * 
      * @param object $ProdOfWeek
      * objet représentant les produits de la semaine
-     * @param object $ProdOfWeek2
-     * objet représentant les produits de la semaine
      * @param object $manager
      * parameter converter pour manipuler des données
      * @param int $id
@@ -58,10 +41,9 @@ class AdminController extends AbstractController
      * 
      * @Route("/deleteProd/{id}", name="delete_prod")
      */
-    public function deleteProduct(ProdOfWeek $ProdOfWeek =null, ProdOfWeek $ProdOfWeek2 =null, ObjectManager $manager, $id=null)
+    public function deleteProduct(ProdOfWeek $ProdOfWeek =null, ObjectManager $manager, $id=null)
     {
         $manager->remove($ProdOfWeek);
-        $manager->remove($ProdOfWeek2);
         $manager->flush();
 
         return $this->redirectToRoute('product_of_the_weeks',['id' => $id]);
@@ -71,8 +53,6 @@ class AdminController extends AbstractController
      * fonction pour définir les produits de la semaine
      * 
      * @param object $ProdOfWeek
-     * objet représentant les produits de la semaine
-     * @param object $ProdOfWeek2
      * objet représentant les produits de la semaine
      * @param repository $repo
      * parameter converter pour parler avec la table prodOfWeek
@@ -85,10 +65,10 @@ class AdminController extends AbstractController
      * @Route("/prodOfWeek/{id}", name="product_of_the_week")
      * @Route("/prodOfWeek/new", name="product_of_the_weeks")
      */
-    public function formProdOfWeek(ProdOfWeek $ProdOfWeek =null, ProdOfWeek $ProdOfWeek2 =null, ProdOfWeekRepository $repo, Request $request, ObjectManager $manager, $id)
+    public function formProdOfWeek(ProdOfWeek $ProdOfWeek =null, ProdOfWeekRepository $repo, Request $request, ObjectManager $manager, $id)
     {
         $prodsOfWeek = $repo->findAll('nameProd');//permet de récupérer tous les produits du champ nameProd
-/********************************** formbyunity**************************************/
+
         if(!$ProdOfWeek){//si le produit n'existe pas
             $ProdOfWeek = new ProdOfWeek();//crée un nouvel objet
         }
