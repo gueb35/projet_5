@@ -2,13 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Admin;
 use App\Entity\Members;
-use App\Repository\MembersRepository;
 
+use App\Form\RegistrationAdminType;
+use App\Repository\MembersRepository;
 use App\Form\RegistrationBaskCollType;
 use App\Form\RegistrationBaskCompType;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -108,7 +110,49 @@ class SecurityController extends AbstractController
     /**
      * fonction permettant la déconnexion à l'espace membre puis la re-direction sur la page d'accueil du site
      * 
-     * @Route("/deconnexion", name="security_deconnect_member")
+     * @Route("/deconnexionMembres", name="security_deconnect_member")
      */
     public function deconnectMember(){}
+
+    /**
+     * @Route("/inscriptionAdmin", name="security_registration_admin")
+     */
+    public function registrationAdmin(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder){
+
+        $admin = new Admin();
+        
+        $form = $this->createForm(RegistrationAdminType::class, $admin);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $hash = $encoder->encodePassword($admin, $admin->getPassword());
+
+            $admin->setPassword($hash);
+            $manager->persist($admin);
+            $manager->flush();
+
+            return $this->redirectToRoute('security_login_admin');
+        }
+
+        return $this->render('security/registrationAdmin.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * fonction qui permet d'afficher le formulaire d'authentification de l'administrateur
+     * 
+     * @Route("/connexionAdmin", name="security_login_admin")
+     */
+    public function loginAdmin(){
+        return $this->render('security/loginAdmin.html.twig');
+    }
+
+    /**
+     * fonction permettant la déconnexion à l'espace d'administration puis la re-direction sur la page d'accueil du site
+     * 
+     * @Route("/deconnexionAdmin", name="security_deconnect_admin")
+     */
+    public function deconnectAdmin(){}
 }

@@ -13,6 +13,7 @@ use App\Entity\Members;
 use App\Entity\ProdOfWeek;
 use App\Entity\ProdBaskComp;
 
+/**  @Route("/members") */
 class MembersController extends AbstractController
 {
     // public function checkAccess()
@@ -33,7 +34,7 @@ class MembersController extends AbstractController
      * @param repository $repoM
      * parameter converter pour parler avec la table members
      * 
-     * @Route("/members", name="my_compte")
+     * @Route("/", name="my_compte")
      */
     public function showListProdOfWeek(MembersRepository $repoM)
     {
@@ -127,7 +128,7 @@ class MembersController extends AbstractController
      * nom du produit à enlever du panier
      * 
      * @Route("/basket_compouned", name="basket_compouned")//appel via le lien du menu
-     * @Route("/basket_compouned/{name}", name="basket_comp")//appel lors de la compositon du panier
+     * @Route("/{name}", name="basket_comp")//appel lors de la compositon du panier
      */
     public function basket_compouned(MembersRepository $repoM, ProdBaskComp $ProdBaskComp = null, ProdOfWeekRepository $repo, ProdBaskCompRepository $repoC, ObjectManager $manager, $name = null)
     {

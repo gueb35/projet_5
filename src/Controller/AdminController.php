@@ -17,12 +17,13 @@ use App\Entity\Members;
 use App\Entity\ProdBaskComp;
 use App\Entity\ProdOfWeek;
 
+/**  @Route("/admin") */
 class AdminController extends AbstractController
 {
     /**
      * fonction qui affiche la page d'accueil de la partie admin
      * 
-     * @Route("/admin", name="home_admin")
+     * @Route("/", name="home_admin")
      */
     public function homeAdmin()
     {
@@ -63,9 +64,9 @@ class AdminController extends AbstractController
      * identifiant du produit
      * 
      * @Route("/prodOfWeek/{id}", name="product_of_the_week")
-     * @Route("/prodOfWeek/new", name="product_of_the_weeks")
+     * @Route("/new", name="product_of_the_weeks")
      */
-    public function formProdOfWeek(ProdOfWeek $ProdOfWeek =null, ProdOfWeekRepository $repo, Request $request, ObjectManager $manager, $id)
+    public function formProdOfWeek(ProdOfWeek $ProdOfWeek =null, ProdOfWeekRepository $repo, Request $request, ObjectManager $manager, $id=null)
     {
         $prodsOfWeek = $repo->findAll('nameProd');//permet de récupérer tous les produits du champ nameProd
 

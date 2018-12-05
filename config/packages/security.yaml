@@ -2,6 +2,8 @@ security:
     encoders:
         App\Entity\Members:
             algorithm: bcrypt
+        App\Entity\Admin:
+            algorithm: bcrypt
 
     providers:
         in_memory: { memory: ~ }
@@ -9,12 +11,20 @@ security:
             entity:
                 class: App\Entity\Members
                 property: email
+        in_database_admin:
+            entity:
+                class: App\Entity\Admin
+                property: email
 
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
+        # main:
+        #     pattern: ^/
+        #     anonymous: true
+        members:
+            pattern:  ^/(connexionMembres|deconnexionMembres|members)
             anonymous: true
 
             provider: in_database_members
@@ -26,6 +36,21 @@ security:
 
             logout: 
                 path: security_deconnect_member
+                target: visitor_home
+
+        admin:
+            pattern:  ^/(connexionAdmin|deconnexionAdmin|admin)
+            anonymous: true
+
+            provider: in_database_admin
+
+            form_login: 
+                login_path: security_login_admin
+                check_path: security_login_admin
+                default_target_path: home_admin
+
+            logout:
+                path: security_deconnect_admin
                 target: visitor_home
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
