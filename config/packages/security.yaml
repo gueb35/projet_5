@@ -20,9 +20,9 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        # main:
-        #     pattern: ^/
-        #     anonymous: true
+        visitor:
+            pattern: ^/(home|presentation|inscriptionBaskColl|inscriptionBaskComp)
+            anonymous: true
         members:
             pattern:  ^/(connexionMembres|deconnexionMembres|members)
             anonymous: true

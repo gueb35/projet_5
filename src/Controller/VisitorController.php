@@ -5,11 +5,10 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 class VisitorController extends AbstractController
 {
     /**
-     * @Route("/", name="visitor_home")
+     * @Route("/home", name="visitor_home")
      */
     public function homeUsers()
     {
