@@ -54,3 +54,5 @@ security:
                 target: visitor_home
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/member, roles: ROLE_USER }
