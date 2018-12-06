@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
-use App\Repository\ProdOfWeekRepository;
-use App\Repository\ProdBaskCompRepository;
-use App\Repository\MembersRepository;
 use App\Entity\Members;
 use App\Entity\ProdOfWeek;
 use App\Entity\ProdBaskComp;
+use App\Repository\MembersRepository;
+use App\Repository\ProdOfWeekRepository;
+use App\Repository\ProdBaskCompRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**  @Route("/members") */
 class MembersController extends AbstractController
@@ -38,8 +39,6 @@ class MembersController extends AbstractController
      */
     public function showListProdOfWeek(MembersRepository $repoM)
     {
-        // dump($this->getUser());
-        // $this->checkAccess();
         return $this->render('members/accountMembers.html.twig', [
             'user' => $this->getUser()
         ]);

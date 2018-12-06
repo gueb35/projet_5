@@ -21,7 +21,7 @@ security:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
         visitor:
-            pattern: ^/(home|presentation|inscriptionBaskColl|inscriptionBaskComp)
+            pattern: ^/(presentation|inscriptionBaskColl|inscriptionBaskComp)
             anonymous: true
         members:
             pattern:  ^/(connexionMembres|deconnexionMembres|members)

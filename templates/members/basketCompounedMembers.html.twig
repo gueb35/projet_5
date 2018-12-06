@@ -6,7 +6,8 @@
 <div class="viewForCompBask">
     <h1 class="text-center">Bienvenue {{member.firstName}} {{ member.name }} sur la page vous permettant de composer vous même votre panier !</h1>
     <p class="viewPForCompBask">
-        Afin de composer vous-même votre panier, cliquez sur le bouton "Mettre ce produit dans votre panier !"</br>
+        Afin de composer vous-même votre panier, cliquez sur le produit dans les produits de la semaine pour le mettre dans votre panier</br>
+        De même, cliquez sur le produit dans votre panier pour l'enlever .</br> 
         Le prix sera bien évidement en fonction de ce que vous prendrez et sera à régler sur place !</br>
         <span class="strong">N'oubliez pas de valider votre panier grâce au bouton "Valider votre panier" sinon votre panier ne sera pas préparé !</span></br>
         <span class="strong">Dans le cas ou vous commencez à composer un panier et que vous ne désirez plus récupérer ce panier, merci de le vider !</span></br>
@@ -20,9 +21,8 @@
                 <section class="prodList">
                     {% for prods in prod %}
                         <div class="metadata">
-                            <p>
-                                {{prods.quantity}} {{prods.saleType}} {{prods.nameProd}}
-                                <a href="{{ path('basket_comp',{'name':prods.nameProd})}}"><button type="submit" class="btn btn-success">Mettre ce produit dans votre panier !</button></a></br>
+                            <p class="text-center">
+                                <a title="Mettre ce produit de votre panier !" style="text-decoration: none" href="{{ path('basket_comp',{'name':prods.nameProd})}}">{{prods.quantity}} {{prods.saleType}} {{prods.nameProd}}</a>
                             </p>
                         </div>
                         <div class="sepMemList"></div>
@@ -40,9 +40,8 @@
                 <section class="prodList">
                     {% for basketOfMember in basketMember %}
                         <div class="metadata">
-                            <p>
-                                    <strong class="refProd">{{ basketOfMember.quantityProd }} {{ basketOfMember.kgOrUntity }} de {{ basketOfMember.nameProd }}</strong>
-                                    <a href="{{ path('delete_prod_bask_comp',{'id':basketOfMember.id,'name':basketOfMember.nameProd })}}"><button type="submit" class="btn btn-success">Supprimer ce produit du panier !</button></a>
+                            <p class="text-center">
+                                <a title="Enlever ce produit de votre panier !" style="text-decoration: none" href="{{ path('delete_prod_bask_comp',{'id':basketOfMember.id,'name':basketOfMember.nameProd })}}"><strong class="refProd">{{ basketOfMember.quantityProd }} {{ basketOfMember.kgOrUntity }} de {{ basketOfMember.nameProd }}</strong></a>
                             </p>
                         </div>
                         <div class="sepMemList"></div>

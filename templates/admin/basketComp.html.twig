@@ -21,7 +21,7 @@
         <div class="titleAndFormComp">   
             <div class="sepMemList"></div>
             {% for baskComp in baskComps %}
-            <div class="metadata">
+            <div class="metadata text-center">
                 -{{baskComp.numberBasketRest}} panier pour : Mr/Mme {{baskComp.name}} {{baskComp.firstname}}, comprenant :</br>
                 {% for prods in prodBaskMember %}
                 {% if baskComp.id == prods.getMemberId() %}

@@ -10,30 +10,26 @@
                     <div class="logo"></div>
                 
                     <div class="collapse navbar-collapse" id="navbarColor02">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('visitor_home') }}">Accueil du site</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('my_compte') }}">Mon compte</a>
-                        </li>
-                        {% if app.user.basketType == 'composés' %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('basket_compouned') }}">Panier composé</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('security_deconnect_member') }}">Déconnexion</a>
-                        </li>
-                        {% else %}
-                        <li class="nav-item">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('visitor_home') }}">Accueil du site</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('my_compte') }}">Mon compte</a>
+                            </li>
+                            {% if app.user.basketType == 'composés' %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('basket_compouned') }}">Panier composé</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ path('security_deconnect_member') }}">Déconnexion</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Rechercher">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Rechercher</button>
-                    </form>
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('security_deconnect_member') }}">Déconnexion</a>
+                            </li>
+                            {% endif %}
+                        </ul>
                     </div>
                 </nav>
     </head>
