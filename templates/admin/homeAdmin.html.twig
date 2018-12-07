@@ -3,19 +3,21 @@
 {% block title %}Espace d'administration !{% endblock %}
 
 {% block body %}
-<p class="text-center">
-    <h1>Bienvenue sur votre espace d'administration.</h1>
-</p>
-<p>
-    Grâce à votre menu personnalisé, vous pouvez :
-</p>
-<p>
-    -<a class="linkAdmin" href="{{ path('product_of_the_weeks') }}">Définir les produits de la semaine</a>;</br>
-    -<a class="linkAdmin" href="{{ path('members_list') }}">Accéder à la liste de vos membres ainsi qu'aux informations les concernants</a>;</br>
-    -<a class="linkAdmin" href="{{ path('basket_compouned_list') }}">Voir la liste des paniers composés en vue de leurs préparations pour le mardi à venir</a>;</br>
-    -<a class="linkAdmin" href="{{ path('basket_collected') }}">Voir la liste des paniers collectés afin de préparer les tournées de livraison</a>.
-</p>
-<p class="safatyText">
-    N'oubliez pas de vous déconnecter une fois que vous n'avez plus besoin de votre espace d'administration!
-</p>
+<div class="homeAdmin">
+    <p class="text-center">
+        <h1>Bienvenue sur votre espace d'administration.</h1>
+    </p>
+    <p>
+        Grâce à votre menu personnalisé, vous pouvez :
+    </p>
+    <p>
+        -<a class="linkAdmin" href="{{ path('product_of_the_weeks') }}">Définir les produits de la semaine</a>;</br>
+        -<a class="linkAdmin" href="{{ path('members_list') }}">Accéder à la liste de vos membres ainsi qu'aux informations les concernants</a>;</br>
+        -<a class="linkAdmin" href="{{ path('basket_compouned_list') }}">Voir la liste des paniers composés en vue de leurs préparations pour le mardi à venir</a>;</br>
+        -<a class="linkAdmin" href="{{ path('basket_collected') }}">Voir la liste des paniers collectés afin de préparer les tournées de livraison</a>.
+    </p>
+    <p class="safatyText">
+        N'oubliez pas de vous déconnecter une fois que vous n'avez plus besoin de votre espace d'administration!
+    </p>
+</div>
 {% endblock %}

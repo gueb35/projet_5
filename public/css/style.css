@@ -21,6 +21,12 @@ body{
     background-color:gray;
     border-radius: 10px;
 }
+.underline{
+    width: 100%;
+    height: 4px;
+    border: 1px solid black;
+    background-color:  #555; 
+}
 .deco{
     position: relative;
     width: 100%;
@@ -209,7 +215,7 @@ h5{
 /*membersList*/
 .borderMemberList{
     border: 4px solid black;
-    border-radius: 2px;
+    border-radius: 0, 0, 2px, 2px;
     padding: 10px;
 }
 .noMargin{
@@ -291,17 +297,17 @@ h5{
     }
     .triangle
     {
-        border-left: 500px solid white;
-        border-right: 500px solid transparent;
+        border-left: 480px solid white;
+        border-right: 480px solid transparent;
     }
     footer{
         margin-left: 100px;
         margin-top: 192px !important;
     }
-    .titleAndForms
+    /* .titleAndForms
     {
         width: 82%;
-    }
+    } */
     .listsProd
     {
         margin-left: 0;
@@ -351,20 +357,37 @@ h5{
     /*partie member*/
     /*page accountMembers.html.twig*/
     .accountMember{
-        margin-top: 150px;
+        margin-top: 400px;
+        margin-bottom: 265px;
     }
     .infoMember{
         margin-top: 50px;
     }
     /*page basketCompounedMembers.html.twig*/
     .viewForCompBask{
-        margin-top: 150px;
+        margin-top: 160px;
     }
     .viewPForCompBask{
         margin-top: 50px;
     }
     .formListInscr{
         margin-top: 50px;
+    }
+    /*partie admin*/
+    /*page home admin*/
+    .homeAdmin{
+        margin-top: 400px;
+        margin-bottom: 340px;
+    }
+    /*page prodOfWeek*/
+    /**/
+    .titleAndForms{
+        width: 50%;
+        margin-right: 100px;
+    }
+    /**/
+    .listsProd{
+        width: 50%;
     }
 } 
 /***********version ipad******************/
@@ -375,9 +398,9 @@ h5{
     }
     .triangle
     {
-        border-left: 370px solid white;
+        border-left: 360px solid white;
         border-top: 42px solid transparent;
-        border-right: 370px solid transparent;
+        border-right: 360px solid transparent;
         border-bottom: 42px solid white;
     }
     footer{
@@ -418,31 +441,61 @@ h5{
     /*partie member*/
     /*page accountMembers.html.twig*/
     .accountMember{
-        margin-top: 150px;
+        margin-top: 350px;
+        margin-bottom: 255px;
     }
     .infoMember{
         margin-top: 50px;
     }
     /*page basketCompounedMembers.html.twig*/
     .viewPForCompBask{
-        margin-top: 50px;
+        margin-top: 65px;
     }
     .formListInscr{
         margin-top: 50px;
     }
+    /*partie admin*/
+    /*page home admin*/
+    .homeAdmin{
+        margin-top: 380px;
+        margin-bottom: 312px;
+    }
+    /*page prodOfWeek*/
+    .textProdOfWeek{
+        margin-top: 80px;
+    }
+    .formAndLists{
+        width: 100%;
+    }
+    /**/
+    .forms{
+        width: 40%;
+        left: 65px;
+    }
+    /**/
+    .listsProd{
+        margin-top: 122px;
+        margin-right: -40px;
+    }
 }
 /***********version smartphone**************/
 @media all and (max-width: 767px){
+    body{
+        width: 100%;
+    }
     /*partie visitor*/
     /*page home_visitor*/
+    .underline{
+        width: 60%;
+    }
     .rectangle{
-        width: 400px;
+        width: 100%;
     }
     .triangle
     {
-        border-left: 200px solid white;
+        border-left: 185px solid white;
         border-top: 35px solid transparent;
-        border-right: 200px solid transparent;
+        border-right: 185px solid transparent;
         border-bottom: 35px solid white;
     }
     footer{
@@ -462,6 +515,10 @@ h5{
         height: 150px;
     }
     /*partie member*/
+    /*page accountMembers.html.twig*/
+    .accountMember{
+        margin-top: 200px;
+    }
     /*page basketCompounedMembers.html.twig*/
     .viewForCompBask{
         margin-top: 150px;
@@ -471,5 +528,49 @@ h5{
     }
     .formListInscr{
         margin-top: 50px;
+    }
+    /*partie admin*/
+    /*page home admin*/
+    .homeAdmin{
+        margin-top: 200px;
+        margin-bottom: 150px;
+    }
+    /*page prodOfWeek*/
+    .formAndLists{
+        display: inline;
+    }
+    .forms{
+        position: initial;
+        display: initial;
+    }
+    .titleAndForm{
+        width: 100%;
+    }
+    .form{
+        padding: 5px;
+    }
+    .listsProd{
+        width: 100%;
+        margin-left: 0;
+    }
+    /*page memberList*/
+    .MembersList{
+        display: initial;
+    }
+    .memberList1{
+        margin-bottom: 30px;
+    }
+    .borderMemberList{
+        border: 4px solid black;
+        border-bottom: 0;
+        border-radius: 0, 0, 2px, 2px;
+        padding: 10px;
+    }
+    /*page baskComp*/
+    .pCenter{
+        width: 100%;
+    }
+    .listBaskComp{
+        width: 100%
     }
 }

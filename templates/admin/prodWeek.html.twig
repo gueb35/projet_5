@@ -5,7 +5,7 @@
 {% block title %}Produits de la semaine !{% endblock %}
 
 {% block body %}
-<h1 class="text-center">Définissez vos produits de la semaine.</h1>
+<h1 class="text-center titleProdOfWeek">Définissez vos produits de la semaine.</h1>
 <p class="textProdOfWeek">
     Afin de vous aider dans l'élaboration de votre liste de produits, cette liste est présente avec pour chaque produit, son nom et sa quantité.</br>
     Pour ce faire, 3 solutions :</br>
@@ -31,7 +31,9 @@
                         {{ form_widget(formProdOfWeek.quantity, {'attr' : {'placeholder': "Nombre d'unité du produit"}}) }}
                         {{ form_label(formProdOfWeek.saleType,'Type de vente') }}
                         {{ form_widget(formProdOfWeek.saleType, {'attr' : {'placeholder': "unité ou kg"}}) }}
-                        <button type="submit" class="btn btn-success" href="product_of_the_week/{id}">Enregistrer ce produit dans les produits de la semaine </button></br>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success" href="product_of_the_week/{id}">Enregistrer ce produit dans les produits de la semaine </button></br>
+                        </div>
                         {{form_end(formProdOfWeek)}}
                     </div>{#form#}
             </div>{#titleAndForm#}

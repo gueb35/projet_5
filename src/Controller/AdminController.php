@@ -205,6 +205,59 @@ class AdminController extends AbstractController
     }
 
     /**
+     * fonction qui vide les paniers non validé en récupérant les produits et leurs quantités pour les ré-insérer dans les produits de la semaine
+     * 
+     * @param repository $repoM
+     * parameter converter pour parler avec la table members
+     * @param repository $repoC
+     * parameter converter pour parler avec la table prodBaskComp
+     * @param repository $repo
+     * parameter converter pour parler avec la table prodOfWeek
+     * @param object $manager
+     * parameter converter pour manipuler des données
+     * 
+     * @Route("/dropNoValidateBasketComp", name="reinitialize_quantity_products")
+     */
+    public function dropNoValidateBasketComp(MembersRepository $repoM, ProdBaskCompRepository $repoC, ProdOfWeekRepository $repo, ObjectManager $manager){
+
+        /*permet de remettre les produits des paniers non validé ds les produits de la semaine*/
+        $memberBasketComp = $repoM->findBy(
+            array('basketType' => 'composés',
+                   'numberBasketRest' => '0')
+        );
+        dump($memberBasketComp);
+        foreach($memberBasketComp as $getId ){
+            $memberId = $getId->getId();//récupère l'id ds prodOfWeek
+            dump($memberId);
+            $catchProducts = $repoC->findBy(//cherche ds prodBaskComp le produit ayant pour correspondance member_id
+                array('member_id' => $memberId)
+            );
+            dump($catchProducts);
+            foreach($catchProducts as $catchNameAndIdProducts){
+                $nameProd = $catchNameAndIdProducts->getNameProd();
+                dump($nameProd);
+                $quantityProdBaskComp = $catchNameAndIdProducts->getQuantityProd();
+                dump($quantityProdBaskComp);
+                $findProd = $repo->findBy(
+                    array('nameProd' => $nameProd));
+                    dump($findProd);
+                foreach($findProd as $quantity){
+                    $quantityProd = $quantity->getQuantity();
+                dump($quantityProd);
+                $newQuantity = $quantity->setQuantity($quantityProd + $quantityProdBaskComp);
+                $manager->persist($newQuantity);
+                foreach($catchProducts as $entityCatchProducts){
+                    $manager->remove($entityCatchProducts);
+                }  
+                $manager->flush();
+                }    
+            }
+        }
+        /********/
+        return $this->redirectToRoute('basket_compouned_list');
+    }
+
+    /**
      * fonction qui affiche la liste des membres du panier composés
      * 
      * @param repository $repoM
