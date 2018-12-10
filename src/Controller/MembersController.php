@@ -17,18 +17,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**  @Route("/members") */
 class MembersController extends AbstractController
 {
-    // public function checkAccess()
-    // {
-    //     dump($this->getUser());
-    //     if($this->getUser()){
-    //         dump($this->getUser());
-    //         return;
-    //     }else{
-    //         dump($this->getUser());
-    //         return $this->redirectToRoute('visitor_home');            
-    //     }
-    // }
-
     /**
      * fonction pour accéder à la page du compte du membre
      * 
@@ -40,7 +28,6 @@ class MembersController extends AbstractController
     public function showListProdOfWeek(MembersRepository $repoM)
     {
         return $this->render('members/accountMembers.html.twig', [
-            'user' => $this->getUser()
         ]);
     }
 
@@ -190,7 +177,6 @@ class MembersController extends AbstractController
         $prod = $repo->findAll('nameProd');
 
         return $this->render('members/basketCompounedMembers.html.twig', [
-            'member' => $member,
             'basketMember' => $basketMember,//en lien avec la ligne 216
             'prod' => $prod//en lien à la ligne 219
         ]);

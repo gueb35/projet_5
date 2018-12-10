@@ -58,7 +58,7 @@ footer{
     margin-top: 202px !important;
     bottom: 0;
 }
-/*************espace users***************/
+/*************espace visitor***************/
 .btn{
     padding: 0;
 }
@@ -68,7 +68,6 @@ p{
 footer{
     margin-top: 120px;
 }
-/*************espace visitor***************/
 /*page d'accueil*/
 .homeTitle{
     width: 30%;
@@ -176,8 +175,27 @@ h5{
     margin-bottom: 339px;
 }
 /************espace members***************/
+/*baseMembers*/
+.basketNoValidated{
+    background-image: url("../images/basketNoValidated.png");
+    width: 50px;
+    height: 50px;
+}
+.basketValidated{
+    background-image: url("../images/basketValidated.png");
+    width: 50px;
+    height: 50px;
+}
 /*page accountMembers.html.twig*/
 /*basket_compouned*/
+.redX{
+    background-image: url("../images/redX.png");
+    width: 20px;
+    height: 20px;}
+.greenV{
+    background-image: url("../images/greenV.png");
+    width: 20px;
+    height: 20px;}
 .formListInscr{
     display: flex;
     justify-content: space-between;
@@ -202,16 +220,6 @@ h5{
 .baskColl{
     border: 2px solid black;
 }
-/* .sepMemList{
-    height: 3px;
-    width: 500px;
-}
-.basketComp , .basketColl{
-    border: 4px solid black;
-    border-radius: 0 0 5px 5px;
-    opacity: 0.9;
-    padding: 15px;
-} */
 /*membersList*/
 .borderMemberList{
     border: 4px solid black;
@@ -288,6 +296,10 @@ h5{
 
 /****************version ipad pro******************/
 @media all and (min-width: 1024px) and (max-width: 1366px){
+    body{
+        background-image: url("../images/image_body_ipad_pro.png");
+        margin-top: 120px;
+    }
     .titlehone{
         margin-top: 200px;
         margin-bottom: 50px;
@@ -304,10 +316,6 @@ h5{
         margin-left: 100px;
         margin-top: 192px !important;
     }
-    /* .titleAndForms
-    {
-        width: 82%;
-    } */
     .listsProd
     {
         margin-left: 0;
@@ -392,6 +400,10 @@ h5{
 } 
 /***********version ipad******************/
 @media all and (min-width: 768px) and (max-width: 1023px){
+    body{
+        background-image: url("../images/image_body_ipad.png");
+        margin-top: 120px;
+    }
     .rectangle{
         width: 100%;
         height: 80px;

@@ -8,12 +8,18 @@
     <h1 class="text-center">Voici les informations relatives à votre compte :</h1>
     <div class="infoMember">
         <section>
-                <h5 class="text-center">Bienvenue Mr/Mme {{ user.name }} {{user.firstName}}!</h5>
+                <h5 class="text-center">Bienvenue Mr/Mme {{ app.user.name }} {{ app.user.firstName }}!</h5>
                 <div class="metadata">
                     <p>
-                        Vous vous êtes inscrit(e) aux paniers {{ user.baskettype}} le {{ user.createdAt | date('d/m/Y')}} à {{user.createdAt | date('H:i')}}.</br>
-                        Le lieu de ramassage de votre panier se situe sur la commune du {{user.dayOfWeek}} et votre nombre de paniers restant est de {{user.numberBasketRest}} !</br>
-                        Vous résidez à {{ user.town}} et votre email est : {{ user.email}} .
+                        Vous vous êtes inscrit(e) aux paniers {{ app.user.baskettype}} le {{ app.user.createdAt | date('d/m/Y')}} à {{ app.user.createdAt | date('H:i')}}.</br>
+                        Le lieu de ramassage de votre panier se situe sur la commune du {{app.user.dayOfWeek}} et votre nombre de paniers restant est de {{ app.user.numberBasketRest}} !</br>
+                        Vous résidez à {{ app.user.town}} et votre email est : {{ app.user.email}} .</br>
+                        Lieux et jours de livraison :</br>
+                        Lundi : Chateaugiron;</br>
+                        Mardi : Nouvoitou (à la ferme)</br>
+                        Mercredi : Vern/seiche;</br>
+                        Jeudi : Amanlis;</br>
+                        Vendredi : Bourgbarré</br>
                     </p>
                 </div>
         </section>
