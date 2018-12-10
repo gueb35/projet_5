@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -10,9 +12,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MembersRepository")
  * @UniqueEntity(
- *  fields= {"email"},
- *  message= "L'email que vous avez indiqué est déjà utilisé !"
- * )
+ * fields= {"email"},
+ * message= "L'email que vous avez indiqué est déjà utilisé !")
  */
 class Members implements UserInterface
 {
@@ -35,7 +36,6 @@ class Members implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Email()
      */
     private $email;
 
@@ -79,6 +79,16 @@ class Members implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProdBaskComp", mappedBy="members")
+     */
+    private $prodBaskComps;
+
+    public function __construct()
+    {
+        $this->prodBaskComps = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -126,7 +136,7 @@ class Members implements UserInterface
         return $this->basketType;
     }
 
-    public function setBaskettype(string $basketType): self
+    public function setBasketType(string $basketType): self
     {
         $this->basketType = $basketType;
 
@@ -204,12 +214,42 @@ class Members implements UserInterface
 
         return $this;
     }
-
     public function eraseCredentials(){}
 
     public function getSalt(){}
 
     public function getRoles(){
-        return['ROLE_USER'];
+        return ['ROLE_USER'];
+    }
+
+    /**
+     * @return Collection|ProdBaskComp[]
+     */
+    public function getProdBaskComps(): Collection
+    {
+        return $this->prodBaskComps;
+    }
+
+    public function addProdBaskComp(ProdBaskComp $prodBaskComp): self
+    {
+        if (!$this->prodBaskComps->contains($prodBaskComp)) {
+            $this->prodBaskComps[] = $prodBaskComp;
+            $prodBaskComp->setMembers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProdBaskComp(ProdBaskComp $prodBaskComp): self
+    {
+        if ($this->prodBaskComps->contains($prodBaskComp)) {
+            $this->prodBaskComps->removeElement($prodBaskComp);
+            // set the owning side to null (unless already changed)
+            if ($prodBaskComp->getMembers() === $this) {
+                $prodBaskComp->setMembers(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -17,22 +17,23 @@ class ProdBaskComp
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Members", inversedBy="prodBaskComps")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $member_id;
+    private $members;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $nameProd;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $kgOrUntity;
+    private $kgOrUnity;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $quantityProd;
 
@@ -41,14 +42,14 @@ class ProdBaskComp
         return $this->id;
     }
 
-    public function getMemberId(): ?int
+    public function getMembers(): ?Members
     {
-        return $this->member_id;
+        return $this->members;
     }
 
-    public function setMemberId(?int $member_id): self
+    public function setMembers(?Members $members): self
     {
-        $this->member_id = $member_id;
+        $this->members = $members;
 
         return $this;
     }
@@ -58,21 +59,21 @@ class ProdBaskComp
         return $this->nameProd;
     }
 
-    public function setNameProd(?string $nameProd): self
+    public function setNameProd(string $nameProd): self
     {
         $this->nameProd = $nameProd;
 
         return $this;
     }
 
-    public function getKgOrUntity(): ?string
+    public function getKgOrUnity(): ?string
     {
-        return $this->kgOrUntity;
+        return $this->kgOrUnity;
     }
 
-    public function setKgOrUntity(?string $kgOrUntity): self
+    public function setKgOrUnity(string $kgOrUnity): self
     {
-        $this->kgOrUntity = $kgOrUntity;
+        $this->kgOrUnity = $kgOrUnity;
 
         return $this;
     }
@@ -82,7 +83,7 @@ class ProdBaskComp
         return $this->quantityProd;
     }
 
-    public function setQuantityProd(?int $quantityProd): self
+    public function setQuantityProd(int $quantityProd): self
     {
         $this->quantityProd = $quantityProd;
 

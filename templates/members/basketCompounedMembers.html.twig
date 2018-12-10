@@ -53,7 +53,7 @@
                     {% for basketOfMember in basketMember %}
                         <div class="metadata">
                             <p class="text-center">
-                                <a title="Enlever ce produit de votre panier !" style="text-decoration: none" href="{{ path('delete_prod_bask_comp',{'id':basketOfMember.id,'name':basketOfMember.nameProd })}}"><strong class="refProd">{{ basketOfMember.quantityProd }} {{ basketOfMember.kgOrUntity }} de {{ basketOfMember.nameProd }}</strong></a>
+                                <a title="Enlever ce produit de votre panier !" style="text-decoration: none" href="{{ path('delete_prod_bask_comp',{'id':basketOfMember.id,'name':basketOfMember.nameProd })}}"><strong class="refProd">{{ basketOfMember.quantityProd }} {{ basketOfMember.kgOrUnity }} de {{ basketOfMember.nameProd }}</strong></a>
                             </p>
                         </div>
                         <div class="sepMemList"></div>

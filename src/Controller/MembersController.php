@@ -25,7 +25,7 @@ class MembersController extends AbstractController
      * 
      * @Route("/", name="my_compte")
      */
-    public function showListProdOfWeek(MembersRepository $repoM)
+    public function showListProdOfWeek()
     {
         return $this->render('members/accountMembers.html.twig', [
         ]);
@@ -45,12 +45,6 @@ class MembersController extends AbstractController
      */
     public function validateBask(ProdOfWeekRepository $repo, MembersRepository $repoM, ObjectManager $manager)
     {
-        $checkDispoProd = $repo->findBy(array('quantity' => '0'));
-        foreach($checkDispoProd as $noDispo){
-            $manager->remove($noDispo); 
-            $manager->flush(); 
-        }
-
         $newNumberBaskRest = $repoM->find($this->getUser()->getId());
         $newNumberBaskRest = $newNumberBaskRest->setnumberBasketRest('1');
         $manager->persist($newNumberBaskRest);
@@ -90,7 +84,7 @@ class MembersController extends AbstractController
         $manager->flush();
 
         $prodToDelete = $repoC->find($id);
-        $memberId = $prodToDelete->getMemberId();
+        $memberId = $prodToDelete->getMembers();
         $manager->remove($prodToDelete);
         $manager->flush();
 
@@ -130,7 +124,7 @@ class MembersController extends AbstractController
             $idProdUnity = $quantity->getId();//récupère l'identifiant
         }
         
-        if(!empty($prodExist)){//vérifie si le tableau est vide
+        if(!empty($prodExist)){//vérifie si le tableau est vide donc si un produit existe ds la table prodBaskComp
             if($newQuantityProd == '0'){
                 $nameProd = null;
             }else{
@@ -143,7 +137,7 @@ class MembersController extends AbstractController
         /*insère un produit ds la table des paniers composés en relation avec l'id du membre*/
         if($nameProd){//si un nom de produit est présent ds l'url
             $prodsOfMember = $repoC->findBy(//récupère tous les prod correspondant à l'id du membre
-                array('member_id' => $member)
+                array('members' => $member)
             );
             foreach($prodsOfMember as $memberIdProd){
                 $prodExist = $memberIdProd->getNameProd();//récupère les noms de prod ds le tableau
@@ -160,9 +154,9 @@ class MembersController extends AbstractController
             }
 
             $ProdBaskComp = new ProdBaskComp();
-            $ProdBaskComp->setMemberId($member->getId());
+            $ProdBaskComp->setMembers($member);
             $ProdBaskComp->setNameProd($name);
-            $ProdBaskComp->setKgOrUntity($saleType);
+            $ProdBaskComp->setKgOrUnity($saleType);
             $ProdBaskComp->setQuantityProd('1');
 
             $manager->persist($ProdBaskComp);
@@ -171,7 +165,7 @@ class MembersController extends AbstractController
         
         //va chercher ds le champ member_id de la table des paniers composés
         //toutes les entrées correspondant au numéro du membre
-        $basketMember = $repoC->findBy(array('member_id' => $member));
+        $basketMember = $repoC->findBy(array('members' => $member));
 
         //permet de récupérer tous les produits du champ nameprod pour afficher la liste
         $prod = $repo->findAll('nameProd');

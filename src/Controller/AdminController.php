@@ -225,35 +225,32 @@ class AdminController extends AbstractController
             array('basketType' => 'composés',
                    'numberBasketRest' => '0')
         );
-        dump($memberBasketComp);
+
         foreach($memberBasketComp as $getId ){
             $memberId = $getId->getId();//récupère l'id ds prodOfWeek
-            dump($memberId);
             $catchProducts = $repoC->findBy(//cherche ds prodBaskComp le produit ayant pour correspondance member_id
-                array('member_id' => $memberId)
+                array('members' => $memberId)
             );
-            dump($catchProducts);
+
             foreach($catchProducts as $catchNameAndIdProducts){
                 $nameProd = $catchNameAndIdProducts->getNameProd();
-                dump($nameProd);
                 $quantityProdBaskComp = $catchNameAndIdProducts->getQuantityProd();
-                dump($quantityProdBaskComp);
+
                 $findProd = $repo->findBy(
                     array('nameProd' => $nameProd));
-                    dump($findProd);
+
                 foreach($findProd as $quantity){
+
                     $quantityProd = $quantity->getQuantity();
-                dump($quantityProd);
-                $newQuantity = $quantity->setQuantity($quantityProd + $quantityProdBaskComp);
-                $manager->persist($newQuantity);
-                foreach($catchProducts as $entityCatchProducts){
-                    $manager->remove($entityCatchProducts);
-                }  
+                    $newQuantity = $quantity->setQuantity($quantityProd + $quantityProdBaskComp);
+                    $manager->persist($newQuantity);
+                    foreach($catchProducts as $entityCatchProducts){
+                        $manager->remove($entityCatchProducts);
+                    }  
                 $manager->flush();
                 }    
             }
         }
-        /********/
         return $this->redirectToRoute('basket_compouned_list');
     }
 
@@ -277,6 +274,7 @@ class AdminController extends AbstractController
         }
         
         $prodBaskMember = $repoC->findAll();
+        dump($prodBaskMember);
         
         return $this->render('admin/basketComp.html.twig', [
             'baskComps' => $baskComps,//renvoie les infos des membres ds un tableau bouclé à l'affichage 
