@@ -115,6 +115,14 @@ class SecurityController extends AbstractController
     public function deconnectMember(){}
 
     /**
+     * fonction qui affiche le formulaire pour définir les identifiants de l'administrateur
+     * 
+     * @param object $request
+     * @param object $manager
+     * parameter converter pour manipuler des données
+     * @param interface
+     * permet d'encoder les mots de passe
+     * 
      * @Route("/inscriptionAdmin", name="security_registration_admin")
      */
     public function registrationAdmin(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder){

@@ -46,9 +46,7 @@
             {% for prod in prodsOfWeek %}
                 <div class="metadata">
                     <p>
-                        Nom du produit : <strong class="refProd">{{prod.nameProd}}</strong> ;
-                        Quantité du produit : <strong class="refProd">{{prod.quantity}}</strong></br>
-                        Type de vente : <strong class="refProd">{{prod.saleType}}</strong></br>
+                        <strong class="refProd">{{prod.quantity}} {{prod.saleType}}(s) de {{prod.nameProd}}</strong>
                         <a href="{{ path('product_of_the_week',{'id':prod.id})}}"><button type="submit" class="btn btn-success">Charger ce produit</button></a>
                         <a href="{{ path('delete_prod',{'id':prod.id})}}"><button type="submit" class="btn btn-success">Supprimer ce produit</button></a>
                     </p>

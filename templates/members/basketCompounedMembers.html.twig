@@ -6,17 +6,17 @@
 <div class="viewForCompBask">
     <h1 class="text-center">Bienvenue {{app.user.firstName}} {{ app.user.name }} sur la page vous permettant de composer vous même votre panier !</h1>
     <p class="viewPForCompBask">
-        Afin de composer vous-même votre panier, cliquez sur le produit dans les produits de la semaine pour le mettre dans votre panier</br>
-        De même, cliquez sur le produit dans votre panier pour l'enlever .</br> 
+        Afin de composer vous-même votre panier, cliquez sur <span class="input-icon"><i class="fas fa-plus"></i></span> dans les produits de la semaine pour le mettre dans votre panier</br>
+        De même, cliquez sur <span><i class="fas fa-minus"></i></span> dans votre panier pour l'enlever .</br> 
         Le prix sera bien évidement en fonction de ce que vous prendrez et sera à régler sur place !</br>
         <span>N'oubliez pas de valider votre panier grâce au bouton "Valider votre panier" sinon votre panier ne sera pas préparé !</span></br>
         Mais rassurez-vous, dans ce cas, vous pourrez composer un panier sur place !</br>
         <span>Si vous commencez à composer un panier et que vous ne désirez plus récupérer ce panier, merci de le vider !</span></br>
         Alors, faites-vous plaisir !!!</br>
         {% if app.user.numberBasketRest == '0' %}
-            <h1 class="text-center strong validationOrNot">Pensez à valider votre panier !</h1></br>
+            <h1 class="text-center strong validationOrNot">Pensez à valider votre panier !<span><i class="fas fa-times-circle"></i></span></h1></br>
         {% else %}
-            <h1 class="text-center strong validationOrNot">Votre panier est validé !</h1></br>
+            <h1 class="text-center strongG validationOrNot">Votre panier est validé !<span><i class="fas fa-check-circle"></i></span></h1></br>
         {% endif %}
     </p>
 
@@ -28,7 +28,7 @@
                     {% for prods in prod %}
                         <div class="metadata">
                             <p class="text-center">
-                                <a title="Mettre ce produit de votre panier !" style="text-decoration: none" href="{{ path('basket_comp',{'name':prods.nameProd})}}">{{prods.quantity}} {{prods.saleType}} {{prods.nameProd}}</a>
+                                {{prods.quantity}} {{prods.saleType}} {{prods.nameProd}}<a title="Mettre ce produit de votre panier !" style="text-decoration: none" href="{{ path('basket_comp',{'name':prods.nameProd})}}"><span class="input-icon"><i class="fas fa-plus"></i></span></a>
                             </p>
                         </div>
                         <div class="sepMemList"></div>
@@ -44,16 +44,16 @@
             </div>
             <h4 class="text-center">Votre panier :
                 {% if app.user.numberBasketRest == '0' %}
-                    <div class="redX"></div>
+                <span><i class="fas fa-times-circle"></i></span>
                 {% else %}
-                    <div class="greenV"></div>
+                <span><i class="fas fa-check-circle"></i></span>
                 {% endif %}
             </h4>
                 <section class="prodList">
                     {% for basketOfMember in basketMember %}
                         <div class="metadata">
                             <p class="text-center">
-                                <a title="Enlever ce produit de votre panier !" style="text-decoration: none" href="{{ path('delete_prod_bask_comp',{'id':basketOfMember.id,'name':basketOfMember.nameProd })}}"><strong class="refProd">{{ basketOfMember.quantityProd }} {{ basketOfMember.kgOrUnity }} de {{ basketOfMember.nameProd }}</strong></a>
+                                    <strong class="refProd">{{ basketOfMember.quantityProd }} {{ basketOfMember.kgOrUnity }} de {{ basketOfMember.nameProd }}</strong><a title="Enlever ce produit de votre panier !" style="text-decoration: none" href="{{ path('delete_prod_bask_comp',{'id':basketOfMember.id,'name':basketOfMember.nameProd })}}"><span><i class="fas fa-minus"></i></span></a>
                             </p>
                         </div>
                         <div class="sepMemList"></div>

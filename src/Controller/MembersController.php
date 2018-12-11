@@ -11,7 +11,7 @@ use App\Repository\ProdBaskCompRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Session\Session;
+// use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**  @Route("/members") */
@@ -73,26 +73,25 @@ class MembersController extends AbstractController
     {
         $prodName = $repo->findBy(array('nameProd' => $name));
         foreach($prodName as $quantity){
-            $newQuantityProd = $quantity->getQuantity();//récupère le nombre de produit
+            $quantityOfThisProduct = $quantity->getQuantity();//récupère la quantité disponible du produit dans les produits de la semaine
         }
 
         $prodsOfMember = $repoC->find($id);//récupère l'entrée de la table correspondant à l'id du produit
-        $quantityProdOfMember = $prodsOfMember->getQuantityProd();//récupère la quantité
+        $quantityProdOfThisMember = $prodsOfMember->getQuantityProd();//récupère la quantité de produit du produit mis dans le panier
+        dump($prodsOfMember);
 
-        $newQuantity = $quantity->setQuantity($newQuantityProd + $quantityProdOfMember);
+        $newQuantity = $quantity->setQuantity($quantityOfThisProduct + $quantityProdOfThisMember);//rajoute les produits du panier composé pour les remettre dans les produits de la semaine
         $manager->persist($newQuantity);
         $manager->flush();
 
-        $prodToDelete = $repoC->find($id);
-        $memberId = $prodToDelete->getMembers();
-        $manager->remove($prodToDelete);
+        $manager->remove($prodsOfMember);//efface le produit du panier
         $manager->flush();
 
         return $this->redirectToRoute('basket_compouned');
     }
 
     /**
-     * fonction permettant de composer son panier
+     * fonction permettant de composer son panier(partie 1) et renvoyer à la vue la liste des produits de la semaine et ceux du panier du membre(partie 2)
      * 
      * @param repository $repoM
      * parameter converter pour parler avec la table members
@@ -112,16 +111,17 @@ class MembersController extends AbstractController
      */
     public function basket_compouned(MembersRepository $repoM, ProdBaskComp $ProdBaskComp = null, ProdOfWeekRepository $repo, ProdBaskCompRepository $repoC, ObjectManager $manager, $name = null)
     {
+        /**********(partie 1) : traitement pour composer un panier***********/
         $member = $this->getUser();
         $nameProd = $name;
 
-        /*récupère l'entrée corresp au nom du produit $nameProd*/
-        $prodExist = $repo->findBy(array('nameProd' => $nameProd));//($nameProd) afin de vérifier si c'est un produit au kilo ou à l'unité
+        /*récupère le produit correspondant au nom du produit $nameProd dans les produits de la semaine*/
+        $prodExist = $repo->findBy(array('nameProd' => $nameProd));
 
         foreach($prodExist as $quantity){
             $newQuantityProd = $quantity->getQuantity();//récupère le nombre de produit
-            $saleType = $quantity->getSaleType();
-            $idProdUnity = $quantity->getId();//récupère l'identifiant
+            $saleType = $quantity->getSaleType();//récupère le type de vente
+            // $idProdUnity = $quantity->getId();//récupère l'identifiant
         }
         
         if(!empty($prodExist)){//vérifie si le tableau est vide donc si un produit existe ds la table prodBaskComp
@@ -134,13 +134,13 @@ class MembersController extends AbstractController
             }
         }
 
-        /*insère un produit ds la table des paniers composés en relation avec l'id du membre*/
+        /*insère un produit ds le panier composé du membre en relation avec l'id du membre*/
         if($nameProd){//si un nom de produit est présent ds l'url
             $prodsOfMember = $repoC->findBy(//récupère tous les prod correspondant à l'id du membre
                 array('members' => $member)
             );
             foreach($prodsOfMember as $memberIdProd){
-                $prodExist = $memberIdProd->getNameProd();//récupère les noms de prod ds le tableau
+                $prodExist = $memberIdProd->getNameProd();//récupère les noms des produits ds le tableau
                 if($prodExist == $nameProd){//si un nom correspond
                     $idProd = $memberIdProd->getId();//récupère son id
                     $updateProd = $repoC->find($idProd);//récupère l'entrée correspondant à l'id
@@ -162,13 +162,15 @@ class MembersController extends AbstractController
             $manager->persist($ProdBaskComp);
             $manager->flush();
         }
+        /**************/
         
-        //va chercher ds le champ member_id de la table des paniers composés
-        //toutes les entrées correspondant au numéro du membre
+        /******(partie 2) : traitement pour renvoyer à l'affichage*********/
+        //va chercher ds le champ members de la table des paniers composés tous le produits correspondant au numéro du membre en vue d'afficher la liste du panier du membre
         $basketMember = $repoC->findBy(array('members' => $member));
 
-        //permet de récupérer tous les produits du champ nameprod pour afficher la liste
+        //permet de récupérer tous les produits du champ nameprod pour afficher la liste des produits de la semaine
         $prod = $repo->findAll('nameProd');
+        /**************/
 
         return $this->render('members/basketCompounedMembers.html.twig', [
             'basketMember' => $basketMember,//en lien avec la ligne 216

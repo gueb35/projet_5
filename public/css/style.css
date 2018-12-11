@@ -17,6 +17,9 @@ body{
     width: 100%;
     z-index: 10;
 }
+p{
+    font-size: 18px;
+}
 .nav-link:hover{
     background-color:gray;
     border-radius: 10px;
@@ -80,6 +83,7 @@ footer{
 }
 .image{
     float:left;
+    margin-right: 10px;
 }
 #slideshow-container{
     position: absolute;
@@ -158,10 +162,18 @@ h5{
     margin: auto;
 }
 /*page inscription*/
+.textandformBask{
+    display: flex;
+}
+.textBask{
+    margin-top: 20px;
+}
+.form-control{
+    margin-bottom: 5px;
+}
 .basketComp{
     border: 4px solid black;
     border-radius: 0 0 5px 5px;
-    opacity: 0.9;
     padding: 15px;
 }
 .basketColl{
@@ -188,14 +200,25 @@ h5{
 }
 /*page accountMembers.html.twig*/
 /*basket_compouned*/
-.redX{
-    background-image: url("../images/redX.png");
-    width: 20px;
-    height: 20px;}
-.greenV{
-    background-image: url("../images/greenV.png");
-    width: 20px;
-    height: 20px;}
+.validationOrNot{
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.fa-plus{
+    color: #28a745;
+    margin-left: 5px;
+}
+.fa-minus{
+    color: red;
+    margin-left: 5px
+}
+.fa-times-circle{
+    color: red;
+    margin-left: 5px;
+    margin-top: 2px;
+}
+.fa-check-circle{
+    color: #28a745;
+}
 .formListInscr{
     display: flex;
     justify-content: space-between;
@@ -206,6 +229,9 @@ h5{
 .strong{
     color: red;
 }
+.strongG{
+    color: #28a745;
+}
 .downTitle
 {
     margin-top: 48px;
@@ -215,7 +241,7 @@ h5{
 /*homeAdmin*/
 .linkAdmin{
     text-decoration: none;
-}
+}/*produits de la semaine*/
 /*basketColl*/
 .baskColl{
     border: 2px solid black;
@@ -265,6 +291,9 @@ h5{
     display: flex;
     justify-content: space-around;
 }
+.titleAndForms{
+    width: 100%;
+}
 .forms{
     display: flex;
     position: fixed;
@@ -276,9 +305,8 @@ h5{
     padding: 15px;
 }
 .listsProd{
-    margin-top: 67px;
-    margin-left: 175px;
-    width: 40%;
+    margin-top: 5px;
+    width: 100%;
 }
 .refProd{
     font-size: 20px;
@@ -343,17 +371,6 @@ h5{
         margin-top: 195px;
         margin-bottom: 98px;
     }
-    /*page registrationBaskComp.html.twig*/
-    .titleBaskComp{
-        margin-top: 200px;
-    }
-    .titleAndBaskComp{
-        margin-top: 70px;
-    }
-    /*page registrationBaskColl.html.twig*/
-    .titleAndBaskColl{
-        margin-top: 70px;
-    }
     /*page loginMembers.html.twig*/
     .loginMember{
         margin-top: 247px;
@@ -391,7 +408,6 @@ h5{
     /**/
     .titleAndForms{
         width: 50%;
-        margin-right: 100px;
     }
     /**/
     .listsProd{
@@ -429,17 +445,6 @@ h5{
     }
     #titlePresentation{
         margin-top: 195px;
-    }
-    /*page registrationBaskComp.html.twig*/
-    .titleBaskComp{
-        margin-top: 126px;
-    }
-    .titleAndBaskComp{
-        margin-top: 70px;
-    }
-    /*page registrationBaskColl.html.twig*/
-    .titleAndBaskColl{
-        margin-top: 70px;
     }
     /*page loginMembers.html.twig*/
     .loginMember{
@@ -525,6 +530,10 @@ h5{
     #map{
         width: 250px;
         height: 150px;
+    }
+    /*page inscription panier*/
+    .textandformBask{
+        display: initial;
     }
     /*partie member*/
     /*page accountMembers.html.twig*/

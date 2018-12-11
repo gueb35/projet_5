@@ -34,7 +34,7 @@ security:
                 check_path: security_login_members
                 default_target_path: my_compte
 
-            logout: 
+            logout:
                 path: security_deconnect_member
                 target: visitor_home
 
@@ -44,7 +44,7 @@ security:
 
             provider: in_database_admin
 
-            form_login: 
+            form_login:
                 login_path: security_login_admin
                 check_path: security_login_admin
                 default_target_path: home_admin
@@ -52,6 +52,11 @@ security:
             logout:
                 path: security_deconnect_admin
                 target: visitor_home
+
+        main: 
+            pattern:  ^/
+            anonymous: true
+
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/admin, roles: ROLE_ADMIN }
