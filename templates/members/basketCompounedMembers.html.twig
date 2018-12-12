@@ -28,7 +28,11 @@
                     {% for prods in prod %}
                         <div class="metadata">
                             <p class="text-center">
-                                {{prods.quantity}} {{prods.saleType}} {{prods.nameProd}}<a title="Mettre ce produit de votre panier !" style="text-decoration: none" href="{{ path('basket_comp',{'name':prods.nameProd})}}"><span class="input-icon"><i class="fas fa-plus"></i></span></a>
+                                {% if prods.quantity == '0' %}
+                                    <span class="strong">Il n'y a plus de {{prods.nameProd}} disponible !</span>
+                                {% else %}
+                                    {{prods.nameProd}}<a title="Mettre ce produit de votre panier !" style="text-decoration: none" href="{{ path('basket_comp',{'name':prods.nameProd})}}"><span class="input-icon"><i class="fas fa-plus"></i></span></a>
+                                {% endif %}
                             </p>
                         </div>
                         <div class="sepMemList"></div>
@@ -53,7 +57,7 @@
                     {% for basketOfMember in basketMember %}
                         <div class="metadata">
                             <p class="text-center">
-                                    <strong class="refProd">{{ basketOfMember.quantityProd }} {{ basketOfMember.kgOrUnity }} de {{ basketOfMember.nameProd }}</strong><a title="Enlever ce produit de votre panier !" style="text-decoration: none" href="{{ path('delete_prod_bask_comp',{'id':basketOfMember.id,'name':basketOfMember.nameProd })}}"><span><i class="fas fa-minus"></i></span></a>
+                                    <strong class="refProd">{{ basketOfMember.quantityProd }} {{ basketOfMember.kgOrUnity }}(s) de {{ basketOfMember.nameProd }}</strong><a title="Enlever ce produit de votre panier !" style="text-decoration: none" href="{{ path('delete_prod_bask_comp',{'id':basketOfMember.id })}}"><span><i class="fas fa-minus"></i></span></a>
                             </p>
                         </div>
                         <div class="sepMemList"></div>

@@ -5,13 +5,12 @@
 {% block body %}
 
 <p class="text-center">
-    <h1 class="text-center">Bienvenue sur la page représentant la liste de vos membres!</h1></br>
-    <h1 class="text-center titleMemberList">Cette liste se divise en 2 parties :</h1>
+    <h1 class="text-center">Bienvenue sur la page représentant la liste de vos membres!</h1>
 </p>
 
 <div class="MembersList">
     <div class="memberList1">
-        <h4 class="text-center noMargin">Membres du panier composés :</h4>
+        <h4 class="text-center noMargin">Membres des paniers composés :</h4>
         <p class="borderMemberList">
             Dans cette liste sont présent l'ensemble des membres ayant adhéré au paniers composés.
             Le nombre de paniers est définit par défaut à 0 lors de l'inscription du membre, puis à 1 lors de la
@@ -25,7 +24,7 @@
                         <div class="metadata">
                             Mr/Mme {{member.name}} {{member.firstName}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
                             résidant à {{member.town}} .</br>
-                            Inscrit(e) aux paniers {{member.basketType}} .</br>
+                            Nombre de paniers restant dû : {{member.numberBasketRest}} .</br>
                             E-mail : {{member.email}}
                         </div>
                         <div class="sepMemList"></div>
@@ -34,12 +33,12 @@
     </div>
 
     <div class="memberList2">
-        <h4 class="text-center noMargin">Membres du panier collectés :</h4>
+        <h4 class="text-center noMargin">Membres des paniers collectés :</h4>
         <p class="borderMemberList">
             Afin d'avoir un contrôle sur le réglement des paniers collectés lors de l'inscription des membres,
             le nombre de paniers est définit par défaut à 0 pour vous permettre de recevoir le réglement puis,
             à reception ou encaissement, de définir le nombre de paniers à 44 unités en cliquant sur le bouton
-            "Initialiser le nombre de paniers !".Cela validera son inscription et lancera son abonnement!
+            "Valider l'abonnement de ce membre !".Cela validera son inscription et lancera son abonnement!
             Après chaque livraison, vous pourrez diminuer de 1 le nombre de paniers restant sur la page des paniers collectés !
             </br>
         </p>
@@ -49,9 +48,8 @@
                         <div class="metadata">
                             Mr/Mme {{member.name}} {{member.firstName}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
                             résidant à {{member.town}} .</br>
-                            Inscrit(e) aux paniers {{member.basketType}}.</br>
                             Nombre de paniers restant dû : {{member.numberBasketRest}} .
-                            <a href="{{ path('initialize_number_basket_rest',{'id':member.id})}}"><button type="submit" class="btn btn-success">Initialiser le nombre de paniers !</button></a></br>
+                            <a href="{{ path('initialize_number_basket_rest',{'id':member.id})}}"><button type="submit" class="btn btn-success">Valider l'abonnement de ce membre !</button></a></br>
                             Le lieu de ramassage de ce panier se situe sur la commune du {{member.dayOfWeek}} !</br>
                             E-mail : {{member.email}}
                         </div>

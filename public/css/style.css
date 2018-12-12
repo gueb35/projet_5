@@ -291,8 +291,11 @@ h5{
     border-radius: 0 0 5px 5px;
 }
 /*basketComp*/
+.baskCompView{
+    display: flex;
+}
 .listBaskComp{
-    width: 50%;
+    width: 94%;
     margin: auto;
 }
 .titleAndFormComp{
@@ -300,7 +303,6 @@ h5{
     border-radius: 0 0 5px 5px;
 }
 .pCenter{
-    width: 50%;
     margin: auto;
 }
 /*basketColl*/

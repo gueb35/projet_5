@@ -3,8 +3,8 @@
 {% block title %}Paniers composés !{% endblock %}
 
 {% block body %}
+<h1 class="text-center">Bienvenue sur la page représentant la liste des paniers composés à préparer !</h1>
 <div class="baskCompView">
-    <h1 class="text-center">Bienvenue sur la page représentant la liste des paniers composés à préparer !</h1>
     <div>
         <p class="pCenter">
             Cette page a pour but de vous aider lors de l'élaboration des paniers composés.</br>
@@ -12,8 +12,6 @@
             -supprimer le panier d'un membre à la remise de son panier !</br>
             -supprimer tous les paniers lors de la fermeture de votre point de vente !</br>
             Dans les deux cas, le nombre de paniers dû au(x) client(s) est re-définit à 0 pour lui permettre de re-composer un panier pour la semaine suivante !</br>
-            Mais tout d'abord, dans le cas ou des membres n'auraient pas validé leurs paniers, la quantité de vos produits ne reflete pas la réalité donc pour cela,</br>
-            <a href="{{ path('reinitialize_quantity_products')}}"><button type="submit" class="btn btn-success">Cliquez ici !</button></a> pour vider les paniers non validé pour redéfinir la quantité réelle de vos produits !
         </p>
     </div>
     <div class="baskComp">
@@ -23,13 +21,15 @@
                 <div class="sepMemList"></div>
                 {% for member in members %}
                 <div class="metadata text-center">
-                    -{{member.numberBasketRest}} panier pour : Mr/Mme {{member.name}} {{member.firstname}}, comprenant :</br>
-                    {% for prods in prodBaskMember %}
-                    {% if member.id == prods.getMembers.getId() %}
-                    -{{prods.quantityProd}} {{prods.kgOrUnity}} {{prods.nameProd}}</br>
-                    {% endif %}
-                    {% endfor %}
+                    {% if member.numberBasketRest !='0' %}
+                        -Mr/Mme {{member.name}} {{member.firstname}}, {{member.numberBasketRest}} panier comprenant :</br>
+                        {% for prods in prodBaskMember %}
+                            {% if member.id == prods.getMembers.getId() %}
+                                -{{prods.quantityProd}} {{prods.kgOrUnity}} {{prods.nameProd}}</br>
+                            {% endif %}
+                        {% endfor %}
                     <a href="{{ path('delete_bask_member',{'id':member.id})}}"><button type="submit" class="btn btn-success">Supprimer le panier composé de ce membre !</button></a>
+                    {% endif %}
                 </div>
                 <div class="sepMemList"></div>
                 {% endfor %}

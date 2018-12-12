@@ -217,58 +217,6 @@ class AdminController extends AbstractController
     }
 
     /**
-     * fonction qui vide les paniers non validé en récupérant les produits et leurs quantités pour les ré-insérer dans les produits de la semaine
-     * 
-     * @param repository $repoM
-     * parameter converter pour parler avec la table members
-     * @param repository $repoC
-     * parameter converter pour parler avec la table prodBaskComp
-     * @param repository $repo
-     * parameter converter pour parler avec la table prodOfWeek
-     * @param object $manager
-     * parameter converter pour manipuler des données
-     * 
-     * @Route("/dropNoValidateBasketComp", name="reinitialize_quantity_products")
-     */
-    public function dropNoValidateBasketComp(MembersRepository $repoM, ProdBaskCompRepository $repoC, ProdOfWeekRepository $repo, ObjectManager $manager)
-    {
-        /*récupère tous les membres des paniers composés dont le nombre de panier restant est à 0(panier non-validé)*/
-        $memberBasketComp = $repoM->findBy(
-            array('basketType' => 'composés',
-                   'numberBasketRest' => '0')
-        );
-
-        /*dans la liste des membres*/
-        foreach($memberBasketComp as $getId ){
-            $memberId = $getId->getId();//récupère l'id ds prodOfWeek
-            $catchProducts = $repoC->findBy(//cherche ds prodBaskComp le/les produit(s) ayant pour correspondance l'id du membre
-                array('members' => $memberId)
-            );
-
-            foreach($catchProducts as $catchNameAndIdProducts){
-                $nameProd = $catchNameAndIdProducts->getNameProd();
-                $quantityProdBaskComp = $catchNameAndIdProducts->getQuantityProd();
-
-                /*récupère les produits de la semaine correspondant aux produits des paniers composés des membres*/
-                $findProd = $repo->findBy(
-                    array('nameProd' => $nameProd));
-
-                foreach($findProd as $quantity){
-
-                    $quantityProd = $quantity->getQuantity();//récupère la quantité dans les produits de la semaine
-                    $newQuantity = $quantity->setQuantity($quantityProd + $quantityProdBaskComp);//ajoute aux produits de la semaine la quantité des produits des paniers composés
-                    $manager->persist($newQuantity);
-                    foreach($catchProducts as $entityCatchProducts){
-                        $manager->remove($entityCatchProducts);//efface les produits des paniers composés
-                    }  
-                $manager->flush();
-                }    
-            }
-        }
-        return $this->redirectToRoute('basket_compouned_list');
-    }
-
-    /**
      * fonction qui affiche la liste des membres du panier composés
      * 
      * @param repository $repoM
