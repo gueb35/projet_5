@@ -241,11 +241,32 @@ h5{
 /*homeAdmin*/
 .linkAdmin{
     text-decoration: none;
-}/*produits de la semaine*/
-/*basketColl*/
-.baskColl{
-    border: 2px solid black;
 }
+/*produits de la semaine*/
+    /*formulaire de création/modification des produits de la semaine*/
+    .formAndLists{
+        display: flex;
+        justify-content: space-around;
+    }
+    .form{
+        border: 4px solid black;
+        border-radius: 0 0 5px 5px;
+        padding: 15px;
+    }
+    /*liste des produits de la semaine*/
+    .prodList{
+        border: 4px solid black;
+        border-radius: 0 0 5px 5px;
+    }
+    .refProd{
+        font-size: 20px;
+    }
+    .sepProdList{
+        height: 3px;
+        width: 100%;
+        left: 0;
+        background-color: black;
+    }
 /*membersList*/
 .borderMemberList{
     border: 4px solid black;
@@ -286,41 +307,6 @@ h5{
 .baskColl{
     border: 2px solid black;
 }
-/*prodWeek*/
-.formAndLists{
-    display: flex;
-    justify-content: space-around;
-}
-.titleAndForms{
-    width: 100%;
-}
-.forms{
-    display: flex;
-    position: fixed;
-    bottom: 0;
-}
-.form{
-    border: 4px solid black;
-    border-radius: 0 0 5px 5px;
-    padding: 15px;
-}
-.listsProd{
-    margin-top: 5px;
-    width: 100%;
-}
-.refProd{
-    font-size: 20px;
-}
-.prodList{
-    border: 4px solid black;
-    border-radius: 0 0 5px 5px;
-}
-.sepProdList{
-    height: 3px;
-    width: 100%;
-    left: 0;
-    background-color: black;
-}
 
 /****************version ipad pro******************/
 @media all and (min-width: 1024px) and (max-width: 1366px){
@@ -343,16 +329,6 @@ h5{
     footer{
         margin-left: 100px;
         margin-top: 192px !important;
-    }
-    .listsProd
-    {
-        margin-left: 0;
-        width: 100%;
-    }
-    .titleAndForm
-    {
-        position: fixed;
-        top: 463px;
     }
     .formInscription
     {
@@ -405,14 +381,6 @@ h5{
         margin-bottom: 340px;
     }
     /*page prodOfWeek*/
-    /**/
-    .titleAndForms{
-        width: 50%;
-    }
-    /**/
-    .listsProd{
-        width: 50%;
-    }
 } 
 /***********version ipad******************/
 @media all and (min-width: 768px) and (max-width: 1023px){
@@ -481,19 +449,6 @@ h5{
     .textProdOfWeek{
         margin-top: 80px;
     }
-    .formAndLists{
-        width: 100%;
-    }
-    /**/
-    .forms{
-        width: 40%;
-        left: 65px;
-    }
-    /**/
-    .listsProd{
-        margin-top: 122px;
-        margin-right: -40px;
-    }
 }
 /***********version smartphone**************/
 @media all and (max-width: 767px){
@@ -558,21 +513,7 @@ h5{
     }
     /*page prodOfWeek*/
     .formAndLists{
-        display: inline;
-    }
-    .forms{
-        position: initial;
         display: initial;
-    }
-    .titleAndForm{
-        width: 100%;
-    }
-    .form{
-        padding: 5px;
-    }
-    .listsProd{
-        width: 100%;
-        margin-left: 0;
     }
     /*page memberList*/
     .MembersList{

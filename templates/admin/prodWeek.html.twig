@@ -19,35 +19,35 @@
 </p>
 
 <div class="formAndLists">
-    <div class="titleAndForms">
-        <div class="forms">
-            <div class="titleAndForm">
-                <h4 class="text-center">Formulaire des produits de la semaine :</h4>
-                    <div class="form">
-                        {{ form_start(formProdOfWeek) }}
-                        {{ form_label(formProdOfWeek.nameProd,'Nom du produit') }}
-                        {{ form_widget(formProdOfWeek.nameProd, {'attr' : {'placeholder': "Nom du produit"}}) }}
-                        {{ form_label(formProdOfWeek.quantity,'Quantité') }}
-                        {{ form_widget(formProdOfWeek.quantity, {'attr' : {'placeholder': "Nombre d'unité du produit"}}) }}
-                        {{ form_label(formProdOfWeek.saleType,'Type de vente') }}
-                        {{ form_widget(formProdOfWeek.saleType, {'attr' : {'placeholder': "unité ou kg"}}) }}
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-success" href="product_of_the_week/{id}">Enregistrer ce produit dans les produits de la semaine </button></br>
-                        </div>
-                        {{form_end(formProdOfWeek)}}
-                    </div>{#form#}
-            </div>{#titleAndForm#}
-        </div>{#forms#}
-    </div>{#titleAndForms#}
+    <div class="titleAndForm">
+        <div class="titleForm">
+            <h4 class="text-center">Formulaire des produits de la semaine :</h4>
+        </div>
+        <div class="form">
+            {{ form_start(formProdOfWeek) }}
+            {{ form_label(formProdOfWeek.nameProd,'Nom du produit') }}
+            {{ form_widget(formProdOfWeek.nameProd, {'attr' : {'placeholder': "Nom du produit"}}) }}
+            {{ form_label(formProdOfWeek.quantity,'Quantité') }}
+            {{ form_widget(formProdOfWeek.quantity, {'attr' : {'placeholder': "Nombre d'unité du produit"}}) }}
+            {{ form_label(formProdOfWeek.saleType,'Type de vente') }}
+            {{ form_widget(formProdOfWeek.saleType, {'attr' : {'placeholder': "unité ou kg"}}) }}
+            <div class="text-center">
+                <button type="submit" class="btn btn-success" href="product_of_the_week/{id}">Enregistrer ce produit dans les produits de la semaine </button></br>
+            </div>
+            {{form_end(formProdOfWeek)}}
+        </div>{#form#}
+    </div>{#titleAndForm#}
 
     <div class="listsProd">
-        <h4 class="text-center">Liste des produits de la semaine :</h4>
+        <div class="titleList">
+            <h4 class="text-center">Liste des produits de la semaine :</h4>
+        </div>
         <div class="prodList">
             {% for prod in prodsOfWeek %}
                 <div class="metadata">
                     <p>
                         <strong class="refProd">{{prod.quantity}} {{prod.saleType}}(s) de {{prod.nameProd}}</strong>
-                        <a href="{{ path('product_of_the_week',{'id':prod.id})}}"><button type="submit" class="btn btn-success">Charger ce produit</button></a>
+                        <a href="{{ path('product_of_the_week',{'id':prod.id})}}"><button type="submit" class="btn btn-success">Modifier ce produit</button></a>
                         <a href="{{ path('delete_prod',{'id':prod.id})}}"><button type="submit" class="btn btn-success">Supprimer ce produit</button></a>
                     </p>
                 </div>
