@@ -105,13 +105,10 @@ class MembersController extends AbstractController
     public function delete_all_bask_of_member(ProdBaskCompRepository $repoC, ProdOfWeekRepository $repo, MembersRepository $repoM, ObjectManager $manager)
     {
         $member = $repoM->find($this->getUser());
-        dump($member);
         $validationBaskOrNot = $member->getNumberBasketRest();
-        dump($validationBaskOrNot);
         if($validationBaskOrNot == '1'){
             /*partie 1*/
             $prodsOfMember = $repoC->findBy(array('members' => $this->getUser()->getId()));//récupère les produits correspondant à l'id du membre
-            dump($prodsOfMember);
             foreach($prodsOfMember as $prodOfMember){
                 $nameProd = $prodOfMember->getNameProd();
                 $quantityProdOfThisMember = $prodOfMember->getQuantityProd();
