@@ -6,12 +6,12 @@
 <div class="viewForCompBask">
     <h1 class="text-center">Bienvenue {{app.user.firstName}} {{ app.user.name }} sur la page vous permettant de composer vous même votre panier !</h1>
     <p class="viewPForCompBask">
-        Afin de composer vous-même votre panier, cliquez sur <span class="input-icon"><i class="fas fa-plus"></i></span> dans les produits de la semaine pour le mettre dans votre panier</br>
+        Afin de composer vous-même votre panier, cliquez sur <span class="input-icon"><i class="fas fa-plus"></i></span> dans les produits de la semaine pour le mettre dans votre panier .</br>
         De même, cliquez sur <span><i class="fas fa-minus"></i></span> dans votre panier pour l'enlever .</br> 
         Le prix sera bien évidement en fonction de ce que vous prendrez et sera à régler sur place !</br>
-        <span>N'oubliez pas de valider votre panier grâce au bouton "Valider votre panier" sinon votre panier ne sera pas préparé !</span></br>
+        N'oubliez pas de valider votre panier grâce au bouton "Valider votre panier" sinon votre panier ne sera pas préparé !</br>
         Mais rassurez-vous, dans ce cas, vous pourrez composer un panier sur place !</br>
-        <span>Si vous commencez à composer un panier et que vous ne désirez plus récupérer ce panier, merci de le vider !</span></br>
+        Dans le cas ou vous avez déjà validé votre panier et que vous ne désirez plus le récupérer ou que vous voulez le modifier, cliquez sur "Annuler votre panier" afin de le re-composer au besoin !</br>
         Alors, faites-vous plaisir !!!</br>
         {% if app.user.numberBasketRest == '0' %}
             <h1 class="text-center strong validationOrNot">Pensez à valider votre panier !<span><i class="fas fa-times-circle"></i></span></h1></br>
@@ -44,7 +44,7 @@
         <div class="listBasketComp">
             <h3 class="text-center">Voici la liste des produits de votre panier :</h3>
             <div class="text-center">
-            <a href="{{ path('validate_bask')}}"><button type="submit" class="btn btn-success">Valider votre panier !</button></a>   
+            <a href="{{ path('delete_all_bask_of_member')}}"><button type="submit" class="btn btn-success">Annuler votre panier !</button></a>   
             </div>
             <h4 class="text-center">Votre panier :
                 {% if app.user.numberBasketRest == '0' %}
