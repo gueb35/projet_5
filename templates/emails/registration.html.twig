@@ -1,0 +1,15 @@
+{% extends 'baseConfirmInscription.html.twig' %}
+
+{% block title %}Confirmation d'inscrption !{% endblock %}
+
+{% block body %}
+    {# templates/emails/registration.html.twig #}
+<h3>Félicitation ! Vous voilà inscrit(e) !Attention, manger sain rend accro !</h3>
+
+Bonjour Mr/Mme {{ name }} Votre inscription est validée.
+
+{# example, assuming you have a route named "login" #}
+Pour accéder à votre espace membre, rendez-vous <a href="{{ path('security_login_members') }}">Ici !</a>.
+
+Merci !
+{% endblock %}

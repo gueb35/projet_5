@@ -20,6 +20,31 @@ class SecurityController extends AbstractController
 {
 
     /**
+     * fonction servant à l'envoi d'un mail de confirmation d'inscription
+     * 
+     * @Route("/sendMail/{name}/{email}", name="send_mail")
+     */
+    public function sendMail($name, $email, \Swift_Mailer $mailer)
+    {
+        $message = (new \Swift_Message('Bonjour Mr/Mme ' . $name . '.Votre inscription est validé'))
+        ->setFrom('aletsy@sfr.fr')
+        ->setTo($email)
+        ->setBody(
+            $this->renderView(
+                'emails/registration.html.twig',
+                array('name' => $name)
+            ),
+            'text/html'
+        )
+    ;
+
+    $mailer->send($message);
+
+    return $this->render('emails/registration.html.twig',
+    array('name' => $name));
+    }
+
+    /**
      * fonction qui affiche le formulaire d'inscription au panier composés
      * 
      * @param object $request
@@ -27,10 +52,12 @@ class SecurityController extends AbstractController
      * parameter converter pour manipuler des données
      * @param interface
      * permet d'encoder les mots de passe
+     * @param repository $repoM
+     * parameter converter pour parler avec la table members
      * 
      * @Route("/inscriptionBaskComp", name="security_registration_bask_comp")
      */
-    public function registrationBaskComp(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function registrationBaskComp(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, MembersRepository $repoM)
     {
         $member = new Members();
 
@@ -51,7 +78,11 @@ class SecurityController extends AbstractController
             $manager->persist($member);
             $manager->flush();
 
-            return $this->redirectToRoute('security_login_members');
+            //permet de renvoyer ces infos pour l'envoi du mail et à l'affichage
+            $memberName = $member->getName();
+            $memberEmail = $member->getEmail();
+
+            return $this->redirectToRoute('send_mail', array('name' => $memberName, 'email' => $memberEmail));
             }
 
         return $this->render('security/registrationBaskComp.html.twig', [
@@ -90,7 +121,11 @@ class SecurityController extends AbstractController
             $manager->persist($member);
             $manager->flush();
 
-            return $this->redirectToRoute('security_login_members');
+            //permet de renvoyer ces infos pour l'envoi du mail et à l'affichage de la vue registraton.html.twig
+            $memberName = $member->getName();
+            $memberEmail = $member->getEmail();
+
+            return $this->redirectToRoute('send_mail', array('name' => $memberName, 'email' => $memberEmail));
             }
 
         return $this->render('security/registrationBaskColl.html.twig', [

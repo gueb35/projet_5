@@ -237,8 +237,8 @@ class MembersController extends AbstractController
         /**************/
 
         return $this->render('members/basketCompounedMembers.html.twig', [
-            'basketMember' => $basketMember,//en lien avec la ligne 216
-            'prod' => $prod//en lien à la ligne 219
+            'basketMember' => $basketMember,
+            'prod' => $prod
         ]);
     }
 }
