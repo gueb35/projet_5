@@ -19,9 +19,6 @@ class MembersController extends AbstractController
     /**
      * fonction pour accéder à la page du compte du membre
      * 
-     * @param repository $repoM
-     * parameter converter pour parler avec la table members
-     * 
      * @Route("/", name="my_compte")
      */
     public function showListProdOfWeek()
@@ -102,7 +99,7 @@ class MembersController extends AbstractController
      * 
      * @Route("/deleteAllBaskOfMember", name="delete_all_bask_of_member")
      */
-    public function delete_all_bask_of_member(ProdBaskCompRepository $repoC, ProdOfWeekRepository $repo, MembersRepository $repoM, ObjectManager $manager)
+    public function deleteAllBaskOfMember(ProdBaskCompRepository $repoC, ProdOfWeekRepository $repo, MembersRepository $repoM, ObjectManager $manager)
     {
         $member = $repoM->find($this->getUser());
         $validationBaskOrNot = $member->getNumberBasketRest();
@@ -165,7 +162,7 @@ class MembersController extends AbstractController
     /**
      * fonction permettant de composer son panier(partie 1) et renvoyer à la vue la liste des produits de la semaine et ceux du panier du membre(partie 2)
      * 
-     * @param entity $ProdBaskComp
+     * @param object $ProdBaskComp
      * parameter converter pour mettre un produit dans le panier
      * @param repository $repo
      * parameter converter pour parler avec la table prodOfWeek
@@ -179,7 +176,7 @@ class MembersController extends AbstractController
      * @Route("/basket_compouned", name="basket_compouned")//appel via le lien du menu
      * @Route("/{name}", name="basket_comp")//appel lors de la compositon du panier
      */
-    public function basket_compouned(ProdBaskComp $ProdBaskComp = null, ProdOfWeekRepository $repo, MembersRepository $repoM, ProdBaskCompRepository $repoC, ObjectManager $manager, $name = null)
+    public function basketCompouned(ProdBaskComp $ProdBaskComp = null, ProdOfWeekRepository $repo, MembersRepository $repoM, ProdBaskCompRepository $repoC, ObjectManager $manager, $name = null)
     {
         /**********(partie 1) : traitement pour composer un panier***********/
         $member = $this->getUser();

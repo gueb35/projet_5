@@ -21,6 +21,12 @@ class SecurityController extends AbstractController
 
     /**
      * fonction servant à l'envoi d'un mail de confirmation d'inscription
+     * @param string $name
+     * renvoie le nom du membre qui s'est inscrit
+     * @param string $email
+     * renvoie l'email du membre qui s'est inscrit
+     * @param transport
+     * accède à la fonctionnalité d'envoie de mail
      * 
      * @Route("/sendMail/{name}/{email}", name="send_mail")
      */
@@ -50,14 +56,12 @@ class SecurityController extends AbstractController
      * @param object $request
      * @param object $manager
      * parameter converter pour manipuler des données
-     * @param interface
+     * @param interface $encoder
      * permet d'encoder les mots de passe
-     * @param repository $repoM
-     * parameter converter pour parler avec la table members
      * 
      * @Route("/inscriptionBaskComp", name="security_registration_bask_comp")
      */
-    public function registrationBaskComp(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, MembersRepository $repoM)
+    public function registrationBaskComp(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
         $member = new Members();
 
