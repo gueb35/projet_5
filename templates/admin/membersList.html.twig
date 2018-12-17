@@ -3,10 +3,7 @@
 {% block title %}Liste des membres !{% endblock %}
 
 {% block body %}
-
-<p class="text-center">
-    <h1 class="text-center">Bienvenue sur la page représentant la liste de vos membres!</h1>
-</p>
+<h1 class="text-center">Bienvenue sur la page représentant la liste de vos membres!</h1>
 
 <div class="MembersList">
     <div class="memberList1">
@@ -23,8 +20,8 @@
                     {% for member in members1 %}
                         <div class="metadata">
                             Mr/Mme {{member.name}} {{member.firstName}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
-                            résidant à {{member.town}} .</br>
-                            Nombre de paniers restant dû : {{member.numberBasketRest}} .</br>
+                            résidant à {{member.town}} .<br>
+                            Nombre de paniers restant dû : {{member.numberBasketRest}} .<br>
                             E-mail : {{member.email}}
                         </div>
                         <div class="sepMemList"></div>
@@ -40,17 +37,17 @@
             à reception ou encaissement, de définir le nombre de paniers à 44 unités en cliquant sur le bouton
             "Valider l'abonnement de ce membre !".Cela validera son inscription et lancera son abonnement!
             Après chaque livraison, vous pourrez diminuer de 1 le nombre de paniers restant sur la page des paniers collectés !
-            </br>
+            <br>
         </p>
         <h4 class="text-center noMargin">Liste des membres :</h4>
             <div class="MembersColl">
                     {% for member in members2 %}
                         <div class="metadata">
                             Mr/Mme {{member.name}} {{member.firstName}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
-                            résidant à {{member.town}} .</br>
+                            résidant à {{member.town}} .<br>
                             Nombre de paniers restant dû : {{member.numberBasketRest}} .
-                            <a href="{{ path('initialize_number_basket_rest',{'id':member.id})}}"><button type="submit" class="btn btn-success">Valider l'abonnement de ce membre !</button></a></br>
-                            Le lieu de ramassage de ce panier se situe sur la commune du {{member.dayOfWeek}} !</br>
+                            <a href="{{ path('initialize_number_basket_rest',{'id':member.id})}}"><button type="submit" class="btn btn-success">Valider l'abonnement de ce membre !</button></a><br>
+                            Le lieu de ramassage de ce panier se situe sur la commune du {{member.dayOfWeek}} !<br>
                             E-mail : {{member.email}}
                         </div>
                         <div class="sepMemList"></div>

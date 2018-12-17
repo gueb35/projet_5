@@ -7,14 +7,14 @@
 {% block body %}
 <h1 class="text-center titleProdOfWeek">Définissez vos produits de la semaine.</h1>
 <p class="textProdOfWeek">
-    Afin de vous aider dans l'élaboration de votre liste de produits, cette liste est présente avec pour chaque produit, sa quantité, son type de vente(au kilo ou à l'unité) et son nom .</br>
-    Pour ce faire, 3 solutions :</br>
-    1/Pour modifier la quantité d'un produit ou remplacer un produit par un autre, cliquez dans la liste sur le bouton "Modifier ce produit" correspondant au produit à modifier ou à remplacer.</br>
-    Ensuite, définissez son nom, sa quantité et son type de vente dans les champs correspondant, puis cliquez sur "Enregistrer ce produit dans les produits de la semaine".</br>
-    De cette manière, vous avez modifié sa quantité ou remplacer le produit .</br>
+    Afin de vous aider dans l'élaboration de votre liste de produits, cette liste est présente avec pour chaque produit, sa quantité, son type de vente(au kilo ou à l'unité) et son nom .<br>
+    Pour ce faire, 3 solutions :<br>
+    1/Pour modifier la quantité d'un produit ou remplacer un produit par un autre, cliquez dans la liste sur le bouton "Modifier ce produit" correspondant au produit à modifier ou à remplacer.<br>
+    Ensuite, définissez son nom, sa quantité et son type de vente dans les champs correspondant, puis cliquez sur "Enregistrer ce produit dans les produits de la semaine".<br>
+    De cette manière, vous avez modifié sa quantité ou remplacer le produit .<br>
     2/Pour créer un nouveau produit, <a href="new"><button type="submit" class="btn btn-success">cliquez ici!</button></a>
-    Puis, entrez dans les champs correspondant le nom, la quantité et le type de vente du nouveau produit !</br>
-    Et voilà, vous avez un nouveau produit dans la liste des produits de la semaine !!</br>
+    Puis, entrez dans les champs correspondant le nom, la quantité et le type de vente du nouveau produit !<br>
+    Et voilà, vous avez un nouveau produit dans la liste des produits de la semaine !!<br>
     3/Pour supprimer un produit, cliquez sur "Supprimer ce produit" dans la liste des produits !
 </p>
 
@@ -32,7 +32,7 @@
             {{ form_label(formProdOfWeek.saleType,'Type de vente') }}
             {{ form_widget(formProdOfWeek.saleType, {'attr' : {'placeholder': "unité ou kg"}}) }}
             <div class="text-center">
-                <button type="submit" class="btn btn-success" href="product_of_the_week/{id}">Enregistrer ce produit dans les produits de la semaine </button></br>
+                <a href="product_of_the_week/{id}"><button type="submit" class="btn btn-success">Enregistrer ce produit dans les produits de la semaine </button></a><br>
             </div>
             {{form_end(formProdOfWeek)}}
         </div>{#form#}

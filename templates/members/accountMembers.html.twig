@@ -11,15 +11,15 @@
                 <h5 class="text-center">Bienvenue Mr/Mme {{ app.user.name }} {{ app.user.firstName }}!</h5>
                 <div class="metadata">
                     <p>
-                        Vous vous êtes inscrit(e) aux paniers {{ app.user.baskettype}} le {{ app.user.createdAt | date('d/m/Y')}} à {{ app.user.createdAt | date('H:i')}}.</br>
-                        Le lieu de ramassage de votre panier se situe sur la commune du {{app.user.dayOfWeek}} et votre nombre de paniers composés est de {{ app.user.numberBasketRest}} !</br>
-                        Vous résidez à {{ app.user.town}} et votre email est : {{ app.user.email}} .</br>
-                        Lieux et jours de livraison :</br>
-                        Lundi : Chateaugiron;</br>
-                        Mardi : Nouvoitou (à la ferme)</br>
-                        Mercredi : Vern/seiche;</br>
-                        Jeudi : Amanlis;</br>
-                        Vendredi : Bourgbarré</br>
+                        Vous vous êtes inscrit(e) aux paniers {{ app.user.baskettype}} le {{ app.user.createdAt | date('d/m/Y')}} à {{ app.user.createdAt | date('H:i')}}.<br>
+                        Le lieu de ramassage de votre panier se situe sur la commune du {{app.user.dayOfWeek}} et votre nombre de paniers composés est de {{ app.user.numberBasketRest}} !<br>
+                        Vous résidez à {{ app.user.town}} et votre email est : {{ app.user.email}} .<br>
+                        Lieux et jours de livraison :<br>
+                        Lundi : Chateaugiron;<br>
+                        Mardi : Nouvoitou (à la ferme)<br>
+                        Mercredi : Vern/seiche;<br>
+                        Jeudi : Amanlis;<br>
+                        Vendredi : Bourgbarré<br>
                     </p>
                     <p class="strong">
                         Pensez à vous déconnecter dès que vous n'avez plus besoin de votre espace membre !

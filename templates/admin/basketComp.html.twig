@@ -7,11 +7,11 @@
 <div class="baskCompView">
     <div>
         <p class="pCenter">
-            Cette page a pour but de vous aider lors de l'élaboration des paniers composés.</br>
-            Pour ce faire, 2 solutions sont possibles :</br>
-            -supprimer le panier d'un membre à la remise de son panier !</br>
-            -supprimer tous les paniers lors de la fermeture de votre point de vente !</br>
-            Dans les deux cas, le nombre de paniers dû au(x) client(s) est re-définit à 0 pour lui permettre de re-composer un panier pour la semaine suivante !</br>
+            Cette page a pour but de vous aider lors de l'élaboration des paniers composés.<br>
+            Pour ce faire, 2 solutions sont possibles :<br>
+            -supprimer le panier d'un membre à la remise de son panier !<br>
+            -supprimer tous les paniers lors de la fermeture de votre point de vente !<br>
+            Dans les deux cas, le nombre de paniers dû au(x) client(s) est re-définit à 0 pour lui permettre de re-composer un panier pour la semaine suivante !<br>
         </p>
     </div>
     <div class="baskComp">
@@ -22,10 +22,10 @@
                 {% for member in members %}
                 <div class="metadata text-center">
                     {% if member.numberBasketRest !='0' %}
-                        -Mr/Mme {{member.name}} {{member.firstname}}, {{member.numberBasketRest}} panier comprenant :</br>
+                        -Mr/Mme {{member.name}} {{member.firstname}}, {{member.numberBasketRest}} panier comprenant :<br>
                         {% for prods in prodBaskMember %}
                             {% if member.id == prods.getMembers.getId() %}
-                                -{{prods.quantityProd}} {{prods.kgOrUnity}} {{prods.nameProd}}</br>
+                                -{{prods.quantityProd}} {{prods.kgOrUnity}} {{prods.nameProd}}<br>
                             {% endif %}
                         {% endfor %}
                     <a href="{{ path('delete_bask_member',{'id':member.id})}}"><button type="submit" class="btn btn-success">Supprimer le panier composé de ce membre !</button></a>

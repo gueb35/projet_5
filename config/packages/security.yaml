@@ -18,13 +18,13 @@ security:
 
     firewalls:
         dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         visitor:
             pattern: ^/(presentation|inscriptionBaskColl|inscriptionBaskComp)
             anonymous: true
         members:
-            pattern:  ^/(connexionMembres|deconnexionMembres|members)
+            pattern: ^/(connexionMembres|deconnexionMembres|members)
             anonymous: true
 
             provider: in_database_members
@@ -39,7 +39,7 @@ security:
                 target: visitor_home
 
         admin:
-            pattern:  ^/(connexionAdmin|deconnexionAdmin|admin)
+            pattern: ^/(connexionAdmin|deconnexionAdmin|admin)
             anonymous: true
 
             provider: in_database_admin
@@ -54,7 +54,7 @@ security:
                 target: visitor_home
 
         main: 
-            pattern:  ^/
+            pattern: ^/
             anonymous: true
 
     access_control:
