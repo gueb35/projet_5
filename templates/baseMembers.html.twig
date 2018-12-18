@@ -26,15 +26,13 @@
                             </li>
                             {% if app.user.basketType == 'composés' %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('basket_compouned') }}">Panier composé</a>
+                                    <a class="nav-link noMarginRight" href="{{ path('basket_compouned') }}">Panier composé</a>
                                 </li>
-                                <!-- <div class="basket"> -->
                                     {% if app.user.numberBasketRest == '0' %}
-                                        <div class="basketNoValidated"></div>
+                                        <span><i class="fas fa-times-circle check"></i></span>
                                     {% else %}
-                                        <div class="basketValidated"></div>
+                                        <span><i class="fas fa-check-circle check"></i></span>
                                     {% endif %}
-                                <!-- </div> -->
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('security_deconnect_member') }}">Déconnexion</a>
                                 </li>

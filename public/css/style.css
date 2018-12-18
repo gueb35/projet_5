@@ -188,15 +188,12 @@ h5{
 }
 /************espace members***************/
 /*baseMembers*/
-.basketNoValidated{
-    background-image: url("../images/basketNoValidated.png");
-    width: 50px;
-    height: 50px;
+.noMarginRight{
+    padding-right: 0;
 }
-.basketValidated{
-    background-image: url("../images/basketValidated.png");
-    width: 50px;
-    height: 50px;
+.check{
+    margin-top: 10px;
+    margin-right: 10px;
 }
 /*page accountMembers.html.twig*/
 /*basket_compouned*/
@@ -213,11 +210,12 @@ h5{
 }
 .fa-times-circle{
     color: red;
-    margin-left: 5px;
-    margin-top: 2px;
 }
 .fa-check-circle{
     color: #28a745;
+}
+.fa-times{
+    color: red;
 }
 .formListInscr{
     display: flex;

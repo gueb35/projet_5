@@ -7,7 +7,8 @@
     <h1 class="text-center">Bienvenue {{app.user.firstName}} {{ app.user.name }} sur la page vous permettant de composer vous même votre panier !</h1>
     <p class="viewPForCompBask">
         Afin de composer vous-même votre panier, cliquez sur <span class="input-icon"><i class="fas fa-plus"></i></span> dans les produits de la semaine pour le mettre dans votre panier .<br>
-        De même, cliquez sur <span><i class="fas fa-minus"></i></span> dans votre panier pour l'enlever .<br> 
+        Cliquez sur <span><i class="fas fa-minus"></i></span> dans votre panier pour enlever une unité ou un kilo .<br>
+        Ou sur <span><i class="fas fa-times"></i></span> pour enlever ce produit de votre panier .<br> 
         Le prix sera bien évidement en fonction de ce que vous prendrez et sera à régler sur place !<br>
         N'oubliez pas de valider votre panier grâce au bouton "Valider votre panier" sinon votre panier ne sera pas préparé !<br>
         Mais rassurez-vous, dans ce cas, vous pourrez composer un panier sur place !<br>
@@ -62,7 +63,7 @@
                     {% for basketOfMember in basketMember %}
                         <div class="metadata">
                             <p class="text-center">
-                                    <strong class="refProd">{{ basketOfMember.quantityProd }} {{ basketOfMember.kgOrUnity }}(s) de {{ basketOfMember.nameProd }}</strong><a title="Enlever ce produit de votre panier !" style="text-decoration: none" href="{{ path('delete_prod_bask_comp',{'id':basketOfMember.id })}}"><span><i class="fas fa-minus"></i></span></a>
+                                <a title="Enlever une unité ou un kilo de ce produit !" style="text-decoration: none" href="{{ path('delete_one_prod_bask_comp',{'id':basketOfMember.id })}}"><span><i class="fas fa-minus"></i></span></a><strong class="refProd">{{ basketOfMember.quantityProd }} {{ basketOfMember.kgOrUnity }}(s) de {{ basketOfMember.nameProd }}</strong><a title="Enlever ce produit de votre panier !" style="text-decoration: none" href="{{ path('delete_prod_bask_comp',{'id':basketOfMember.id })}}"><span><i class="fas fa-times"></i></span></a>
                             </p>
                         </div>
                         <div class="sepMemList"></div>

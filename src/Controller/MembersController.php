@@ -159,6 +159,43 @@ class MembersController extends AbstractController
         return $this->redirectToRoute('basket_compouned');
     }
 
+        /**
+     * fonction servant à enlever un kilo ou une unité du produit du panier composé
+     * 
+     * @param repository $repoC
+     * parameter converter pour parler avec la table prodBaskComp
+     * @param repository $repoM
+     * parameter converter pour parler avec la table members
+     * @param object $manager
+     * parameter converter pour manipuler des données
+     * @param string $name
+     * nom du produit à enlever du panier
+     * @param int $id
+     * identifiant du produit à enlever du panier
+     * 
+     *@Route("/deleteOneProdBaskComp/{id}", name="delete_one_prod_bask_comp") 
+     */
+    public function deleteOneProdBaskComp(ProdBaskCompRepository $repoC, MembersRepository $repoM, ObjectManager $manager, $id)
+    {
+        $member = $repoM->find($this->getUser());
+        $baskValidateOrNot = $member->getNumberBasketRest();
+        if($baskValidateOrNot == '0'){//si le panier n'est pas validé
+            $prodsOfMember = $repoC->find($id);//récupère l'entrée de la table correspondant à l'id du produit
+            $quantity = $prodsOfMember->getQuantityProd();
+            if($quantity > 1){
+                $newQuantity = $prodsOfMember->setQuantityProd($quantity - 1);
+                dump($quantity);
+                $manager->persist($newQuantity);
+                $manager->flush();
+                dump($prodsOfMember);
+            }else{
+                $manager->remove($prodsOfMember);//efface le produit du panier
+                $manager->flush();
+            }
+        }
+        return $this->redirectToRoute('basket_compouned');
+    }
+
     /**
      * fonction permettant de composer son panier(partie 1) et renvoyer à la vue la liste des produits de la semaine et ceux du panier du membre(partie 2)
      * 
