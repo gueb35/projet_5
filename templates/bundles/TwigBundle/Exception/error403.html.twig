@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Accès refusé !</h1>
+
+    <p>
+        CODE - {{ status_code }}<br>
+        {{ status_text }}<br>
+        Vous n'avez pas les droits pour accéder à cette requète,  <a href="{{ path('visitor_home') }}">retournez à la page d'accueil !</a>.
+    </p>
+{% endblock %}

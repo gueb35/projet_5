@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Page non trouvé</h1>
+
+    <p>
+        CODE - {{ status_code }}<br>
+        {{ status_text }}<br>
+        La page que vous avez demandé n'a pas été trouvé. Vérifier l'ortographe ou <a href="{{ path('visitor_home') }}">retournez à la page d'accueil !</a>.
+    </p>
+{% endblock %}
