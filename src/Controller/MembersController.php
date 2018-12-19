@@ -184,10 +184,8 @@ class MembersController extends AbstractController
             $quantity = $prodsOfMember->getQuantityProd();
             if($quantity > 1){
                 $newQuantity = $prodsOfMember->setQuantityProd($quantity - 1);
-                dump($quantity);
                 $manager->persist($newQuantity);
                 $manager->flush();
-                dump($prodsOfMember);
             }else{
                 $manager->remove($prodsOfMember);//efface le produit du panier
                 $manager->flush();
