@@ -125,7 +125,83 @@ class AdminController extends AbstractController
     }
 
     /**
-     * fonction qui affiche la liste des membres
+     * fonction qui affiche la liste des 5 membres précédents
+     * 
+     * @param repository $repoM
+     * parameter converter pour parler avec la table members
+     * @param int $loopsTurn
+     * identifiant du membre
+     * 
+     * @Route("/lastPage/{loopsTurn}", name="last_page")
+     */
+    public function lastPage(MembersRepository $repoM ,$loopsTurn)
+    {
+        // dump($loopsTurn);exit;
+        if ($loopsTurn == -5){
+            return $this->redirectToRoute('members_list');
+        }else{
+            $membersComp = $repoM->findBy(
+                array('basketType' => 'composés'),
+                array('id' => 'asc'),
+                5,
+                $loopsTurn);
+    
+            $membersColl = $repoM->findBy(
+                array('basketType' => 'collectés'),
+                array('createdAt' => 'desc'),
+                5,
+                0);
+        }
+
+        return $this->render('admin/membersList.html.twig', [
+            'members1' => $membersComp,
+            // 'lastMemberId' => $memberId,
+            'loopsTurn' => $loopsTurn,
+            'members2' => $membersColl
+        ]);
+    }
+
+    /**
+     * fonction qui affiche la liste des 5 membres suivants
+     * 
+     * @param repository $repoM
+     * parameter converter pour parler avec la table members
+     * @param int $loopsTurn
+     * identifiant du membre
+     * 
+     * @Route("/nextPage/{loopsTurn}", name="next_page")
+     */
+    public function nextPage(MembersRepository $repoM ,$loopsTurn)
+    {
+        $membersComp = $repoM->findBy(
+            array('basketType' => 'composés'),
+            array('id' => 'asc'),
+            5,
+            $loopsTurn);
+            // dump($id);
+            // dump($membersComp);
+            // foreach($membersComp as $memberComp){
+            //     $memberId = $memberComp->getId();
+            //     dump($memberId);
+            // }
+            // dump($memberId);exit;
+
+        $membersColl = $repoM->findBy(
+            array('basketType' => 'collectés'),
+            array('createdAt' => 'desc'),
+            5,
+            0);
+
+        return $this->render('admin/membersList.html.twig', [
+            'members1' => $membersComp,
+            // 'lastMemberId' => $memberId,
+            'loopsTurn' => $loopsTurn,
+            'members2' => $membersColl
+        ]);
+    }
+
+    /**
+     * fonction qui affiche la liste des 5 premiers membres
      * 
      * @param repository $repoM
      * parameter converter pour parler avec la table members
@@ -134,14 +210,29 @@ class AdminController extends AbstractController
      */
     public function membersList(MembersRepository $repoM)
     {
+        $loopsTurn = 0;
         $membersComp = $repoM->findBy(
-            array('basketType' => 'composés')
-        );
+            array('basketType' => 'composés'),
+            array('id' => 'asc'),
+            5,
+            $loopsTurn);
+            // dump($membersComp);
+            // foreach($membersComp as $memberComp){
+            //     $memberId = $memberComp->getId();
+            //     dump($memberId);
+            // }
+            // dump($memberId);
+
         $membersColl = $repoM->findBy(
-            array('basketType' => 'collectés')
-        );
+            array('basketType' => 'collectés'),
+            array('createdAt' => 'desc'),
+            5,
+            0);
+
         return $this->render('admin/membersList.html.twig', [
             'members1' => $membersComp,
+            // 'lastMemberId' => $memberId,
+            'loopsTurn' => $loopsTurn,
             'members2' => $membersColl
         ]);
     }

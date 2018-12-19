@@ -13,7 +13,10 @@
             Le nombre de paniers est définit par défaut à 0 lors de l'inscription du membre, puis à 1 lors de la
             validation du panier ce qui lui permet de lancer sa commande sachant que le réglement se fera à la ferme !
             Lorsque le membre viendra récupérer son panier, vous pourrez re-définir son nombre de panier à 0
-            sur la page des paniers composés pour lui permettre de re-composer un nouveau panier la semaine suivante!
+            sur la page des paniers composés pour lui permettre de re-composer un nouveau panier la semaine suivante !
+        </p>
+        <p>
+            <a class="paginationLink" style="text-decoration:none" href="{{ path('last_page',{'loopsTurn':loopsTurn - 5})}}">page précédente</a><a class="paginationLink" style="text-decoration:none" href="{{ path('next_page',{'loopsTurn':loopsTurn + 5})}}">page suivante</a>
         </p>
         <h4 class="text-center noMargin">Liste des membres :</h4>
             <div class="MembersComp">
