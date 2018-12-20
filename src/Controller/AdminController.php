@@ -141,10 +141,8 @@ class AdminController extends AbstractController
     {
         $groupOfMember1Max = count($repoM->findBy(
             array('basketType' => 'composés')));
-            // dump($groupOfMember1Max);
         $groupOfMember2Max = count($repoM->findBy(
             array('basketType' => 'collectés')));
-            // dump($groupOfMember2Max);exit;
 
         $membersComp = $repoM->findBy(
                 array('basketType' => 'composés'),
@@ -180,10 +178,8 @@ class AdminController extends AbstractController
     {
         $groupOfMember1Max = count($repoM->findBy(
             array('basketType' => 'composés')));
-            // dump($groupOfMember1Max);
         $groupOfMember2Max = count($repoM->findBy(
             array('basketType' => 'collectés')));
-            // dump($groupOfMember2Max);exit;
 
         $groupOfMember1 = 0;
         $groupOfMember2 = 0;
