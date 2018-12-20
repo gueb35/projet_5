@@ -124,78 +124,46 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('members_list');
     }
 
+
     /**
-     * fonction qui affiche la liste des 5 membres précédents
+     * fonction qui affiche une liste de 5 membres
      * 
      * @param repository $repoM
      * parameter converter pour parler avec la table members
-     * @param int $loopsTurn
-     * identifiant du membre
+     * @param int $groupOfMember1
+     * groupe de membre du panier composé
+     * @param int $groupOfMember2
+     * groupe de membre du panier collecté
      * 
-     * @Route("/lastPage/{loopsTurn}", name="last_page")
+     * @Route("/{groupOfMember1}/{groupOfMember2}", name="paginationMemberGroup")
      */
-    public function lastPage(MembersRepository $repoM ,$loopsTurn)
+    public function paginationMemberGroup(MembersRepository $repoM, $groupOfMember1, $groupOfMember2)
     {
-        // dump($loopsTurn);exit;
-        if ($loopsTurn == -5){
-            return $this->redirectToRoute('members_list');
-        }else{
-            $membersComp = $repoM->findBy(
+        $groupOfMember1Max = count($repoM->findBy(
+            array('basketType' => 'composés')));
+            // dump($groupOfMember1Max);
+        $groupOfMember2Max = count($repoM->findBy(
+            array('basketType' => 'collectés')));
+            // dump($groupOfMember2Max);exit;
+
+        $membersComp = $repoM->findBy(
                 array('basketType' => 'composés'),
-                array('id' => 'asc'),
+                array('createdAt' => 'desc'),
                 5,
-                $loopsTurn);
+                $groupOfMember1);
     
             $membersColl = $repoM->findBy(
                 array('basketType' => 'collectés'),
                 array('createdAt' => 'desc'),
                 5,
-                0);
-        }
+                $groupOfMember2);
 
         return $this->render('admin/membersList.html.twig', [
+            'groupOfMember1Max' => $groupOfMember1Max,
+            'groupOfMember2Max' => $groupOfMember2Max,
+            'groupOfMember1' => $groupOfMember1,
+            'groupOfMember2' => $groupOfMember2,
             'members1' => $membersComp,
-            // 'lastMemberId' => $memberId,
-            'loopsTurn' => $loopsTurn,
-            'members2' => $membersColl
-        ]);
-    }
-
-    /**
-     * fonction qui affiche la liste des 5 membres suivants
-     * 
-     * @param repository $repoM
-     * parameter converter pour parler avec la table members
-     * @param int $loopsTurn
-     * identifiant du membre
-     * 
-     * @Route("/nextPage/{loopsTurn}", name="next_page")
-     */
-    public function nextPage(MembersRepository $repoM ,$loopsTurn)
-    {
-        $membersComp = $repoM->findBy(
-            array('basketType' => 'composés'),
-            array('id' => 'asc'),
-            5,
-            $loopsTurn);
-            // dump($id);
-            // dump($membersComp);
-            // foreach($membersComp as $memberComp){
-            //     $memberId = $memberComp->getId();
-            //     dump($memberId);
-            // }
-            // dump($memberId);exit;
-
-        $membersColl = $repoM->findBy(
-            array('basketType' => 'collectés'),
-            array('createdAt' => 'desc'),
-            5,
-            0);
-
-        return $this->render('admin/membersList.html.twig', [
-            'members1' => $membersComp,
-            // 'lastMemberId' => $memberId,
-            'loopsTurn' => $loopsTurn,
             'members2' => $membersColl
         ]);
     }
@@ -210,29 +178,33 @@ class AdminController extends AbstractController
      */
     public function membersList(MembersRepository $repoM)
     {
-        $loopsTurn = 0;
+        $groupOfMember1Max = count($repoM->findBy(
+            array('basketType' => 'composés')));
+            // dump($groupOfMember1Max);
+        $groupOfMember2Max = count($repoM->findBy(
+            array('basketType' => 'collectés')));
+            // dump($groupOfMember2Max);exit;
+
+        $groupOfMember1 = 0;
+        $groupOfMember2 = 0;
+
         $membersComp = $repoM->findBy(
             array('basketType' => 'composés'),
-            array('id' => 'asc'),
+            array('createdAt' => 'desc'),
             5,
-            $loopsTurn);
-            // dump($membersComp);
-            // foreach($membersComp as $memberComp){
-            //     $memberId = $memberComp->getId();
-            //     dump($memberId);
-            // }
-            // dump($memberId);
-
+            $groupOfMember1);
         $membersColl = $repoM->findBy(
             array('basketType' => 'collectés'),
             array('createdAt' => 'desc'),
             5,
-            0);
+            $groupOfMember2);
 
         return $this->render('admin/membersList.html.twig', [
+            'groupOfMember1Max' => $groupOfMember1Max,
+            'groupOfMember2Max' => $groupOfMember2Max,
+            'groupOfMember1' => $groupOfMember1,
+            'groupOfMember2' => $groupOfMember2,
             'members1' => $membersComp,
-            // 'lastMemberId' => $memberId,
-            'loopsTurn' => $loopsTurn,
             'members2' => $membersColl
         ]);
     }

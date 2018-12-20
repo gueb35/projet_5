@@ -15,9 +15,18 @@
             Lorsque le membre viendra récupérer son panier, vous pourrez re-définir son nombre de panier à 0
             sur la page des paniers composés pour lui permettre de re-composer un nouveau panier la semaine suivante !
         </p>
-        <p>
-            <a class="paginationLink" style="text-decoration:none" href="{{ path('last_page',{'loopsTurn':loopsTurn - 5})}}">page précédente</a><a class="paginationLink" style="text-decoration:none" href="{{ path('next_page',{'loopsTurn':loopsTurn + 5})}}">page suivante</a>
-        </p>
+        <div class="paginationLinkGroupOfMember">
+            {% if groupOfMember1 != 0 %}
+                <a style="text-decoration:none" href="{{ path('paginationMemberGroup',{'groupOfMember1':groupOfMember1 - 5,'groupOfMember2':groupOfMember2})}}"><button type="submit" class="btn btn-success"><span><i class="fas fa-chevron-left"></i></span>groupe de membre précédent</button></a>
+            {% else %}
+                <a style="text-decoration:none"><button type="submit" class="btn btn-success"><span><i class="fas fa-chevron-left"></i></span>groupe de membre précédent</button></a>
+            {% endif %}
+            {% if (groupOfMember1 + 5) > groupOfMember1Max %}
+                <a style="text-decoration:none" ><button type="submit" class="btn btn-success">groupe de membre suivant<span><i class="fas fa-chevron-right"></i></span></button></a>
+            {% else %}
+                <a style="text-decoration:none" href="{{ path('paginationMemberGroup',{'groupOfMember1':groupOfMember1 + 5,'groupOfMember2':groupOfMember2})}}"><button type="submit" class="btn btn-success">groupe de membre suivant<span><i class="fas fa-chevron-right"></i></span></button></a>
+            {% endif %}
+        </div>
         <h4 class="text-center noMargin">Liste des membres :</h4>
             <div class="MembersComp">
                     {% for member in members1 %}
@@ -42,6 +51,18 @@
             Après chaque livraison, vous pourrez diminuer de 1 le nombre de paniers restant sur la page des paniers collectés !
             <br>
         </p>
+        <div class="paginationLinkGroupOfMember">
+            {% if groupOfMember2 != 0 %}
+                <a style="text-decoration:none" href="{{ path('paginationMemberGroup',{'groupOfMember1':groupOfMember1,'groupOfMember2':groupOfMember2 - 5})}}"><button type="submit" class="btn btn-success"><span><i class="fas fa-chevron-left"></i></span>groupe de membre précédent</button></a>
+            {% else %}
+                <a style="text-decoration:none"><button type="submit" class="btn btn-success"><span><i class="fas fa-chevron-left"></i></span>groupe de membre précédent</button></a>
+            {% endif %}
+            {% if (groupOfMember2 + 5) >= groupOfMember2Max %}
+                <a style="text-decoration:none" ><button type="submit" class="btn btn-success">groupe de membre suivant<span><i class="fas fa-chevron-right"></i></span></button></a>
+            {% else %}
+                <a style="text-decoration:none" href="{{ path('paginationMemberGroup',{'groupOfMember1':groupOfMember1,'groupOfMember2':groupOfMember2 + 5})}}"><button type="submit" class="btn btn-success">groupe de membre suivant<span><i class="fas fa-chevron-right"></i></span></button></a>
+            {% endif %}
+        </div>
         <h4 class="text-center noMargin">Liste des membres :</h4>
             <div class="MembersColl">
                     {% for member in members2 %}
