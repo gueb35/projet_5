@@ -31,6 +31,7 @@
             {{ form_widget(formProdOfWeek.quantity, {'attr' : {'placeholder': "Nombre d'unité du produit"}}) }}
             {{ form_label(formProdOfWeek.saleType,'Type de vente') }}
             {{ form_widget(formProdOfWeek.saleType, {'attr' : {'placeholder': "unité ou kg"}}) }}
+            <label id="form_errorProdOfWeek" class="strong"></label>
             <div class="text-center">
                 <a href="product_of_the_week/{id}"><button type="submit" class="btn btn-success">Enregistrer ce produit dans les produits de la semaine </button></a><br>
             </div>

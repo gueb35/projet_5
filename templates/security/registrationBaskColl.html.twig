@@ -27,19 +27,19 @@
         <h4 class="text-center">Formulaire d'inscritpion au panier collectés :</h4>
         <div class="basketColl">
             {{ form_start(formTwo) }}
-            {{ form_widget(formTwo.name, {'attr' : {'placeholder': "Votre nom"}}) }}
-            {{ form_widget(formTwo.firstName, {'attr' : {'placeholder': "Votre prénom"}}) }}
+            <label id="form_errorRegistrationBaskColl" class="strong"></label>
+            {{ form_widget(formTwo.name, {'attr' : {'placeholder': "Votre nom", 'id': 'nameMemberRegistrationBaskComptextType'}}) }}
+            {{ form_widget(formTwo.firstName, {'attr' : {'placeholder': "Votre prénom", 'id': 'firstNameMemberRegistrationBaskColltextType'}}) }}
             {{form_errors(formTwo.email)}}
-            {{ form_widget(formTwo.email, {'attr' : {'placeholder': "Votre email"}}) }}
-            {{ form_widget(formTwo.town, {'attr' : {'placeholder': "Votre lieu de résidence"}}) }}
-            {{ form_widget(formTwo.dayOfWeek, {'attr' : {'placeholder': "Jour ou vous désirez récupérer votre panier chaque semaine"}}) }}
-            {{ form_widget(formTwo.username, {'attr' : {'placeholder': "Votre nom d'utilisateur (retenez le bien !)"}}) }}
+            {{ form_widget(formTwo.email, {'attr' : {'placeholder': "Votre email", 'id': 'emailMemberRegistrationBaskCollEmailType'}}) }}
+            {{ form_widget(formTwo.town, {'attr' : {'placeholder': "Votre lieu de résidence", 'id': 'townMemberRegistrationBaskComptextType'}}) }}
+            {{ form_widget(formTwo.dayOfWeek, {'attr' : {'placeholder': "Jour ou vous désirez récupérer votre panier chaque semaine", 'id': 'dayMemberRegistrationBaskColltextType'}}) }}
+            {{ form_widget(formTwo.username, {'attr' : {'placeholder': "Votre nom d'utilisateur (retenez le bien !)", 'id': 'usernameMemberRegistrationBaskColltextType'}}) }}
             {{form_errors(formTwo.password)}} 
-            {{ form_widget(formTwo.password, {'attr' : {'placeholder': "Votre mot de passe (retenez le bien également !)"}}) }}
+            {{ form_widget(formTwo.password, {'attr' : {'placeholder': "Votre mot de passe (retenez le bien également !)", 'id': 'memberRegistrationBaskCollPasswordType'}}) }}
             {{form_errors(formTwo.confirm_password)}}
-            {{ form_widget(formTwo.confirm_password, {'attr' : {'placeholder': "Confirmez votre mot de passe"}}) }}
+            {{ form_widget(formTwo.confirm_password, {'attr' : {'placeholder': "Confirmez votre mot de passe", 'id': 'memberRegistrationBaskCollConfirmPasswordType'}}) }}
             <button type="submit" class="btn btn-success">Inscription</button>
-
             {{form_end(formTwo)}}
         </div>
     </div>

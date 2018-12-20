@@ -4,7 +4,7 @@ body{
     height: 100%;
 }
 .container{
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.5);
 }
 .logo{
     background-image: url("../images/logo.png"); 
@@ -19,6 +19,9 @@ body{
 }
 p{
     font-size: 18px;
+}
+label{
+    margin-bottom: 0;
 }
 .nav-link:hover{
     background-color:gray;
@@ -91,7 +94,6 @@ footer{
     height: 100%;
     top: 0;
     left: 0;
-    z-index: -10;
     margin: 0 auto;
 }
 #slideshow{
@@ -255,6 +257,7 @@ h5{
     .prodList{
         border: 4px solid black;
         border-radius: 0 0 5px 5px;
+        background-color: rgba(255, 255, 255, 0.5);
     }
     .refProd{
         font-size: 20px;

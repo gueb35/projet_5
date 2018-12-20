@@ -21,17 +21,17 @@
         <h4 class="text-center">Formulaire d'inscription au panier composé :</h4>
         <div class="basketComp">
             {{ form_start(formOne) }}
-            {{ form_widget(formOne.name, {'attr' : {'placeholder': "Votre nom"}}) }}
-            {{ form_widget(formOne.firstName, {'attr' : {'placeholder': "Votre prénom"}}) }}
+            <label id="form_errorRegistrationBaskComp" class="strong"></label>
+            {{ form_widget(formOne.name, {'attr' : {'placeholder': "Votre nom", 'id': 'nameMemberRegistrationBaskComptextType'}}) }}
+            {{ form_widget(formOne.firstName, {'attr' : {'placeholder': "Votre prénom", 'id': 'firstNameMemberRegistrationBaskComptextType'}}) }}
             {{form_errors(formOne.email)}}
-            {{ form_widget(formOne.email, {'attr' : {'placeholder': "Votre email"}}) }}
-            {{ form_widget(formOne.town, {'attr' : {'placeholder': "votre lieu de résidence"}}) }}
-            {{ form_widget(formOne.username, {'attr' : {'placeholder': "Votre nom d'utilisateur (retenez le bien !)"}}) }}
+            {{ form_widget(formOne.email, {'attr' : {'placeholder': "Votre email", 'id': 'emailMemberRegistrationBaskCompType'}}) }}
+            {{ form_widget(formOne.town, {'attr' : {'placeholder': "votre lieu de résidence", 'id': 'townMemberRegistrationBaskComptextType'}}) }}
+            {{ form_widget(formOne.username, {'attr' : {'placeholder': "Votre nom d'utilisateur (retenez le bien !)", 'id': 'usernameMemberRegistrationBaskComptextType'}}) }}
             {{form_errors(formOne.password)}} 
-            {{ form_widget(formOne.password, {'attr' : {'placeholder': "Votre mot de passe (retenez le bien également !)"}}) }}
+            {{ form_widget(formOne.password, {'attr' : {'placeholder': "Votre mot de passe (retenez le bien également !)", 'id': 'memberRegistrationBaskCompPasswordType'}}) }}
             {{form_errors(formOne.confirm_password)}}
-            {{ form_widget(formOne.confirm_password, {'attr' : {'placeholder': "Confirmez votre mot de passe"}}) }}
-
+            {{ form_widget(formOne.confirm_password, {'attr' : {'placeholder': "Confirmez votre mot de passe", 'id': 'memberRegistrationBaskCompConfirmPasswordType'}}) }}
             <button type="submit" class="btn btn-success">M'inscrire</button>
 
             {{form_end(formOne)}}
