@@ -23,13 +23,15 @@
         {% if app.user.numberBasketRest == '0' %}
             <h1 class="text-center strong validationOrNot">Pensez à valider votre panier !<span><i class="fas fa-times-circle"></i></span></h1><br>
         {% else %}
-            <h1 class="text-center strongG validationOrNot">Votre panier est validé !<span><i class="fas fa-check-circle"></i></span></h1><br>
-        {% endif %}
-        {% if noMoreQuantityProduct == "yes" %}
-        <p class="strong">
-            Prenez garde, un ou plusieurs produits n'étaient plus en quantité suffisante lors de la validation de votre panier!
-            Dans votre panier ont été mis la quantité restante!
-        </p>
+        <div class="validationOrNot">
+            <h1 class="text-center strongG">Votre panier est validé !<span><i class="fas fa-check-circle"></i></span></h1><br>
+            {% if noMoreQuantityProduct == "yes" %}
+            <p class="strong">
+                Prenez garde, un ou plusieurs produits n'étaient plus en quantité suffisante lors de la validation de votre panier!
+                Dans votre panier ont été mis la quantité restante!
+            </p>
+            {% endif %}
+        </div>
         {% endif %}
 
     <div class="formListInscr">
