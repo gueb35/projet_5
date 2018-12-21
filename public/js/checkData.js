@@ -71,7 +71,7 @@ let formFields = [
     formRegistrationAdmin = {
         errorLabelId : 'form_errorRegistrationAdmin',
         textType : [
-            "registration_admin__username"
+            "registration_admin_username"
         ],
         integerType : [],
         emailType : [

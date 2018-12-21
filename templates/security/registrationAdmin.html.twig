@@ -3,9 +3,15 @@
 {% block title %}Page d'inscription !{% endblock %}
 
 {% block body %}
+<h1 class="text-center">Grâce au formulaire ci-dessous, vous pouvez modifier vos données de connexion !</h1>
     {{ form_start(form)}}
-    <label id="form_errorRegistrationAdmin" class="strong"></label>
-    {{ form_widget(form)}}
+    <label id="form_errorRegistrationAdmin" class="strong"></label><br>
+    {{ form_label(form.email, "Email") }}
+    {{ form_widget(form.email, {'attr' : {'placeholder': "Votre email"}}) }}
+    {{ form_label(form.username, "Pseudo") }}
+    {{ form_widget(form.username, {'attr' : {'placeholder': "Votre pseudo"}}) }}
+    {{ form_label(form.password, "Mot de passe") }}
+    {{ form_widget(form.password, {'attr' : {'placeholder': "Votre mot de passe"}}) }}
     <button type="submit" class="btn btn-success">Inscription !</button>
     {{ form_end(form)}}
 {% endblock %}

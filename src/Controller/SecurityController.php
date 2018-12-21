@@ -6,6 +6,7 @@ use App\Entity\Admin;
 use App\Entity\Members;
 
 use App\Form\RegistrationAdminType;
+use App\Repository\AdminRepository;
 use App\Repository\MembersRepository;
 use App\Form\RegistrationBaskCollType;
 use App\Form\RegistrationBaskCompType;
@@ -161,13 +162,16 @@ class SecurityController extends AbstractController
      * parameter converter pour manipuler des données
      * @param interface
      * permet d'encoder les mots de passe
+     * @param repository $repoA
+     * parameter converter pour parler avec la table members
+     * 
      * 
      * @Route("/inscriptionAdmin", name="security_registration_admin")
      */
-    public function registrationAdmin(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder){
+    public function registrationAdmin(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, AdminRepository $repoA){
 
-        $admin = new Admin();
-        
+        $admin = $repoA->find(2);
+
         $form = $this->createForm(RegistrationAdminType::class, $admin);
 
         $form->handleRequest($request);
