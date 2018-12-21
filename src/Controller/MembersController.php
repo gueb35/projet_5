@@ -67,12 +67,15 @@ class MembersController extends AbstractController
                     $deleteProd = $repoC->find($idProdBaskComp);//va chercher ce produit dans le panier
                     $manager->remove($deleteProd);//supprime le du panier
                     $manager->flush();
-                }else if($quantityProdOfThisMember - $quantityOfThisProduct >= -1 ){//si il y plus de produit dans le panier que de produit dispo
+                }else if($quantityOfThisProduct - $quantityProdOfThisMember <= -1 ){//si il y plus de produit dans le panier que de produit dispo
+                    $noMoreQuantityProduct = 'yes';
                     $newQuantityProdOfMember = $prodOfMember->setQuantityProd($quantityOfThisProduct);//met le nombre de produit dispo dans le panier
                     $manager->persist($newQuantityProdOfMember);
                     $newQuantityProdOfWeek = $quantity->setQuantity('0');//définit le nombre de produit de la semaine à 0
                     $manager->persist($newQuantityProdOfWeek);
                     $manager->flush();
+
+                    return $this->redirectToRoute('basket_validate', ['noMoreQuantityProduct' => $noMoreQuantityProduct] );
                 }else{
                     $newQuantity = $quantity->setQuantity($quantityOfThisProduct - $quantityProdOfThisMember);//enlève les produits du panier composé dans les produits de la semaine
                     $manager->persist($newQuantity);
@@ -101,6 +104,7 @@ class MembersController extends AbstractController
      */
     public function deleteAllBaskOfMember(ProdBaskCompRepository $repoC, ProdOfWeekRepository $repo, MembersRepository $repoM, ObjectManager $manager)
     {
+        $noMoreQuantityProduct = false;
         $member = $repoM->find($this->getUser());
         $validationBaskOrNot = $member->getNumberBasketRest();
         if($validationBaskOrNot == '1'){
@@ -208,11 +212,13 @@ class MembersController extends AbstractController
      * @param string $name
      * nom du produit à enlever du panier
      * 
-     * @Route("/basket_compouned", name="basket_compouned")//appel via le lien du menu
+     * @Route("/basket_compouned", name="basket_compouned")
      * @Route("/{name}", name="basket_comp")//appel lors de la compositon du panier
+     * @Route("/{noMoreQuantityProduct}", name="basket_validate")
      */
-    public function basketCompouned(ProdBaskComp $ProdBaskComp = null, ProdOfWeekRepository $repo, MembersRepository $repoM, ProdBaskCompRepository $repoC, ObjectManager $manager, $name = null)
+    public function basketCompouned(ProdBaskComp $ProdBaskComp = null, ProdOfWeekRepository $repo, MembersRepository $repoM, ProdBaskCompRepository $repoC, ObjectManager $manager, $name = null, $noMoreQuantityProduct = null)
     {
+        $noMoreQuantityProduct = $name;
         /**********(partie 1) : traitement pour composer un panier***********/
         $member = $this->getUser();
         $nameProd = $name;
@@ -269,6 +275,7 @@ class MembersController extends AbstractController
         /**************/
 
         return $this->render('members/basketCompounedMembers.html.twig', [
+            'noMoreQuantityProduct' => $noMoreQuantityProduct,
             'basketMember' => $basketMember,
             'prod' => $prod
         ]);
