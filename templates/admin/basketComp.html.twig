@@ -28,10 +28,10 @@
                                 -{{prods.quantityProd}} {{prods.kgOrUnity}} {{prods.nameProd}}<br>
                             {% endif %}
                         {% endfor %}
-                    <a href="{{ path('delete_bask_member',{'id':member.id})}}"><button type="submit" class="btn btn-success">Supprimer le panier composé de ce membre !</button></a>
+                    <a href="{{ path('delete_bask_member',{'memberId':member.id})}}"><button type="submit" class="btn btn-success">Supprimer le panier composé de ce membre !</button></a>
+                    <div class="sepMemList"></div>
                     {% endif %}
                 </div>
-                <div class="sepMemList"></div>
                 {% endfor %}
             </div>
         </section>

@@ -17,7 +17,7 @@ class ProdBaskComp
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Members", inversedBy="prodBaskComps")
+     * @ORM\ManyToOne(targetEntity="App\Entity\MembersOfBasketCompouned", inversedBy="prodBaskComps")
      * @ORM\JoinColumn(nullable=false)
      */
     private $members;
@@ -37,17 +37,22 @@ class ProdBaskComp
      */
     private $quantityProd;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getMembers(): ?Members
+    public function getMembers(): ?MembersOfBasketCompouned
     {
         return $this->members;
     }
 
-    public function setMembers(?Members $members): self
+    public function setMembers(?MembersOfBasketCompouned $members): self
     {
         $this->members = $members;
 
@@ -86,6 +91,18 @@ class ProdBaskComp
     public function setQuantityProd(int $quantityProd): self
     {
         $this->quantityProd = $quantityProd;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -10,10 +10,43 @@
         <section>
                 <h5 class="text-center">Bienvenue Mr/Mme {{ app.user.name }} {{ app.user.firstName }}!</h5>
                 <div class="metadata">
-                    <p>
-                        Vous vous êtes inscrit(e) aux paniers {{ app.user.baskettype}} le {{ app.user.createdAt | date('d/m/Y')}} à {{ app.user.createdAt | date('H:i')}}.<br>
-                        Le lieu de ramassage de votre panier se situe sur la commune du {{app.user.dayOfWeek}} et votre nombre de paniers composés est de {{ app.user.numberBasketRest}} !<br>
-                        Vous résidez à {{ app.user.town}} et votre email est : {{ app.user.email}} .<br>
+                    {% if basketTypeOfBasketComp != null and basketTypeOfBasketColl != null %}
+                        {% for infoMemberComp in basketTypeOfBasketComp %}
+                            {% for infoMemberColl in basketTypeOfBasketColl %}
+                                <p>
+                                    Vous vous êtes inscrit(e) aux paniers composés le {{ infoMemberComp.createdAt | date('d/m/Y')}} à {{ infoMemberComp.createdAt | date('H:i')}}.<br>
+                                    {% if dateBask is defined %}
+                                        Vous avez composé votre dernier panier le {{ dateBask | date('d/m/Y')}} à {{ dateBask | date('H:i')}} !<br>
+                                        Le retrait de votre panier se fera directement à la ferme le {{infoMemberComp.dayOfWeek}} suivant .<br>
+                                    {% endif %}
+                                    Votre nombre de paniers composés est de {{ infoMemberComp.numberBasketRest}} !<br>
+                                    Vous vous êtes inscrit(e) aux paniers collectés le {{ infoMemberColl.createdAt | date('d/m/Y')}} à {{ infoMemberColl.createdAt | date('H:i')}}.<br>
+                                    Le lieu de retrait de votre panier se situe sur la commune du {{infoMemberColl.dayOfWeek}} et votre nombre de paniers composés est de {{ infoMemberColl.numberBasketRest}} !<br>
+                                    Vous résidez à {{ infoMemberComp.town}} et votre email est : {{ infoMemberComp.email}} .<br>
+                                </p>
+                            {% endfor %}
+                        {% endfor %}
+                    {% elseif basketTypeOfBasketComp != null %}
+                        {% for infoMemberComp in basketTypeOfBasketComp %}
+                            <p>
+                                Vous vous êtes inscrit(e) aux paniers composés le {{ infoMemberComp.createdAt | date('d/m/Y')}} à {{ infoMemberComp.createdAt | date('H:i')}}.<br>
+                                {% if dateBask is defined %}
+                                    Vous avez composé votre dernier panier le {{ dateBask | date('d/m/Y')}} à {{ dateBask | date('H:i')}} !<br>
+                                    Le retrait de votre panier se fera directement à la ferme le {{infoMemberComp.dayOfWeek}} suivant .<br>
+                                {% endif %}
+                                Votre nombre de paniers composés est de {{ infoMemberComp.numberBasketRest}} !<br>
+                                Vous résidez à {{ infoMemberComp.town}} et votre email est : {{ infoMemberComp.email}} .<br>
+                            </p>
+                        {% endfor %}
+                    {% elseif basketTypeOfBasketColl != null %}
+                        {% for infoMemberColl in basketTypeOfBasketColl %}
+                            <p>
+                                Vous vous êtes inscrit(e) aux paniers collectés le {{ infoMemberColl.createdAt | date('d/m/Y')}} à {{ infoMemberColl.createdAt | date('H:i')}}.<br>
+                                Le lieu de retrait de votre panier se situe sur la commune du {{infoMemberColl.dayOfWeek}} et votre nombre de paniers composés est de {{ infoMemberColl.numberBasketRest}} !<br>
+                                Vous résidez à {{ infoMemberColl.town}} et votre email est : {{ infoMemberColl.email}} .<br>
+                            </p>
+                        {% endfor %}
+                    {% endif %}
                         Lieux et jours de livraison :<br>
                         Lundi : Chateaugiron;<br>
                         Mardi : Nouvoitou (à la ferme)<br>

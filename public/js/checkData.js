@@ -112,7 +112,7 @@ formFields.forEach(function(form){
 
         form.emailType.forEach(function(elem){
             document.getElementById(elem).addEventListener("input", function(event){
-                if (!event.srcElement.value.match(/^[a-zA-Z\.\-\_]+@[a-zA-Z\.\-\_]+\.[a-zA-Z]{2}$/)){
+                if (!event.srcElement.value.match(/^[a-zA-Z\.\-\_]+@[a-zA-Z\.\-\_]+\.[a-zA-Z]{2,3}$/)){
                     errorLabel.textContent = 'Veuillez entrer un email valide !'
                 }else{
                     errorLabel.textContent = ''

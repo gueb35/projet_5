@@ -21,7 +21,7 @@
             {% else %}
                 <a style="text-decoration:none"><button type="submit" class="btn btn-success"><span><i class="fas fa-chevron-left"></i></span>groupe de membre précédent</button></a>
             {% endif %}
-            {% if (groupOfMember1 + 5) > groupOfMember1Max %}
+            {% if (groupOfMember1 + 5) >= groupOfMember1Max %}
                 <a style="text-decoration:none" ><button type="submit" class="btn btn-success">groupe de membre suivant<span><i class="fas fa-chevron-right"></i></span></button></a>
             {% else %}
                 <a style="text-decoration:none" href="{{ path('paginationMemberGroup',{'groupOfMember1':groupOfMember1 + 5,'groupOfMember2':groupOfMember2})}}"><button type="submit" class="btn btn-success">groupe de membre suivant<span><i class="fas fa-chevron-right"></i></span></button></a>

@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Admin;
-use App\Entity\Members;
+use App\Entity\MembersOfBasketCompouned;
+use App\Entity\MembersOfBasketCollected;
 
 use App\Form\RegistrationAdminType;
 use App\Repository\AdminRepository;
-use App\Repository\MembersRepository;
+use App\Repository\MembersOfBasketCompounedRepository;
+use App\Repository\MembersOfBasketCollectedRepository;
 use App\Form\RegistrationBaskCollType;
 use App\Form\RegistrationBaskCompType;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,7 +66,7 @@ class SecurityController extends AbstractController
      */
     public function registrationBaskComp(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
-        $member = new Members();
+        $member = new MembersOfBasketCompouned();
 
         $form = $this->createForm(RegistrationBaskCompType::class, $member);
 
@@ -108,7 +110,7 @@ class SecurityController extends AbstractController
      */
     public function registrationBaskColl(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
-        $member = new Members();
+        $member = new MembersOfBasketCollected();
 
         $form = $this->createForm(RegistrationBaskCollType::class, $member);
 
