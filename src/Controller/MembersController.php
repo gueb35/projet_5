@@ -33,17 +33,18 @@ class MembersController extends AbstractController
     public function showListProdOfWeek(MembersOfBasketCollectedRepository $repoMC, MembersOfBasketCompounedRepository $repoM, ProdBaskCompRepository $repoC)
     {
         $memberEmail = $this->getUser()->getEmail();
+
         $basketTypeOfBasketColl = $repoMC->findBy(
             array('email' => $memberEmail)
         );
-
         $basketTypeOfBasketComp = $repoM->findBy(
             array('email' => $memberEmail)
         );
+
+        
         $creationDateOfBaskComp = $repoC->findBy(
             array('members' => $this->getUser()->getId())
         );
-        
         foreach($creationDateOfBaskComp as $dateBasket){
             $dateBask = $dateBasket->getCreatedAt();
         }

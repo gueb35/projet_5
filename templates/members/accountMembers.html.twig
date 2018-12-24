@@ -8,56 +8,63 @@
     <h1 class="text-center">Voici les informations relatives à votre compte :</h1>
     <div class="infoMember">
         <section>
-                <h5 class="text-center">Bienvenue Mr/Mme {{ app.user.name }} {{ app.user.firstName }}!</h5>
-                <div class="metadata">
-                    {% if basketTypeOfBasketComp != null and basketTypeOfBasketColl != null %}
-                        {% for infoMemberComp in basketTypeOfBasketComp %}
-                            {% for infoMemberColl in basketTypeOfBasketColl %}
-                                <p>
-                                    Vous vous êtes inscrit(e) aux paniers composés le {{ infoMemberComp.createdAt | date('d/m/Y')}} à {{ infoMemberComp.createdAt | date('H:i')}}.<br>
-                                    {% if dateBask is defined %}
-                                        Vous avez composé votre dernier panier le {{ dateBask | date('d/m/Y')}} à {{ dateBask | date('H:i')}} !<br>
-                                        Le retrait de votre panier se fera directement à la ferme le {{infoMemberComp.dayOfWeek}} suivant .<br>
-                                    {% endif %}
-                                    Votre nombre de paniers composés est de {{ infoMemberComp.numberBasketRest}} !<br>
-                                    Vous vous êtes inscrit(e) aux paniers collectés le {{ infoMemberColl.createdAt | date('d/m/Y')}} à {{ infoMemberColl.createdAt | date('H:i')}}.<br>
-                                    Le lieu de retrait de votre panier se situe sur la commune du {{infoMemberColl.dayOfWeek}} et votre nombre de paniers composés est de {{ infoMemberColl.numberBasketRest}} !<br>
-                                    Vous résidez à {{ infoMemberComp.town}} et votre email est : {{ infoMemberComp.email}} .<br>
-                                </p>
-                            {% endfor %}
-                        {% endfor %}
-                    {% elseif basketTypeOfBasketComp != null %}
-                        {% for infoMemberComp in basketTypeOfBasketComp %}
+            <h2 class="text-center">Bienvenue Mr/Mme {{ app.user.name }} {{ app.user.firstName }}!</h2>
+            <div class="metadata">
+                {% if basketTypeOfBasketComp != null and basketTypeOfBasketColl != null %}
+                    {% for infoMemberComp in basketTypeOfBasketComp %}
+                        {% for infoMemberColl in basketTypeOfBasketColl %}
                             <p>
-                                Vous vous êtes inscrit(e) aux paniers composés le {{ infoMemberComp.createdAt | date('d/m/Y')}} à {{ infoMemberComp.createdAt | date('H:i')}}.<br>
-                                {% if dateBask is defined %}
-                                    Vous avez composé votre dernier panier le {{ dateBask | date('d/m/Y')}} à {{ dateBask | date('H:i')}} !<br>
-                                    Le retrait de votre panier se fera directement à la ferme le {{infoMemberComp.dayOfWeek}} suivant .<br>
+                            Vous vous êtes inscrit(e) aux paniers composés le {{ infoMemberComp.createdAt | date('d/m/Y')}} à {{ infoMemberComp.createdAt | date('H:i')}}.<br>
+                                {% if infoMemberComp.numberBasketRest == 1 %}
+                                    Vous avez composé un panier cette semaine validé le {{ dateBask | date('d/m/Y')}} à {{ dateBask | date('H:i')}} !<br>
+                                    Le retrait de votre panier se fera directement à la ferme le {{infoMemberComp.dayOfWeek}} suivant de 16h à 18h30 .<br>
+                                {% else %}
+                                    Vous n'avez pas de panier composé validé cette semaine !<br>
+                                    Rendez-vous sur la page "panier composé" situé dans le menu pour composer vous-même votre panier !<br>
                                 {% endif %}
-                                Votre nombre de paniers composés est de {{ infoMemberComp.numberBasketRest}} !<br>
+                            </p>
+                            <div class="underline"></div>
+                            <p>
+                                Vous vous êtes inscrit(e) aux paniers collectés le {{ infoMemberColl.createdAt | date('d/m/Y')}} à {{ infoMemberColl.createdAt | date('H:i')}}.<br>
+                                Le lieu de retrait de votre panier se situe sur la commune du {{infoMemberColl.dayOfWeek}} et il vous reste {{ infoMemberColl.numberBasketRest}} paniers !<br>
                                 Vous résidez à {{ infoMemberComp.town}} et votre email est : {{ infoMemberComp.email}} .<br>
                             </p>
                         {% endfor %}
-                    {% elseif basketTypeOfBasketColl != null %}
-                        {% for infoMemberColl in basketTypeOfBasketColl %}
-                            <p>
-                                Vous vous êtes inscrit(e) aux paniers collectés le {{ infoMemberColl.createdAt | date('d/m/Y')}} à {{ infoMemberColl.createdAt | date('H:i')}}.<br>
-                                Le lieu de retrait de votre panier se situe sur la commune du {{infoMemberColl.dayOfWeek}} et votre nombre de paniers composés est de {{ infoMemberColl.numberBasketRest}} !<br>
-                                Vous résidez à {{ infoMemberColl.town}} et votre email est : {{ infoMemberColl.email}} .<br>
-                            </p>
-                        {% endfor %}
-                    {% endif %}
-                        Lieux et jours de livraison :<br>
-                        Lundi : Chateaugiron;<br>
-                        Mardi : Nouvoitou (à la ferme)<br>
-                        Mercredi : Vern/seiche;<br>
-                        Jeudi : Amanlis;<br>
-                        Vendredi : Bourgbarré<br>
-                    </p>
-                    <p class="strong">
-                        Pensez à vous déconnecter dès que vous n'avez plus besoin de votre espace membre !
-                    </p>
-                </div>
+                    {% endfor %}
+                {% elseif basketTypeOfBasketComp != null %}
+                    {% for infoMemberComp in basketTypeOfBasketComp %}
+                        <p>
+                            Vous vous êtes inscrit(e) aux paniers composés le {{ infoMemberComp.createdAt | date('d/m/Y')}} à {{ infoMemberComp.createdAt | date('H:i')}}.<br>
+                            {% if infoMemberComp.numberBasketRest == 1 %}
+                                Vous avez composé un panier cette semaine validé le {{ dateBask | date('d/m/Y')}} à {{ dateBask | date('H:i')}} !<br>
+                                Le retrait de votre panier se fera directement à la ferme le {{infoMemberComp.dayOfWeek}} suivant de 16h à 18h30 .<br>
+                            {% else %}
+                                Vous n'avez pas de panier composé validé cette semaine !<br>
+                                Rendez-vous sur la page "panier composé" situé dans le menu pour composer vous-même votre panier !<br>
+                            {% endif %}
+                        </p>
+                    {% endfor %}
+                {% elseif basketTypeOfBasketColl != null %}
+                    {% for infoMemberColl in basketTypeOfBasketColl %}
+                        <p>
+                            Vous vous êtes inscrit(e) aux paniers collectés le {{ infoMemberColl.createdAt | date('d/m/Y')}} à {{ infoMemberColl.createdAt | date('H:i')}}.<br>
+                            Le lieu de retrait de votre panier se situe sur la commune du {{infoMemberColl.dayOfWeek}} et votre nombre de paniers collectés est de {{ infoMemberColl.numberBasketRest}} !<br>
+                            Vous résidez à {{ infoMemberColl.town}} et votre email est : {{ infoMemberColl.email}} .<br>
+                        </p>
+                    {% endfor %}
+                {% endif %}
+                <div class="underline"></div>
+                    Lieux et jours de livraison :<br>
+                    Lundi : Chateaugiron;<br>
+                    Mardi : Nouvoitou (à la ferme)<br>
+                    Mercredi : Vern/seiche;<br>
+                    Jeudi : Amanlis;<br>
+                    Vendredi : Bourgbarré<br>
+                </p>
+                <p class="strong">
+                    Pensez à vous déconnecter dès que vous n'avez plus besoin de votre espace membre !
+                </p>
+            </div>
         </section>
     </div>
 </div>

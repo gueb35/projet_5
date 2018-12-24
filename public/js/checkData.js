@@ -102,7 +102,7 @@ formFields.forEach(function(form){
         form.textType.forEach(function(elem){
             document.getElementById(elem).addEventListener("input", function(event){
                 console.log(event.srcElement.value)
-                if (!event.srcElement.value.match(/^[a-zA-Z\s]+$/)){
+                if (!event.srcElement.value.match(/^[a-zA-Z\s\-]+$/)){
                     errorLabel.textContent = 'Veuillez entrer du texte !'
                 }else{
                     errorLabel.textContent = ''
@@ -112,7 +112,7 @@ formFields.forEach(function(form){
 
         form.emailType.forEach(function(elem){
             document.getElementById(elem).addEventListener("input", function(event){
-                if (!event.srcElement.value.match(/^[a-zA-Z\.\-\_]+@[a-zA-Z\.\-\_]+\.[a-zA-Z]{2,3}$/)){
+                if (!event.srcElement.value.match(/^[a-zA-Z\.\-\_\0-9]+@[a-zA-Z\.\-\_]+\.[a-zA-Z]{2,3}$/)){
                     errorLabel.textContent = 'Veuillez entrer un email valide !'
                 }else{
                     errorLabel.textContent = ''
