@@ -30,15 +30,14 @@ class MembersController extends AbstractController
      * 
      * @Route("/", name="my_compte")
      */
-    public function showListProdOfWeek(MembersOfBasketCollectedRepository $repoMC, MembersOfBasketCompounedRepository $repoM, ProdBaskCompRepository $repoC)
+    public function showInfoMember(MembersOfBasketCollectedRepository $repoMC, MembersOfBasketCompounedRepository $repoM, ProdBaskCompRepository $repoC)
     {
-        $memberEmail = $this->getUser()->getEmail();
-
+        
         $basketTypeOfBasketColl = $repoMC->findBy(
-            array('email' => $memberEmail)
+            array('email' => $this->getUser()->getEmail())
         );
         $basketTypeOfBasketComp = $repoM->findBy(
-            array('email' => $memberEmail)
+            array('email' => $this->getUser()->getEmail())
         );
 
         
@@ -48,6 +47,7 @@ class MembersController extends AbstractController
         foreach($creationDateOfBaskComp as $dateBasket){
             $dateBask = $dateBasket->getCreatedAt();
         }
+
         if(!$creationDateOfBaskComp){
             return $this->render('members/accountMembers.html.twig', [
                 'basketTypeOfBasketColl' => $basketTypeOfBasketColl,
