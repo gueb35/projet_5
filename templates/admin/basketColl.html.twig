@@ -10,9 +10,18 @@
         <div class="baskColl">
             <h2>Paniers collectés du <strong>lundi</strong> à livrés sur la commune de <strong>Chateaugiron</strong>:</h2>
                 {% for day in day1 %}
-                {{day.id}}
                     <div class="metadata">
-                        {{day.numberBasketRest}} panier pour : Mr/Mme {{day.name}} {{day.firstName}}
+                        {{day.numberBasketCollected}} panier pour : Mr/Mme {{day.name}} {{day.firstName}}
+                        <a href="{{ path('defined_number_basket_rest',{'id':day.id})}}"><button type="submit" class="btn btn-success">redéfinir le nombre de paniers restant !</button></a>
+                    </div>
+                {% endfor %}
+        </div>
+
+        <div class="baskColl">
+            <h2>Paniers collectés du <strong>mardi</strong> à récupérer à  <strong> l'éco-ferme de Nouvoitou</strong>:</h2>
+                {% for day in day2 %}
+                    <div class="metadata">
+                        {{day.numberBasketCollected}} panier pour : Mr/Mme {{day.name}} {{day.firstName}}
                         <a href="{{ path('defined_number_basket_rest',{'id':day.id})}}"><button type="submit" class="btn btn-success">redéfinir le nombre de paniers restant !</button></a>
                     </div>
                 {% endfor %}
@@ -22,7 +31,7 @@
             <h2>Paniers collectés du <strong>mercredi</strong> à livrés sur la commune de <strong>Vern sur seiche</strong>:</h2>
                 {% for day in day3 %}
                     <div class="metadata">
-                        {{day.numberBasketRest}} panier pour : Mr/Mme {{day.name}} {{day.firstName}}
+                        {{day.numberBasketCollected}} panier pour : Mr/Mme {{day.name}} {{day.firstName}}
                         <a href="{{ path('defined_number_basket_rest',{'id':day.id})}}"><button type="submit" class="btn btn-success">redéfinir le nombre de paniers restant !</button></a>
                     </div>
                 {% endfor %}
@@ -32,7 +41,7 @@
             <h2>Paniers collectés du <strong>jeudi</strong> à livrés sur la commune de <strong>Amanlis</strong>:</h2>
                 {% for day in day4 %}
                     <div class="metadata">
-                        {{day.numberBasketRest}} panier pour : Mr/Mme {{day.name}} {{day.firstName}}
+                        {{day.numberBasketCollected}} panier pour : Mr/Mme {{day.name}} {{day.firstName}}
                         <a href="{{ path('defined_number_basket_rest',{'id':day.id})}}"><button type="submit" class="btn btn-success">redéfinir le nombre de paniers restant !</button></a>
                     </div>
                 {% endfor %}
@@ -42,7 +51,7 @@
             <h2>Paniers collectés du <strong>vendredi</strong> à livrés sur la commune de <strong>Bourg barré</strong>:</h2>
                 {% for day in day5 %}
                     <div class="metadata">
-                        {{day.numberBasketRest}} panier pour : Mr/Mme {{day.name}} {{day.firstName}}
+                        {{day.numberBasketCollected}} panier pour : Mr/Mme {{day.name}} {{day.firstName}}
                         <a href="{{ path('defined_number_basket_rest',{'id':day.id})}}"><button type="submit" class="btn btn-success">redéfinir le nombre de paniers restant !</button></a>
                     </div>
                 {% endfor %}

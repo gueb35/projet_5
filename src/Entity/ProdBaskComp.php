@@ -17,7 +17,7 @@ class ProdBaskComp
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\MembersOfBasketCompouned", inversedBy="prodBaskComps")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Members", inversedBy="prodOfMembers")
      * @ORM\JoinColumn(nullable=false)
      */
     private $members;
@@ -47,12 +47,12 @@ class ProdBaskComp
         return $this->id;
     }
 
-    public function getMembers(): ?MembersOfBasketCompouned
+    public function getMembers(): ?Members
     {
         return $this->members;
     }
 
-    public function setMembers(?MembersOfBasketCompouned $members): self
+    public function setMembers(?Members $members): self
     {
         $this->members = $members;
 

@@ -2,12 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\MembersOfBasketCompouned;
-use App\Entity\MembersOfBasketCollected;
+use App\Entity\Members;
 use App\Entity\ProdOfWeek;
 use App\Entity\ProdBaskComp;
-use App\Repository\MembersOfBasketCompounedRepository;
-use App\Repository\MembersOfBasketCollectedRepository;
+use App\Repository\MembersRepository;
 use App\Repository\ProdOfWeekRepository;
 use App\Repository\ProdBaskCompRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,48 +17,68 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MembersController extends AbstractController
 {
     /**
-     * fonction pour accéder à la page du compte du membre
+     * fonction qui définit le type de panier choisit par le membre
      * 
-     * @param repository $repoMC
-     * parameter converter pour parler avec la table membersOfBasketCollected
      * @param repository $repoM
      * parameter converter pour parler avec la table members
+     * @param object $manager
+     * parameter converter pour manipuler des données
+     * 
+     * @Route("/chooseBasketType", name="choose_basket_type")
+     */
+    public function chooseBasketType(MembersRepository $repoM, ObjectManager $manager){
+        if((isset($_POST['check1'])) && (isset($_POST['check2'])) && (isset($_POST['dayOfWeek']))){
+            $member = $repoM->find($this->getUser()->getId());
+            dump($member);
+            $definedBasketType = $member->setBasketType('composés');
+            $definedBasketTypeBis = $member->setBasketTypeBis('collectés');
+            $definedNumberBasketCompouned = $member->setNumberBasketCompouned('0');
+            $definedNumberBasketCollected = $member->setNumberBasketCollected('0');
+            $definedDayOfWeek = $member->setDayOfWeek($_POST['dayOfWeek']);
+            $manager->persist($definedBasketType);
+            $manager->persist($definedBasketTypeBis);
+            $manager->persist($definedNumberBasketCompouned);
+            $manager->persist($definedNumberBasketCollected);
+            $manager->persist($definedDayOfWeek);
+            $manager->flush();
+        }else if(isset($_POST['check1'])){
+            $member = $repoM->find($this->getUser()->getId());
+            $definedBasketType = $member->setBasketType('composés');
+            $definedNumberBasketCompouned = $member->setNumberBasketCompouned('0');
+            $manager->persist($definedBasketType);
+            $manager->persist($definedNumberBasketCompouned);
+            $manager->flush();
+        }else if((isset($_POST['check2'])) && (isset($_POST['dayOfWeek']))){
+            $member = $repoM->find($this->getUser()->getId());
+                $definedBasketType = $member->setBasketTypeBis('collectés');
+            $definedNumberBasketCollected = $member->setNumberBasketCollected('0');
+            $definedDayOfWeek = $member->setDayOfWeek($_POST['dayOfWeek']);
+            $manager->persist($definedBasketType);
+            $manager->persist($definedNumberBasketCollected);
+            $manager->persist($definedDayOfWeek);
+            $manager->flush();
+        }
+        
+        return $this->redirectToRoute('my_compte');
+    }
+    /**
+     * fonction pour accéder à la page du compte du membre
+     * 
      * @param repository $repoC
      * parameter converter pour parler avec la table prodBaskComp
      * 
      * @Route("/", name="my_compte")
      */
-    public function showInfoMember(MembersOfBasketCollectedRepository $repoMC, MembersOfBasketCompounedRepository $repoM, ProdBaskCompRepository $repoC)
+    public function showInfoMember(ProdBaskCompRepository $repoC)
     {
-        
-        $basketTypeOfBasketColl = $repoMC->findBy(
-            array('email' => $this->getUser()->getEmail())
-        );
-        $basketTypeOfBasketComp = $repoM->findBy(
-            array('email' => $this->getUser()->getEmail())
-        );
-
-        
-        $creationDateOfBaskComp = $repoC->findBy(
-            array('members' => $this->getUser()->getId())
-        );
-        foreach($creationDateOfBaskComp as $dateBasket){
-            $dateBask = $dateBasket->getCreatedAt();
-        }
-
-        if(!$creationDateOfBaskComp){
-            return $this->render('members/accountMembers.html.twig', [
-                'basketTypeOfBasketColl' => $basketTypeOfBasketColl,
-                'basketTypeOfBasketComp' => $basketTypeOfBasketComp
-            
-            ]);
-        }
-        
+        $memberId = $this->getUser()->getId();
+        $prodbaskOfMember = $repoC->findBy(
+            array('members' => $memberId));
+            foreach($prodbaskOfMember as $date){
+                $date = $date->getCreatedAt();
+            }
         return $this->render('members/accountMembers.html.twig', [
-            'basketTypeOfBasketColl' => $basketTypeOfBasketColl,
-            'basketTypeOfBasketComp' => $basketTypeOfBasketComp,
-            'dateBask' => $dateBask
-        
+            'date' => $date
         ]);
     }
 
@@ -78,14 +96,14 @@ class MembersController extends AbstractController
      * 
      * @Route ("/validateBask", name="validate_bask")
      */
-    public function validateBask(ProdBaskCompRepository $repoC, ProdOfWeekRepository $repo, MembersOfBasketCompounedRepository $repoM, ObjectManager $manager)
+    public function validateBask(ProdBaskCompRepository $repoC, ProdOfWeekRepository $repo, MembersRepository $repoM, ObjectManager $manager)
     {
         /*partie 1*/
         $member = $repoM->find($this->getUser()->getId());
         $memberId = $member->getId();
         $prodOfMember = $repoC->findBy(array('members' => $memberId));
         if($prodOfMember){
-            $newNumberBaskRest = $member->setnumberBasketRest('1');
+            $newNumberBaskRest = $member->setNumberBasketCompouned('1');
             $manager->persist($newNumberBaskRest);
             $manager->flush();
         }
@@ -139,11 +157,11 @@ class MembersController extends AbstractController
      * 
      * @Route("/deleteAllBaskOfMember", name="delete_all_bask_of_member")
      */
-    public function deleteAllBaskOfMember(ProdBaskCompRepository $repoC, ProdOfWeekRepository $repo, MembersOfBasketCompounedRepository $repoM, ObjectManager $manager)
+    public function deleteAllBaskOfMember(ProdBaskCompRepository $repoC, ProdOfWeekRepository $repo, MembersRepository $repoM, ObjectManager $manager)
     {
         $noMoreQuantityProduct = false;
         $member = $repoM->find($this->getUser());
-        $validationBaskOrNot = $member->getNumberBasketRest();
+        $validationBaskOrNot = $member->getNumberBasketCompouned();
         if($validationBaskOrNot == '1'){
             /*partie 1*/
             $prodsOfMember = $repoC->findBy(array('members' => $this->getUser()->getId()));//récupère les produits correspondant à l'id du membre
@@ -164,7 +182,7 @@ class MembersController extends AbstractController
             }
             /*partie 2*/
             $member = $repoM->find($this->getUser());
-            $switchOfValidationBask = $member->setNumberBasketRest('0');
+            $switchOfValidationBask = $member->setNumberBasketCompouned('0');
             $manager->persist($switchOfValidationBask);
             $manager->flush();
             /*****/
@@ -188,10 +206,10 @@ class MembersController extends AbstractController
      * 
      *@Route("/deleteProdBaskComp/{id}", name="delete_prod_bask_comp") 
      */
-    public function deleteProdBaskComp(ProdBaskCompRepository $repoC, MembersOfBasketCompounedRepository $repoM, ObjectManager $manager, $id)
+    public function deleteProdBaskComp(ProdBaskCompRepository $repoC, MembersRepository $repoM, ObjectManager $manager, $id)
     {
         $member = $repoM->find($this->getUser());
-        $baskValidateOrNot = $member->getNumberBasketRest();
+        $baskValidateOrNot = $member->getNumberBasketCompouned();
         if($baskValidateOrNot == '0'){
             $prodsOfMember = $repoC->find($id);//récupère l'entrée de la table correspondant à l'id du produit
             $manager->remove($prodsOfMember);//efface le produit du panier
@@ -216,10 +234,10 @@ class MembersController extends AbstractController
      * 
      *@Route("/deleteOneProdBaskComp/{id}", name="delete_one_prod_bask_comp") 
      */
-    public function deleteOneProdBaskComp(ProdBaskCompRepository $repoC, MembersOfBasketCompounedRepository $repoM, ObjectManager $manager, $id)
+    public function deleteOneProdBaskComp(ProdBaskCompRepository $repoC, MembersRepository $repoM, ObjectManager $manager, $id)
     {
         $member = $repoM->find($this->getUser());
-        $baskValidateOrNot = $member->getNumberBasketRest();
+        $baskValidateOrNot = $member->getNumberBasketCompouned();
         if($baskValidateOrNot == '0'){//si le panier n'est pas validé
             $prodsOfMember = $repoC->find($id);//récupère l'entrée de la table correspondant à l'id du produit
             $quantity = $prodsOfMember->getQuantityProd();
@@ -253,7 +271,7 @@ class MembersController extends AbstractController
      * @Route("/{name}", name="basket_comp")//appel lors de la compositon du panier
      * @Route("/{noMoreQuantityProduct}", name="basket_validate")
      */
-    public function basketCompouned(ProdBaskComp $ProdBaskComp = null, ProdOfWeekRepository $repo, MembersOfBasketCompounedRepository $repoM, ProdBaskCompRepository $repoC, ObjectManager $manager, $name = null, $noMoreQuantityProduct = null)
+    public function basketCompouned(ProdBaskComp $ProdBaskComp = null, ProdOfWeekRepository $repo, MembersRepository $repoM, ProdBaskCompRepository $repoC, ObjectManager $manager, $name = null, $noMoreQuantityProduct = null)
     {
         $noMoreQuantityProduct = $name;
         /**********(partie 1) : traitement pour composer un panier***********/
@@ -265,7 +283,7 @@ class MembersController extends AbstractController
 
         /*vérifie si le panier est validé*/
         $member = $repoM->find($this->getUser());
-        $baskValidateOrNot = $member->getNumberBasketRest();
+        $baskValidateOrNot = $member->getNumberBasketCompouned();
 
         foreach($prodExist as $quantity){
             $newQuantityProd = $quantity->getQuantity();//récupère le nombre de produit

@@ -21,8 +21,8 @@
                 <div class="sepMemList"></div>
                 {% for member in members %}
                 <div class="metadata text-center">
-                    {% if member.numberBasketRest !='0' %}
-                        -Mr/Mme {{member.name}} {{member.firstname}}, {{member.numberBasketRest}} panier comprenant :<br>
+                    {% if member.numberBasketCompouned !='0' %}
+                        -Mr/Mme {{member.name}} {{member.firstname}}, {{member.numberBasketCompouned}} panier comprenant :<br>
                         {% for prods in prodBaskMember %}
                             {% if member.id == prods.getMembers.getId() %}
                                 -{{prods.quantityProd}} {{prods.kgOrUnity}} {{prods.nameProd}}<br>

@@ -3,15 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Admin;
-use App\Entity\MembersOfBasketCompouned;
-use App\Entity\MembersOfBasketCollected;
+use App\Entity\Members;
+use App\Form\RegistrationMembers;
 
 use App\Form\RegistrationAdminType;
+// use App\Entity\MembersOfBasketCollected;
+// use App\Repository\MembersOfBasketCompounedRepository;
+// use App\Repository\MembersOfBasketCollectedRepository;
+// use App\Form\RegistrationBaskCollType;
+// use App\Form\RegistrationBaskCompType;
+// use App\Entity\MembersOfBasketCompouned;
 use App\Repository\AdminRepository;
-use App\Repository\MembersOfBasketCompounedRepository;
-use App\Repository\MembersOfBasketCollectedRepository;
-use App\Form\RegistrationBaskCollType;
-use App\Form\RegistrationBaskCompType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -54,7 +56,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * fonction qui affiche le formulaire d'inscription au panier composés
+     * fonction qui affiche le formulaire d'inscription pour devenir membre
      * 
      * @param object $request
      * @param object $manager
@@ -62,13 +64,13 @@ class SecurityController extends AbstractController
      * @param interface $encoder
      * permet d'encoder les mots de passe
      * 
-     * @Route("/inscriptionBaskComp", name="security_registration_bask_comp")
+     * @Route("/registrationMembers", name="security_registration_members")
      */
-    public function registrationBaskComp(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function registrationMembers(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
-        $member = new MembersOfBasketCompouned();
+        $member = new Members();
 
-        $form = $this->createForm(RegistrationBaskCompType::class, $member);
+        $form = $this->createForm(RegistrationMembers::class, $member);
 
         $form->handleRequest($request);
 
@@ -76,10 +78,6 @@ class SecurityController extends AbstractController
             $hash = $encoder->encodePassword($member, $member->getPassword());
 
             $member->setPassword($hash);
-
-            $member->setbaskettype("composés");
-            $member->setnumberBasketRest(0);
-            $member->setdayOfWeek("mardi");
             $member->setCreatedAt(new \DateTime());
 
             $manager->persist($member);
@@ -92,51 +90,8 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('send_mail', array('name' => $memberName, 'email' => $memberEmail));
             }
 
-        return $this->render('security/registrationBaskComp.html.twig', [
+        return $this->render('security/registrationMembers.html.twig', [
             'formOne' => $form->createView()
-        ]);
-    }
-
-    /**
-     * fonction qui affiche le formulaire d'inscription au panier collectés 
-     * 
-     * @param object $request
-     * @param object $manager
-     * parameter converter pour manipuler des données
-     * @param interface
-     * permet d'encoder les mots de passe
-     * 
-     * @Route("/inscriptionBaskColl", name="security_registration_bask_coll")
-     */
-    public function registrationBaskColl(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
-    {
-        $member = new MembersOfBasketCollected();
-
-        $form = $this->createForm(RegistrationBaskCollType::class, $member);
-
-        $form->handleRequest($request);
-
-            if($form->isSubmitted() && $form->isValid()) {
-            $hash = $encoder->encodePassword($member, $member->getPassword());
-
-            $member->setPassword($hash);
-
-            $member->setbaskettype("collectés");
-            $member->setnumberBasketRest(0);
-            $member->setCreatedAt(new \DateTime());
-
-            $manager->persist($member);
-            $manager->flush();
-
-            //permet de renvoyer ces infos pour l'envoi du mail et à l'affichage de la vue registraton.html.twig
-            $memberName = $member->getName();
-            $memberEmail = $member->getEmail();
-
-            return $this->redirectToRoute('send_mail', array('name' => $memberName, 'email' => $memberEmail));
-            }
-
-        return $this->render('security/registrationBaskColl.html.twig', [
-            'formTwo' => $form->createView()
         ]);
     }
 
@@ -172,7 +127,8 @@ class SecurityController extends AbstractController
      */
     public function registrationAdmin(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, AdminRepository $repoA){
 
-        $admin = $repoA->find(2);
+        $admin = $repoA->find(4);
+        // $admin = new Admin();
 
         $form = $this->createForm(RegistrationAdminType::class, $admin);
 

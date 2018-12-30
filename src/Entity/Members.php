@@ -10,12 +10,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MembersOfBasketCompounedRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\MembersRepository")
  * @UniqueEntity(
  * fields= {"email"},
  * message= "L'email que vous avez indiqué est déjà utilisé !")
  */
-class MembersOfBasketCompouned implements UserInterface
+class Members implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -40,14 +40,19 @@ class MembersOfBasketCompouned implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $basketType;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $numberBasketRest;
+    private $numberBasketCollected;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $numberBasketCompouned;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -55,7 +60,7 @@ class MembersOfBasketCompouned implements UserInterface
     private $town;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $dayOfWeek;
 
@@ -83,11 +88,16 @@ class MembersOfBasketCompouned implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ProdBaskComp", mappedBy="members")
      */
-    private $prodBaskComps;
+    private $prodOfMembers;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $basketTypeBis;
 
     public function __construct()
     {
-        $this->prodBaskComps = new ArrayCollection();
+        $this->prodOfMembers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,21 +146,45 @@ class MembersOfBasketCompouned implements UserInterface
         return $this->basketType;
     }
 
-    public function setBasketType(string $basketType): self
+    public function setBasketType(?string $basketType): self
     {
         $this->basketType = $basketType;
 
         return $this;
     }
 
-    public function getNumberBasketRest(): ?int
+    public function getBasketTypeBis(): ?string
     {
-        return $this->numberBasketRest;
+        return $this->basketTypeBis;
     }
 
-    public function setNumberBasketRest(int $numberBasketRest): self
+    public function setBasketTypeBis(?string $basketTypeBis): self
     {
-        $this->numberBasketRest = $numberBasketRest;
+        $this->basketTypeBis = $basketTypeBis;
+
+        return $this;
+    }
+
+    public function getNumberBasketCollected(): ?int
+    {
+        return $this->numberBasketCollected;
+    }
+
+    public function setNumberBasketCollected(int $numberBasketCollected): self
+    {
+        $this->numberBasketCollected = $numberBasketCollected;
+
+        return $this;
+    }
+
+    public function getNumberBasketCompouned(): ?int
+    {
+        return $this->numberBasketCompouned;
+    }
+
+    public function setNumberBasketCompouned(int $numberBasketCompouned): self
+    {
+        $this->numberBasketCompouned = $numberBasketCompouned;
 
         return $this;
     }
@@ -172,7 +206,7 @@ class MembersOfBasketCompouned implements UserInterface
         return $this->dayOfWeek;
     }
 
-    public function setDayOfWeek(string $dayOfWeek): self
+    public function setDayOfWeek(?string $dayOfWeek): self
     {
         $this->dayOfWeek = $dayOfWeek;
 
@@ -218,7 +252,7 @@ class MembersOfBasketCompouned implements UserInterface
     public function eraseCredentials(){}
 
     public function getSalt(){}
-    
+
     public function getRoles(){
         return ['ROLE_USER'];
     }
@@ -226,28 +260,28 @@ class MembersOfBasketCompouned implements UserInterface
     /**
      * @return Collection|ProdBaskComp[]
      */
-    public function getProdBaskComps(): Collection
+    public function getProdOfMembers(): Collection
     {
-        return $this->prodBaskComps;
+        return $this->prodOfMembers;
     }
 
-    public function addProdBaskComp(ProdBaskComp $prodBaskComp): self
+    public function addProdOfMember(ProdBaskComp $prodOfMember): self
     {
-        if (!$this->prodBaskComps->contains($prodBaskComp)) {
-            $this->prodBaskComps[] = $prodBaskComp;
-            $prodBaskComp->setMembers($this);
+        if (!$this->prodOfMembers->contains($prodOfMember)) {
+            $this->prodOfMembers[] = $prodOfMember;
+            $prodOfMember->setMembers($this);
         }
 
         return $this;
     }
 
-    public function removeProdBaskComp(ProdBaskComp $prodBaskComp): self
+    public function removeProdOfMember(ProdBaskComp $prodOfMember): self
     {
-        if ($this->prodBaskComps->contains($prodBaskComp)) {
-            $this->prodBaskComps->removeElement($prodBaskComp);
+        if ($this->prodOfMembers->contains($prodOfMember)) {
+            $this->prodOfMembers->removeElement($prodOfMember);
             // set the owning side to null (unless already changed)
-            if ($prodBaskComp->getMembers() === $this) {
-                $prodBaskComp->setMembers(null);
+            if ($prodOfMember->getMembers() === $this) {
+                $prodOfMember->setMembers(null);
             }
         }
 

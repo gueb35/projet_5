@@ -12,10 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Repository\ProdOfWeekRepository;
 use App\Repository\ProdBaskCompRepository;
-use App\Repository\MembersOfBasketCompounedRepository;
-use App\Repository\MembersOfBasketCollectedRepository;
-use App\Entity\MembersOfBasketCompouned;
-use App\Entity\MembersOfBasketCollected;
+use App\Repository\MembersRepository;
+use App\Entity\Members;
 use App\Entity\ProdBaskComp;
 use App\Entity\ProdOfWeek;
 
@@ -107,8 +105,8 @@ class AdminController extends AbstractController
     /**
      * fonction qui initialise le nombre de panier collectés restant dû(validation du compte)
      * 
-     * @param repository $repoMC
-     * parameter converter pour parler avec la table membersOfBasketCollected
+     * @param repository $repoM
+     * parameter converter pour parler avec la table members
      * @param object $manager
      * parameter converter pour manipuler des données
      * @param int $id
@@ -116,10 +114,10 @@ class AdminController extends AbstractController
      * 
      * @Route("/initialize/{id}", name="initialize_number_basket_rest")
      */
-    public function initializeNumberBasketRest(MembersOfBasketCollectedRepository $repoMC, ObjectManager $manager, $id)
+    public function initializeNumberBasketRest(MembersRepository $repoM, ObjectManager $manager, $id)
     {
-        $memberId = $repoMC->find($id);
-        $newQuantity = $memberId->setNumberBasketRest('44');//permet de déduire la quantité de produits ds la table des produits de la semaine
+        $memberId = $repoM->find($id);
+        $newQuantity = $memberId->setNumberBasketCollected('44');//permet de déduire la quantité de produits ds la table des produits de la semaine
         $manager->persist($newQuantity);
         $manager->flush();
 
@@ -132,7 +130,7 @@ class AdminController extends AbstractController
      * 
      * @param repository $repoM
      * parameter converter pour parler avec la table membersOfBasketCompouned
-     * @param repository $repoMC
+     * @param repository $repoM
      * parameter converter pour parler avec la table membersOfBasketCollected
      * @param int $groupOfMember1
      * groupe de membre du panier composé
@@ -141,10 +139,16 @@ class AdminController extends AbstractController
      * 
      * @Route("/pagination_member_group/{groupOfMember1}/{groupOfMember2}", name="paginationMemberGroup")
      */
-    public function paginationMemberGroup(MembersOfBasketCompounedRepository $repoM, MembersOfBasketCollectedRepository $repoMC, $groupOfMember1, $groupOfMember2)
+    public function paginationMemberGroup(MembersRepository $repoM, $groupOfMember1, $groupOfMember2)
     {
-        $groupOfMember1Max = count($repoM->findAll());
-        $groupOfMember2Max = count($repoMC->findAll());
+        $groupOfMember1Max = count($repoM->findBy(
+            array('basketType' => 'composés')
+        ));
+        dump($groupOfMember1Max);
+        $groupOfMember2Max = count($repoM->findBy(
+            array('basketTypeBis' => 'collectés')
+        ));
+        dump($groupOfMember1Max);
 
         $membersComp = $repoM->findBy(
                 array('basketType' => 'composés'),
@@ -152,8 +156,8 @@ class AdminController extends AbstractController
                 5,
                 $groupOfMember1);
     
-            $membersColl = $repoMC->findBy(
-                array('basketType' => 'collectés'),
+            $membersColl = $repoM->findBy(
+                array('basketTypeBis' => 'collectés'),
                 array('createdAt' => 'desc'),
                 5,
                 $groupOfMember2);
@@ -172,18 +176,20 @@ class AdminController extends AbstractController
      * fonction qui affiche la liste des 5 premiers membres
      * 
      * @param repository $repoM
-     * parameter converter pour parler avec la table membersOfBasketCompouned
-     * @param repository $repoMC
-     * parameter converter pour parler avec la table membersOfBasketCollected
+     * parameter converter pour parler avec la table members
      * 
      * @Route("/membersList", name="members_list")
      */
-    public function membersList(MembersOfBasketCompounedRepository $repoM, MembersOfBasketCollectedRepository $repoMC)
+    public function membersList(MembersRepository $repoM)
     {
-        $groupOfMember1Max = count($repoM->findAll());
-        $groupOfMember2Max = count($repoMC->findAll());
+        $groupOfMember1Max = count($repoM->findBy(
+            array('basketType' => 'composés')
+        ));
         dump($groupOfMember1Max);
-        dump($groupOfMember2Max);
+        $groupOfMember2Max = count($repoM->findBy(
+            array('basketTypeBis' => 'collectés')
+        ));
+        dump($groupOfMember1Max);
 
         $groupOfMember1 = 0;
         $groupOfMember2 = 0;
@@ -195,8 +201,8 @@ class AdminController extends AbstractController
             array('createdAt' => 'desc'),
             5,
             $groupOfMember1);
-        $membersColl = $repoMC->findBy(
-            array('basketType' => 'collectés'),
+        $membersColl = $repoM->findBy(
+            array('basketTypeBis' => 'collectés'),
             array('createdAt' => 'desc'),
             5,
             $groupOfMember2);
@@ -215,7 +221,7 @@ class AdminController extends AbstractController
      * fonction permettant de vider la table des produits des paniers composés
      * 
      * @param repository $repoM
-     * parameter converter pour parler avec la table membersOfBasketCompouned
+     * parameter converter pour parler avec la table members
      * @param object $manager
      * parameter converter pour manipuler des données
      * @param repository $repoC
@@ -223,14 +229,14 @@ class AdminController extends AbstractController
      * 
      * @Route("/deleteAllBask", name="delete_all_bask")
      */
-    public function deleteAllBask(MembersOfBasketCompounedRepository $repoM, ObjectManager $manager, ProdBaskCompRepository $repoC)
+    public function deleteAllBask(MembersRepository $repoM, ObjectManager $manager, ProdBaskCompRepository $repoC)
     {
         //récupère tous les membres ayant adhéré aux paniers composés
         $definedAllBaskRest = $repoM->findAll();
         
         //re-définit le nombre de paniers restants à 0 pour tous les membres du panier composé
         foreach($definedAllBaskRest as $newQuantityBAskRest){
-            $newQuantity = $newQuantityBAskRest->setNumberBasketRest('0');
+            $newQuantity = $newQuantityBAskRest->setNumberBasketCompouned('0');
         }
 
         //récupère tous les paniers composés
@@ -248,7 +254,7 @@ class AdminController extends AbstractController
      * fonction qui efface le panier composés d'un membre après sa remise au membre
      * 
      * @param repository $repoM
-     * parameter converter pour parler avec la table membersOfBasketCompouned
+     * parameter converter pour parler avec la table members
      * @param object $manager
      * parameter converter pour manipuler des données
      * @param repository $repoC
@@ -258,12 +264,12 @@ class AdminController extends AbstractController
      * 
      * @Route("/deleteBaskMember/{memberId}", name="delete_bask_member")
      */
-    public function deleteBaskMember(MembersOfBasketCompounedRepository $repoM, ObjectManager $manager, ProdBaskCompRepository $repoC, $memberId)
+    public function deleteBaskMember(MembersRepository $repoM, ObjectManager $manager, ProdBaskCompRepository $repoC, $memberId)
     {
         /*récupère les infos du membre*/
         $member = $repoM->find($memberId);
         //re-définit le nombre de paniers restant pour un membre
-        $newQuantity = $member->setNumberBasketRest('0');
+        $newQuantity = $member->setNumberBasketCompouned('0');
         $manager->persist($newQuantity);
         $manager->flush();
 
@@ -283,13 +289,13 @@ class AdminController extends AbstractController
      * fonction qui affiche la liste des membres du panier composés
      * 
      * @param repository $repoM
-     * parameter converter pour parler avec la table membersOfBasketCompouned
+     * parameter converter pour parler avec la table members
      * @param repository $repoC
      * parameter converter pour parler avec la table prodBaskComp
      * 
      * @Route("/basketComp", name="basket_compouned_list")
      */
-    public function showBaskCompList(MembersOfBasketCompounedRepository $repoM, ProdBaskCompRepository $repoC)
+    public function showBaskCompList(MembersRepository $repoM, ProdBaskCompRepository $repoC)
     {
         //récupère la liste des membres ayant adhéré aux paniers composés
         $members = $repoM->findAll();
@@ -307,8 +313,8 @@ class AdminController extends AbstractController
     /**
      * fonction qui définit le nombre de paniers collectés restant dû
      * 
-     * @param repository $repoMC
-     * parameter converter pour parler avec la table membersOfBasketCollected
+     * @param repository $repoM
+     * parameter converter pour parler avec la table members
      * @param object $manager
      * parameter converter pour manipuler des données
      * @param int $id
@@ -316,12 +322,12 @@ class AdminController extends AbstractController
      * 
      *@Route("/definedNumberBasketRest/{id}", name="defined_number_basket_rest") 
      */
-    public function definedNumberBasketRest(MembersOfBasketCollectedRepository $repoMC, ObjectManager $manager, $id)
+    public function definedNumberBasketRest(MembersRepository $repoM, ObjectManager $manager, $id)
     {
         dump($id);
-        $memberId = $repoMC->find($id);
-        $newQuantityBasketRest = $memberId->getNumberBasketRest();//récupère le nombre de panier collecté restant dû
-        $newQuantity = $memberId->setNumberBasketRest($newQuantityBasketRest + '-1');//permet de déduire la quantité de paniers collecté restant dû
+        $memberId = $repoM->find($id);
+        $newQuantityBasketRest = $memberId->getNumberBasketCollected();//récupère le nombre de panier collecté restant dû
+        $newQuantity = $memberId->setNumberBasketCollected($newQuantityBasketRest + '-1');//permet de déduire la quantité de paniers collecté restant dû
         $manager->persist($newQuantity);
         $manager->flush();
 
@@ -331,26 +337,26 @@ class AdminController extends AbstractController
     /**
      * fonction qui affiche la liste des membres du panier collectés
      * 
-     * @param repository $repoMC
-     * parameter converter pour parler avec la table membersOfBasketCollected
+     * @param repository $repoM
+     * parameter converter pour parler avec la table members
      * 
      * @Route("/basketColl", name="basket_collected")
      */
-    public function showBaskCollList(MembersOfBasketCollectedRepository $repoMC)
+    public function showBaskCollList(MembersRepository $repoM)
     {
-        $dayBaskColl1 = $repoMC->findBy(
+        $dayBaskColl1 = $repoM->findBy(
             array('dayOfWeek' => 'lundi')
         );
-        $dayBaskColl2 = $repoMC->findBy(
+        $dayBaskColl2 = $repoM->findBy(
             array('dayOfWeek' => 'mardi')
         );
-        $dayBaskColl3 = $repoMC->findBy(
+        $dayBaskColl3 = $repoM->findBy(
             array('dayOfWeek' => 'mercredi')
         );
-        $dayBaskColl4 = $repoMC->findBy(
+        $dayBaskColl4 = $repoM->findBy(
             array('dayOfWeek' => 'jeudi')
         );
-        $dayBaskColl5 = $repoMC->findBy(
+        $dayBaskColl5 = $repoM->findBy(
             array('dayOfWeek' => 'vendredi')
         );
         return $this->render('admin/basketColl.html.twig', [
