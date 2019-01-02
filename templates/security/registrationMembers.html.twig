@@ -13,30 +13,23 @@
             Remplissez tous les champs puis cliquez sur "M'inscrire", cela vous aménera sur la page d'authentification pour accéder à votre espace membre .<br>
             Une fois que vous êtes inscrit(e), rendez-vous directement dans votre espace membre 
             afin de choisir le type de panier auquel vous voulez adhérer !
-            <!-- Chaque semaine, nous vous offrons la possibilité de composer vous-même votre panier en fonction des fruits et légumes de saisons .<br>
-            Le panier est à retirer le mardi de 16h à 18h30 directement à la ferme .Le montant du panier sera en fonction de ce que vous prendrez .<br>
-            Les réservations se déroulent sur ce site du mercredi matin au mardi matin à 12h .<br>
-            Pour vous inscrire, devenez membre en remplissant le formulaire ci-contre .<br>
-            Si vous êtes déjà inscrit(e) aux paniers collectés, merci d'utiliser le même email !<br> 
-            Une fois le formulaire rempli, cliquez sur "M'inscrire", cela vous aménera sur la page d'authentification pour accéder à votre espace membre .<br>
-            Pour une prochaine composition de panier, rendez-vous directement dans votre espace membre ! -->
         </p>
     </div>
     <div class="titleAndBaskComp">
         <h4 class="text-center">Formulaire d'inscription :</h4>
         <div class="basketComp">
             {{ form_start(formOne) }}
-            <label id="form_errorRegistrationBaskComp" class="strong"></label>
-            {{ form_widget(formOne.name, {'attr' : {'placeholder': "Votre nom", 'id': 'nameMemberRegistrationBaskComptextType'}}) }}
-            {{ form_widget(formOne.firstName, {'attr' : {'placeholder': "Votre prénom", 'id': 'firstNameMemberRegistrationBaskComptextType'}}) }}
+            <label id="form_errorRegistrationMembers" class="strong"></label>
+            {{ form_widget(formOne.name, {'attr' : {'placeholder': "Votre nom"}}) }}
+            {{ form_widget(formOne.firstName, {'attr' : {'placeholder': "Votre prénom"}}) }}
             {{form_errors(formOne.email)}}
-            {{ form_widget(formOne.email, {'attr' : {'placeholder': "Votre email", 'id': 'emailMemberRegistrationBaskCompType'}}) }}
-            {{ form_widget(formOne.town, {'attr' : {'placeholder': "votre lieu de résidence", 'id': 'townMemberRegistrationBaskComptextType'}}) }}
-            {{ form_widget(formOne.username, {'attr' : {'placeholder': "Votre nom d'utilisateur (retenez le bien !)", 'id': 'usernameMemberRegistrationBaskComptextType'}}) }}
+            {{ form_widget(formOne.email, {'attr' : {'placeholder': "Votre email"}}) }}
+            {{ form_widget(formOne.town, {'attr' : {'placeholder': "votre lieu de résidence"}}) }}
+            {{ form_widget(formOne.username, {'attr' : {'placeholder': "Votre nom d'utilisateur (retenez le bien !)"}}) }}
             {{form_errors(formOne.password)}} 
-            {{ form_widget(formOne.password, {'attr' : {'placeholder': "Votre mot de passe (retenez le bien également !)", 'id': 'memberRegistrationBaskCompPasswordType'}}) }}
+            {{ form_widget(formOne.password, {'attr' : {'placeholder': "Votre mot de passe (retenez le bien également !)"}}) }}
             {{form_errors(formOne.confirm_password)}}
-            {{ form_widget(formOne.confirm_password, {'attr' : {'placeholder': "Confirmez votre mot de passe", 'id': 'memberRegistrationBaskCompConfirmPasswordType'}}) }}
+            {{ form_widget(formOne.confirm_password, {'attr' : {'placeholder': "Confirmez votre mot de passe"}}) }}
             <button type="submit" class="btn btn-success">M'inscrire</button>
 
             {{form_end(formOne)}}

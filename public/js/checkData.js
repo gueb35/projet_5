@@ -11,39 +11,23 @@ let formFields = [
         emailType : [],
         passwordType : []
     },
-    formRegistrationBaskComp = {
-        errorLabelId : 'form_errorRegistrationBaskComp',
+    formRegistrationMembers = {
+        errorLabelId : 'form_errorRegistrationMembers',
         textType : [
-            "registration_bask_comp_name",
-            "registration_bask_comp_firstName",
-            "registration_bask_comp_town",
-            "registration_bask_comp_username",
+            "registration_members_name",
+            "registration_members_firstName",
+            "registration_members_town",
+        ],
+        pseudoType : [
+            "registration_members_username",
         ],
         integerType : [],
         emailType : [
-            "registration_bask_comp_email"
+            "registration_members_email"
         ],
         passwordType : [
-            "registration_bask_comp_password",
-            "registration_bask_comp_confirm_password"
-        ]
-    },
-    formRegistrationBaskColl = {
-        errorLabelId : 'form_errorRegistrationBaskColl',
-        textType : [
-            "registration_bask_coll_name",
-            "registration_bask_coll_firstName",
-            "registration_bask_coll_town",
-            "registration_bask_coll_dayOfWeek",
-            "registration_bask_coll_username"
-        ],
-        integerType : [],
-        emailType : [
-            "registration_bask_coll_email"
-        ],
-        passwordType : [
-            "registration_bask_coll_password",
-            "registration_bask_coll_confirm_password"
+            "registration_members_password",
+            "registration_members_confirm_password"
         ]
     },
     formLoginMember = {
@@ -70,8 +54,9 @@ let formFields = [
     },
     formRegistrationAdmin = {
         errorLabelId : 'form_errorRegistrationAdmin',
-        textType : [
-            "registration_admin_username"
+        textType : [],
+        pseudoType : [
+            "registration_admin_username",
         ],
         integerType : [],
         emailType : [
@@ -103,6 +88,17 @@ formFields.forEach(function(form){
             document.getElementById(elem).addEventListener("input", function(event){
                 console.log(event.srcElement.value)
                 if (!event.srcElement.value.match(/^[a-zA-Z\s\-]+$/)){
+                    errorLabel.textContent = 'Veuillez entrer du texte !'
+                }else{
+                    errorLabel.textContent = ''
+                }
+            })
+        })
+
+        form.pseudoType.forEach(function(elem){
+            document.getElementById(elem).addEventListener("input", function(event){
+                console.log(event.srcElement.value)
+                if (!event.srcElement.value.match(/^[a-zA-Z\s\-\_\0-9]+$/)){
                     errorLabel.textContent = 'Veuillez entrer du texte !'
                 }else{
                     errorLabel.textContent = ''

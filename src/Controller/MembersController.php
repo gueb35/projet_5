@@ -72,14 +72,19 @@ class MembersController extends AbstractController
     public function showInfoMember(ProdBaskCompRepository $repoC)
     {
         $memberId = $this->getUser()->getId();
+        // dump($memberId);
         $prodbaskOfMember = $repoC->findBy(
             array('members' => $memberId));
-            foreach($prodbaskOfMember as $date){
-                $date = $date->getCreatedAt();
+            if($prodbaskOfMember != null){
+                foreach($prodbaskOfMember as $date){
+                    $date = $date->getCreatedAt();
+                }
+                // dump($date);exit;
+                return $this->render('members/accountMembers.html.twig', [
+                    'date' => $date
+                ]);
             }
-        return $this->render('members/accountMembers.html.twig', [
-            'date' => $date
-        ]);
+        return $this->render('members/accountMembers.html.twig');
     }
 
     /**

@@ -24,7 +24,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         visitor:
-            pattern: ^/(presentation|inscriptionBaskColl|inscriptionBaskComp)
+            pattern: ^/(presentation|registrationMembers)
             anonymous: true
         members:
             pattern: ^/(connexionMembres|deconnexionMembres|members)
@@ -42,7 +42,7 @@ security:
                 target: visitor_home
 
         admin:
-            pattern: ^/(connexionAdmin|deconnexionAdmin|admin)
+            pattern: ^/(inscriptionAdmin|connexionAdmin|deconnexionAdmin|admin)
             anonymous: true
 
             provider: in_database_admin

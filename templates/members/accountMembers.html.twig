@@ -49,11 +49,11 @@
                     {% elseif (app.user.basketType == 'composés') and (app.user.basketTypeBis == 'collectés') %}
                     <p>
                             Vous êtes inscrit(e) aux 2 paniers .<br>
-                            Votre adhésion au panier collecté est valide et votre nombre de panier vous restant dû est de {{ app.user.numberBasketCollected }} .
+                            Votre nombre de paniers collectés vous restant dû est de {{ app.user.numberBasketCollected }} .
                         </p>
                             {% if app.user.numberBasketCompouned == '0' %}
                                 <p>
-                                    Vous n'avez actuellement pas de panier validé .<br>
+                                    Vous n'avez actuellement pas de panier composé validé .<br>
                                     Pour remèdier à cela, rendez-vous sur la page "panier composé" accèssible depuis le menu .<br>
                                 </p>
                             {% else %}
