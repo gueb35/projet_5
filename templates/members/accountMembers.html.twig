@@ -6,139 +6,142 @@
 
 <div class="accountMember">
     <h1 class="text-center">Voici les informations relatives à votre compte :</h1>
+    <h2 class="text-center">Bienvenue Mr/Mme {{ app.user.name }} {{ app.user.firstName }}!</h2>
     <div class="infoMember">
-        <section>
-            <h2 class="text-center">Bienvenue Mr/Mme {{ app.user.name }} {{ app.user.firstName }}!</h2>
-            <div class="metadata">
-                <p>
-                    Vous vous êtes inscrit(e) en tant que membre le {{ app.user.createdAt | date('d/m/Y')}} à {{ app.user.createdAt | date('H:i') }} .<br>
-                    Vous résidez à {{ app.user.town}} et votre email est : {{ app.user.email}} .
-                </p>
-                    {% if (app.user.basketType == null) and (app.user.basketTypeBis == null) %}
-                        <p>
-                            A ce jour, vous n'êtes inscrit(e) à aucun panier .<br>
-                            Pour remedier à cela, choisissez le type de panier auquel vous voulez vous inscrire .<br>
-                            Vous pouvez bien-sûr vous inscrire aux 2 types de panier !!
-                        </p>
-                        <form action="{{path('choose_basket_type')}}" method="post">
-                            <fieldset class="form-group ">
-                                <h4 class="text-center"><legend>Choisissez votre type de panier</legend></h4>
-                                <div class="form-group chooseBasketType">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck1" name="check1">
-                                        <label class="custom-control-label" for="customCheck1" >Adhérez au panier composé</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck2" name="check2">
-                                        <label class="custom-control-label" for="customCheck2">Adhérez au panier collecté</label>
-                                    </div>
-                                    <div class="form-group">
-                                            <label for="exampleSelect1">Définissez votre jour de retrait :</label>
-                                            <select class="form-control" id="exampleSelect1" name="dayOfWeek" required>
-                                                <option>lundi</option>
-                                                <option>mardi</option>
-                                                <option>mercredi</option>
-                                                <option>jeudi</option>
-                                                <option>vendredi</option>
-                                            </select>
-                                            </div>
-                                    <button type="submit" class="btn btn-success">Adhésion</button>
+        {% if app.user.namePhoto != null %}
+        <div class="photoMember text-center">
+            <img src="/images/{{ app.user.namePhoto }}" alt="photo de membre" style="height:150px;width:100px">
+        </div>
+        {% endif %}
+        <div class="metadata">
+            <p>
+                Vous vous êtes inscrit(e) en tant que membre le {{ app.user.createdAt | date('d/m/Y')}} à {{ app.user.createdAt | date('H:i') }} .<br>
+                Vous résidez à {{ app.user.town}} et votre email est : {{ app.user.email}} .
+            </p>
+                {% if (app.user.basketType == null) and (app.user.basketTypeBis == null) %}
+                    <p>
+                        A ce jour, vous n'êtes inscrit(e) à aucun panier .<br>
+                        Pour remedier à cela, choisissez le type de panier auquel vous voulez vous inscrire .<br>
+                        Vous pouvez bien-sûr vous inscrire aux 2 types de panier !!
+                    </p>
+                    <form action="{{path('choose_basket_type')}}" method="post">
+                        <fieldset class="form-group ">
+                            <h4 class="text-center"><legend>Choisissez votre type de panier</legend></h4>
+                            <div class="form-group chooseBasketType">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1" name="check1">
+                                    <label class="custom-control-label" for="customCheck1" >Adhérez au panier composé</label>
                                 </div>
-                            </fieldset>
-                        </form>
-                    {% elseif (app.user.basketType == 'composés') and (app.user.basketTypeBis == 'collectés') %}
-                    <p>
-                            Vous êtes inscrit(e) aux 2 paniers .<br>
-                            Votre nombre de paniers collectés vous restant dû est de {{ app.user.numberBasketCollected }} .
-                        </p>
-                            {% if app.user.numberBasketCompouned == '0' %}
-                                <p>
-                                    Vous n'avez actuellement pas de panier composé validé .<br>
-                                    Pour remèdier à cela, rendez-vous sur la page "panier composé" accèssible depuis le menu .<br>
-                                </p>
-                            {% else %}
-                                    <p>
-                                        Vous avez actuellement un panier validé le {{ date | date('d/m/Y')}} à {{ date | date('H:i')}} .<br>
-                                    </p>
-                            {% endif %}
-
-                    {% elseif app.user.basketTypeBis == 'collectés' %}
-                        <p>
-                            Vous êtes inscrit(e) au panier collecté .<br>
-                        </p>
-                            {% if app.user.numberBasketCollected == '0' %}
-                                <p>
-                                    Votre adhésion n'a pas encore été validé par le producteur .<br>
-                                    Merci d'envoyer votre réglement afin que cela soit fait .<br>
-                                    Si vous l'avez envoyé, encore un peu de patience, votre adhésion est cours de validation !
-                                </p>
-                            {% else %}
-                                <p>
-                                    Votre adhésion est valide et votre nombre de panier collecté vous restant dû est de {{ app.user.numberBasketCollected }} .
-                                </p>
-                            {% endif %}
-                            <form action="{{path('choose_basket_type')}}" method="post">
-                                    <fieldset class="form-group ">
-                                        <h4 class="tex-center"><legend>Adhérez au panier composé</legend></h4>
-                                        <div class="form-group chooseBasketType">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck1" name="check1">
-                                                <label class="custom-control-label" for="customCheck1">Adhérez au panier composé</label>
-                                            </div>
-                                            <button type="submit" class="btn btn-success">Adhésion</button>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck2" name="check2">
+                                    <label class="custom-control-label" for="customCheck2">Adhérez au panier collecté</label>
+                                </div>
+                                <div class="form-group">
+                                        <label for="exampleSelect1">Définissez votre jour de retrait :</label>
+                                        <select class="form-control" id="exampleSelect1" name="dayOfWeek" required>
+                                            <option>lundi</option>
+                                            <option>mardi</option>
+                                            <option>mercredi</option>
+                                            <option>jeudi</option>
+                                            <option>vendredi</option>
+                                        </select>
                                         </div>
-                                    </fieldset>
-                                </form>
-                    {% elseif app.user.basketType == 'composés' %}
-                    <p>
-                            Vous êtes inscrit(e) au panier composé .<br>
-                        </p>
-                            {% if app.user.numberBasketCompouned == '0' %}
+                                <button type="submit" class="btn btn-success">Adhésion</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                {% elseif (app.user.basketType == 'composés') and (app.user.basketTypeBis == 'collectés') %}
+                <p>
+                        Vous êtes inscrit(e) aux 2 paniers .<br>
+                        Votre nombre de paniers collectés vous restant dû est de {{ app.user.numberBasketCollected }} .
+                    </p>
+                        {% if app.user.numberBasketCompouned == '0' %}
                             <p>
-                                Vous n'avez actuellement pas de panier validé .<br>
+                                Vous n'avez actuellement pas de panier composé validé .<br>
                                 Pour remèdier à cela, rendez-vous sur la page "panier composé" accèssible depuis le menu .<br>
                             </p>
-                            {% else %}
+                        {% else %}
+                                <p>
+                                    Vous avez actuellement un panier validé le {{ date | date('d/m/Y')}} à {{ date | date('H:i')}} .<br>
+                                </p>
+                        {% endif %}
+
+                {% elseif app.user.basketTypeBis == 'collectés' %}
+                    <p>
+                        Vous êtes inscrit(e) au panier collecté .<br>
+                    </p>
+                        {% if app.user.numberBasketCollected == '0' %}
                             <p>
-                                Vous avez actuellement un panier validé le {{ app.user.getProdOfMembers().createdAt | date('d/m/Y')}} à {{ app.user.getProdOfMembers().createdAt | date('H:i')}} .<br>
+                                Votre adhésion n'a pas encore été validé par le producteur .<br>
+                                Merci d'envoyer votre réglement afin que cela soit fait .<br>
+                                Si vous l'avez envoyé, encore un peu de patience, votre adhésion est cours de validation !
                             </p>
-                            {% endif %}
-                            <form action="{{path('choose_basket_type')}}" method="post">
-                                    <fieldset class="form-group ">
-                                        <h4 class="tex-center"><legend>Adhérez au panier collecté</legend></h4>
-                                        <div class="form-group chooseBasketType">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck2" name="check2">
-                                                <label class="custom-control-label" for="customCheck2">Adhérez au panier collecté</label>
-                                            </div>
-                                            <div class="form-group">
-                                                    <label for="exampleSelect1">Définissez votre jour de retrait :</label>
-                                                    <select class="form-control" id="exampleSelect1" name="dayOfWeek" required="on">
-                                                        <option>lundi</option>
-                                                        <option>mardi</option>
-                                                        <option>mercredi</option>
-                                                        <option>jeudi</option>
-                                                        <option>vendredi</option>
-                                                    </select>
-                                                    </div>
-                                            <button type="submit" class="btn btn-success">Adhésion</button>
+                        {% else %}
+                            <p>
+                                Votre adhésion est valide et votre nombre de panier collecté vous restant dû est de {{ app.user.numberBasketCollected }} .
+                            </p>
+                        {% endif %}
+                        <form action="{{path('choose_basket_type')}}" method="post">
+                                <fieldset class="form-group ">
+                                    <h4 class="tex-center"><legend>Adhérez au panier composé</legend></h4>
+                                    <div class="form-group chooseBasketType">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1" name="check1">
+                                            <label class="custom-control-label" for="customCheck1">Adhérez au panier composé</label>
                                         </div>
-                                    </fieldset>
-                                </form>
-                    {% endif %}
-                <div class="underline"></div>
-                    Lieux et jours de livraison :<br>
-                    Lundi : Chateaugiron;<br>
-                    Mardi : Nouvoitou (à la ferme)<br>
-                    Mercredi : Vern/seiche;<br>
-                    Jeudi : Amanlis;<br>
-                    Vendredi : Bourgbarré<br>
-                </p>
-                <p class="strong">
-                    Pensez à vous déconnecter dès que vous n'avez plus besoin de votre espace membre !
-                </p>
-            </div>
-        </section>
+                                        <button type="submit" class="btn btn-success">Adhésion</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                {% elseif app.user.basketType == 'composés' %}
+                <p>
+                        Vous êtes inscrit(e) au panier composé .<br>
+                    </p>
+                        {% if app.user.numberBasketCompouned == '0' %}
+                        <p>
+                            Vous n'avez actuellement pas de panier validé .<br>
+                            Pour remèdier à cela, rendez-vous sur la page "panier composé" accèssible depuis le menu .<br>
+                        </p>
+                        {% else %}
+                        <p>
+                            Vous avez actuellement un panier validé le {{ app.user.getProdOfMembers().createdAt | date('d/m/Y')}} à {{ app.user.getProdOfMembers().createdAt | date('H:i')}} .<br>
+                        </p>
+                        {% endif %}
+                        <form action="{{path('choose_basket_type')}}" method="post">
+                                <fieldset class="form-group ">
+                                    <h4 class="tex-center"><legend>Adhérez au panier collecté</legend></h4>
+                                    <div class="form-group chooseBasketType">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck2" name="check2">
+                                            <label class="custom-control-label" for="customCheck2">Adhérez au panier collecté</label>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="exampleSelect1">Définissez votre jour de retrait :</label>
+                                                <select class="form-control" id="exampleSelect1" name="dayOfWeek" required="on">
+                                                    <option>lundi</option>
+                                                    <option>mardi</option>
+                                                    <option>mercredi</option>
+                                                    <option>jeudi</option>
+                                                    <option>vendredi</option>
+                                                </select>
+                                                </div>
+                                        <button type="submit" class="btn btn-success">Adhésion</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                {% endif %}
+            <div class="underline"></div>
+                Lieux et jours de livraison :<br>
+                Lundi : Chateaugiron;<br>
+                Mardi : Nouvoitou (à la ferme)<br>
+                Mercredi : Vern/seiche;<br>
+                Jeudi : Amanlis;<br>
+                Vendredi : Bourgbarré<br>
+            </p>
+            <p class="strong">
+                Pensez à vous déconnecter dès que vous n'avez plus besoin de votre espace membre !
+            </p>
+        </div>
     </div>
 </div>
 {% endblock %}

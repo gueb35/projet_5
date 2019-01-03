@@ -95,6 +95,11 @@ class Members implements UserInterface
      */
     private $basketTypeBis;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $namePhoto;
+
     public function __construct()
     {
         $this->prodOfMembers = new ArrayCollection();
@@ -284,6 +289,18 @@ class Members implements UserInterface
                 $prodOfMember->setMembers(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNamePhoto()
+    {
+        return $this->namePhoto;
+    }
+
+    public function setNamePhoto($namePhoto)
+    {
+        $this->namePhoto = $namePhoto;
 
         return $this;
     }

@@ -6,6 +6,7 @@ use App\Entity\Members;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -22,7 +23,8 @@ class RegistrationMembers extends AbstractType
             ->add('username',TextType::class)
             ->add('password', PasswordType::class)
             ->add('confirm_password', PasswordType::class)
-        ;
+            ->add('namePhoto', FileType::class)
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

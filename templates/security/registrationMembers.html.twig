@@ -30,6 +30,7 @@
             {{ form_widget(formOne.password, {'attr' : {'placeholder': "Votre mot de passe (retenez le bien également !)"}}) }}
             {{form_errors(formOne.confirm_password)}}
             {{ form_widget(formOne.confirm_password, {'attr' : {'placeholder': "Confirmez votre mot de passe"}}) }}
+            {{ form_widget(formOne.namePhoto, {'attr' : {'title': "Photo non-obligatoire !"}})}}
             <button type="submit" class="btn btn-success">M'inscrire</button>
 
             {{form_end(formOne)}}

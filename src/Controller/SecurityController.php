@@ -7,12 +7,6 @@ use App\Entity\Members;
 use App\Form\RegistrationMembers;
 
 use App\Form\RegistrationAdminType;
-// use App\Entity\MembersOfBasketCollected;
-// use App\Repository\MembersOfBasketCompounedRepository;
-// use App\Repository\MembersOfBasketCollectedRepository;
-// use App\Form\RegistrationBaskCollType;
-// use App\Form\RegistrationBaskCompType;
-// use App\Entity\MembersOfBasketCompouned;
 use App\Repository\AdminRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -74,12 +68,19 @@ class SecurityController extends AbstractController
 
         $form->handleRequest($request);
 
+        $photo = $member->getNamePhoto();
+
             if($form->isSubmitted() && $form->isValid()) {
             $hash = $encoder->encodePassword($member, $member->getPassword());
-
             $member->setPassword($hash);
             $member->setCreatedAt(new \DateTime());
 
+                if($photo != null){
+                    $photoProfil = md5(uniqid()).'.'.$photo->guessExtension();
+                    $photo->move($this->getParameter('upload_directory'), $photoProfil);
+                    $member->setNamePhoto($photoProfil);
+                }
+    
             $manager->persist($member);
             $manager->flush();
 

@@ -184,6 +184,14 @@ h5{
     opacity: 0.9;
     padding: 15px;
 }
+.custom-file-label::after{
+    content: "Chercher une photo";
+    background-color:  #555;
+    color: white;
+}
+.btn-success{
+    margin-top: 5px;
+}
 /*page loginMembers*/
 .loginMember{
     margin-bottom: 339px;
@@ -198,6 +206,9 @@ h5{
     margin-right: 10px;
 }
 /*page accountMembers.html.twig*/
+.photoMember{
+    /* float:left; */
+}
 legend{
     margin-bottom: 0;
 }
