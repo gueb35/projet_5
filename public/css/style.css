@@ -87,6 +87,8 @@ footer{
 .image{
     float:left;
     margin-right: 10px;
+    width: 200px;
+    height: 100px;
 }
 #slideshow-container{
     position: absolute;
@@ -107,10 +109,6 @@ footer{
 }
 .slideshow-image{
     display: none;
-}
-.image{
-    width: 200px;
-    height: 100px;
 }
 h3{
     margin-bottom: 0;
@@ -163,7 +161,7 @@ h5{
     height: 350px; 
     margin: auto;
 }
-/*page inscription*/
+/*page inscription pour devenir membre*/
 .textandformBask{
     display: flex;
 }
@@ -173,15 +171,9 @@ h5{
 .form-control{
     margin-bottom: 5px;
 }
-.basketComp{
+.registrationMembers{
     border: 4px solid black;
     border-radius: 0 0 5px 5px;
-    padding: 15px;
-}
-.basketColl{
-    border: 4px solid black;
-    border-radius: 0 0 5px 5px;
-    opacity: 0.9;
     padding: 15px;
 }
 .custom-file-label::after{
@@ -206,9 +198,6 @@ h5{
     margin-right: 10px;
 }
 /*page accountMembers.html.twig*/
-.photoMember{
-    /* float:left; */
-}
 legend{
     margin-bottom: 0;
 }

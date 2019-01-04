@@ -185,16 +185,12 @@ class AdminController extends AbstractController
         $groupOfMember1Max = count($repoM->findBy(
             array('basketType' => 'composés')
         ));
-        dump($groupOfMember1Max);
         $groupOfMember2Max = count($repoM->findBy(
             array('basketTypeBis' => 'collectés')
         ));
-        dump($groupOfMember1Max);
 
         $groupOfMember1 = 0;
         $groupOfMember2 = 0;
-        dump($groupOfMember1);
-        dump($groupOfMember2);
 
         $membersComp = $repoM->findBy(
             array('basketType' => 'composés'),
@@ -295,7 +291,7 @@ class AdminController extends AbstractController
      * 
      * @Route("/basketComp", name="basket_compouned_list")
      */
-    public function showBaskCompList(MembersRepository $repoM, ProdBaskCompRepository $repoC)
+    public function showBaskCompListMembers(MembersRepository $repoM, ProdBaskCompRepository $repoC)
     {
         //récupère la liste des membres ayant adhéré aux paniers composés
         $members = $repoM->findAll();

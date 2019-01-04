@@ -17,7 +17,7 @@
     </div>
     <div class="titleAndBaskComp">
         <h4 class="text-center">Formulaire d'inscription :</h4>
-        <div class="basketComp">
+        <div class="registrationMembers">
             {{ form_start(formOne) }}
             <label id="form_errorRegistrationMembers" class="strong"></label>
             {{ form_widget(formOne.name, {'attr' : {'placeholder': "Votre nom"}}) }}
@@ -30,7 +30,8 @@
             {{ form_widget(formOne.password, {'attr' : {'placeholder': "Votre mot de passe (retenez le bien également !)"}}) }}
             {{form_errors(formOne.confirm_password)}}
             {{ form_widget(formOne.confirm_password, {'attr' : {'placeholder': "Confirmez votre mot de passe"}}) }}
-            {{ form_widget(formOne.namePhoto, {'attr' : {'title': "Photo non-obligatoire !"}})}}
+            {{ form_widget(formOne.namePhoto)}}
+            <small>Photo non-obligatoire !</small><br>
             <button type="submit" class="btn btn-success">M'inscrire</button>
 
             {{form_end(formOne)}}
