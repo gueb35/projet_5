@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Admin;
 use App\Entity\Members;
 use App\Form\RegistrationMembers;
-
 use App\Form\RegistrationAdminType;
 use App\Repository\AdminRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +24,7 @@ class SecurityController extends AbstractController
      * @param string $email
      * renvoie l'email du membre qui s'est inscrit
      * @param transport
-     * accède à la fonctionnalité d'envoie de mail
+     * accède à la fonctionnalité d'envoi de mail
      * 
      * @Route("/sendMail/{name}/{email}", name="send_mail")
      */
@@ -84,7 +83,7 @@ class SecurityController extends AbstractController
             $manager->persist($member);
             $manager->flush();
 
-            //permet de renvoyer ces infos pour l'envoi du mail et à l'affichage
+            /*permet de renvoyer ces infos pour l'envoi du mail et à l'affichage*/
             $memberName = $member->getName();
             $memberEmail = $member->getEmail();
 
@@ -128,7 +127,7 @@ class SecurityController extends AbstractController
      */
     public function registrationAdmin(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, AdminRepository $repoA){
 
-        $admin = $repoA->find(4);
+        $admin = $repoA->find(5);
         // $admin = new Admin();
 
         $form = $this->createForm(RegistrationAdminType::class, $admin);

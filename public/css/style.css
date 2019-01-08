@@ -115,7 +115,6 @@ h3{
 }
 h4{
     color: white;
-    margin-top: 20px;
     margin-bottom: 0;
     background-color: #555;
     border: 4px solid black;
@@ -214,6 +213,7 @@ legend{
 .messageNoMoreProduct{
     border: 2px solid red;
     font-size: 18px;
+    margin-bottom: 20px;
 }
 .fa-plus{
     color: #28a745;
@@ -248,7 +248,7 @@ legend{
 }
 .downTitle
 {
-    margin-top: 48px;
+    margin-top: 53px;
 }
 
 /*************espace admin****************/
@@ -312,9 +312,16 @@ legend{
     border: 4px solid black;
     border-radius: 0 0 5px 5px;
 }
-/*basketComp*/
+/*page basketComp*/
 .baskCompView{
     display: flex;
+}
+.navListBaskComp{
+    width: 100%;
+    display: inline-flex;
+}
+.navigationListBaskComp{
+    margin: auto;
 }
 .listBaskComp{
     width: 94%;
@@ -328,8 +335,22 @@ legend{
     margin: auto;
 }
 /*basketColl*/
+.listBaskColl{
+    width: 50%;
+    margin: auto;
+}
 .baskColl{
-    border: 2px solid black;
+    border: 4px solid black;
+}
+.bottomline{
+    border-bottom: 2px solid black;
+}
+.navBaskColl{
+    width: 100%;
+    display: inline-flex;
+}
+.navigationBaskColl{
+    margin: auto;
 }
 
 /****************version ipad pro******************/
@@ -381,10 +402,6 @@ legend{
 
     /*partie member*/
     /*page accountMembers.html.twig*/
-    .accountMember{
-        margin-top: 400px;
-        margin-bottom: 265px;
-    }
     .infoMember{
         margin-top: 50px;
     }
@@ -405,6 +422,7 @@ legend{
         margin-bottom: 340px;
     }
     /*page prodOfWeek*/
+    /*pagebasketComp*/
 } 
 /***********version ipad******************/
 @media all and (min-width: 768px) and (max-width: 1023px){
@@ -449,10 +467,6 @@ legend{
 
     /*partie member*/
     /*page accountMembers.html.twig*/
-    .accountMember{
-        margin-top: 350px;
-        margin-bottom: 255px;
-    }
     .infoMember{
         margin-top: 50px;
     }
@@ -516,9 +530,6 @@ legend{
     }
     /*partie member*/
     /*page accountMembers.html.twig*/
-    .accountMember{
-        margin-top: 200px;
-    }
     /*page basketCompounedMembers.html.twig*/
     .viewForCompBask{
         margin-top: 150px;
@@ -559,4 +570,20 @@ legend{
     .listBaskComp{
         width: 100%
     }
+    .baskCompView{
+        display: flex;
+        flex-direction: column;
+    }
+    .page-link{
+        padding: 7px;
+    }
+    .col-sm-6, .col-md-2{
+        padding-left: 0;
+    }
+    /*page baskColl*/
+    .listBaskColl{
+        width: 80%;
+        margin: auto;
+    }
+
 }

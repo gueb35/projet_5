@@ -2,20 +2,22 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use App\Entity\Members;
+use App\Entity\ProdOfWeek;
+use App\Entity\ProdBaskComp;
+use App\Repository\MembersRepository;
 use App\Repository\ProdOfWeekRepository;
 use App\Repository\ProdBaskCompRepository;
-use App\Repository\MembersRepository;
-use App\Entity\Members;
-use App\Entity\ProdBaskComp;
-use App\Entity\ProdOfWeek;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**  @Route("/admin") */
 class AdminController extends AbstractController
@@ -31,7 +33,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * fonction permettant d'actualiser la quantité de produits dans les produits de la semaine
+     * fonction permettant d'enlever un produits dans les produits de la semaine
      * 
      * @param object $ProdOfWeek
      * objet représentant les produits de la semaine
@@ -51,7 +53,8 @@ class AdminController extends AbstractController
     }
 
     /**
-     * fonction pour définir les produits de la semaine(partie 1) et afficher la liste des produits de la semaine(partie 2)
+     * fonction pour définir les produits de la semaine(partie 1)
+     * et afficher la liste des produits de la semaine(partie 2)
      * 
      * @param object $ProdOfWeek
      * objet représentant les produits de la semaine
@@ -68,9 +71,9 @@ class AdminController extends AbstractController
      */
     public function formProdOfWeek(ProdOfWeek $ProdOfWeek =null, ProdOfWeekRepository $repo, Request $request, ObjectManager $manager, $id=null)
     {
-        /**partie 1 : permet d'ajouter un produit dans les produits de la semaine**/
-        if(!$ProdOfWeek){//si le produit n'existe pas
-            $ProdOfWeek = new ProdOfWeek();//crée un nouvel objet
+        /**partie 1**/
+        if(!$ProdOfWeek){
+            $ProdOfWeek = new ProdOfWeek();
         }
         
         /*formulaire de création de produit*/
@@ -90,12 +93,11 @@ class AdminController extends AbstractController
         }
         /*******/
 
-        /**partie 2 : renvoie l'ensemble des produits pour afficher la liste des produits de la semaine**/
-        $prodsOfWeek = $repo->findAll('nameProd');//permet de récupérer tous les produits du champ nameProd
+        /**partie 2**/
+        $prodsOfWeek = $repo->findAll('nameProd');
         /******/
 
         return $this->render('admin/prodWeek.html.twig', [
-
             'id' => $id,
             'formProdOfWeek' => $formProdOfWeek->createView(),
             'prodsOfWeek' => $prodsOfWeek,
@@ -117,7 +119,7 @@ class AdminController extends AbstractController
     public function initializeNumberBasketRest(MembersRepository $repoM, ObjectManager $manager, $id)
     {
         $memberId = $repoM->find($id);
-        $newQuantity = $memberId->setNumberBasketCollected('44');//permet de déduire la quantité de produits ds la table des produits de la semaine
+        $newQuantity = $memberId->setNumberBasketCollected('44');
         $manager->persist($newQuantity);
         $manager->flush();
 
@@ -129,9 +131,7 @@ class AdminController extends AbstractController
      * fonction qui affiche une liste de 5 membres
      * 
      * @param repository $repoM
-     * parameter converter pour parler avec la table membersOfBasketCompouned
-     * @param repository $repoM
-     * parameter converter pour parler avec la table membersOfBasketCollected
+     * parameter converter pour parler avec la table members
      * @param int $groupOfMember1
      * groupe de membre du panier composé
      * @param int $groupOfMember2
@@ -144,11 +144,9 @@ class AdminController extends AbstractController
         $groupOfMember1Max = count($repoM->findBy(
             array('basketType' => 'composés')
         ));
-        dump($groupOfMember1Max);
         $groupOfMember2Max = count($repoM->findBy(
             array('basketTypeBis' => 'collectés')
         ));
-        dump($groupOfMember1Max);
 
         $membersComp = $repoM->findBy(
                 array('basketType' => 'composés'),
@@ -214,7 +212,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * fonction permettant de vider la table des produits des paniers composés
+     * fonction permettant de vider la table des paniers composés
      * 
      * @param repository $repoM
      * parameter converter pour parler avec la table members
@@ -227,18 +225,16 @@ class AdminController extends AbstractController
      */
     public function deleteAllBask(MembersRepository $repoM, ObjectManager $manager, ProdBaskCompRepository $repoC)
     {
-        //récupère tous les membres ayant adhéré aux paniers composés
-        $definedAllBaskRest = $repoM->findAll();
-        
-        //re-définit le nombre de paniers restants à 0 pour tous les membres du panier composé
+
+        $definedAllBaskRest = $repoM->findBy(
+            array('basketType' => 'composés'));
+
         foreach($definedAllBaskRest as $newQuantityBAskRest){
             $newQuantity = $newQuantityBAskRest->setNumberBasketCompouned('0');
         }
 
-        //récupère tous les paniers composés
         $prodBask = $repoC->findAll();
 
-        //permet de vider la table des produits du panier composés lors de la fermeture du lieu de vente
         foreach($prodBask as $deleteAll){
             $manager->remove($deleteAll);
             $manager->flush();
@@ -262,18 +258,15 @@ class AdminController extends AbstractController
      */
     public function deleteBaskMember(MembersRepository $repoM, ObjectManager $manager, ProdBaskCompRepository $repoC, $memberId)
     {
-        /*récupère les infos du membre*/
         $member = $repoM->find($memberId);
-        //re-définit le nombre de paniers restant pour un membre
         $newQuantity = $member->setNumberBasketCompouned('0');
         $manager->persist($newQuantity);
         $manager->flush();
 
-        /*récupère les produits du panier correspondant au membre*/
         $prodsBaskCompOfMember = $repoC->findBy(
             array('members' => $memberId)
         );
-        /*supprime le panier correspondant au membre*/
+
         foreach($prodsBaskCompOfMember as $delete){
             $manager->remove($delete);
             $manager->flush();
@@ -284,30 +277,39 @@ class AdminController extends AbstractController
     /**
      * fonction qui affiche la liste des membres du panier composés
      * 
+     * @param object $paginator
      * @param repository $repoM
      * parameter converter pour parler avec la table members
      * @param repository $repoC
      * parameter converter pour parler avec la table prodBaskComp
+     * @param object $request
      * 
      * @Route("/basketComp", name="basket_compouned_list")
      */
-    public function showBaskCompListMembers(MembersRepository $repoM, ProdBaskCompRepository $repoC)
+    public function showBaskCompListMembers(PaginatorInterface $paginator, MembersRepository $repoM, ProdBaskCompRepository $repoC, Request $request)
     {
-        //récupère la liste des membres ayant adhéré aux paniers composés
-        $members = $repoM->findAll();
-        
-        //récupère tous les produits des paniers composés
+        $allMembers = $repoM->findBy(
+            array('basketType' => 'composés'),
+            array('createdAt' => 'desc')
+        );
+
+        $members = $paginator->paginate(
+            $allMembers,
+            $request->query->getInt('page', 1),
+            5
+        );
+
         $prodBaskMember = $repoC->findAll();
         
         return $this->render('admin/basketComp.html.twig', [
-            'members' => $members,//renvoie les infos des membres ds un tableau bouclé à l'affichage 
+            'members' => $members,
             'prodBaskMember' => $prodBaskMember
 
         ]);
     }
 
     /**
-     * fonction qui définit le nombre de paniers collectés restant dû
+     * fonction qui définit le nombre de paniers collectés restant dû au membre
      * 
      * @param repository $repoM
      * parameter converter pour parler avec la table members
@@ -320,11 +322,9 @@ class AdminController extends AbstractController
      */
     public function definedNumberBasketRest(MembersRepository $repoM, ObjectManager $manager, $id)
     {
-        dump($id);
         $memberId = $repoM->find($id);
-        $newQuantityBasketRest = $memberId->getNumberBasketCollected();//récupère le nombre de panier collecté restant dû
-        $newQuantity = $memberId->setNumberBasketCollected($newQuantityBasketRest + '-1');//permet de déduire la quantité de paniers collecté restant dû
-        $manager->persist($newQuantity);
+        $newQuantityBasketRest = $memberId->getNumberBasketCollected();
+        $newQuantity = $memberId->setNumberBasketCollected($newQuantityBasketRest + '-1');
         $manager->flush();
 
         return $this->redirectToRoute('basket_collected');
@@ -333,34 +333,26 @@ class AdminController extends AbstractController
     /**
      * fonction qui affiche la liste des membres du panier collectés
      * 
+     * @param object $paginator
      * @param repository $repoM
      * parameter converter pour parler avec la table members
+     * @param object $request
      * 
      * @Route("/basketColl", name="basket_collected")
      */
-    public function showBaskCollList(MembersRepository $repoM)
+    public function showBaskCollList(PaginatorInterface $paginator, MembersRepository $repoM, Request $request)
     {
-        $dayBaskColl1 = $repoM->findBy(
-            array('dayOfWeek' => 'lundi')
+        $day = $request->query->get('chooseDayOfWeek', 'lundi');
+        $allMembers = $repoM->listOfMembersByDay($day);
+
+        $members = $paginator->paginate(
+            $allMembers,
+            $request->query->getInt('page', 1),
+            10
         );
-        $dayBaskColl2 = $repoM->findBy(
-            array('dayOfWeek' => 'mardi')
-        );
-        $dayBaskColl3 = $repoM->findBy(
-            array('dayOfWeek' => 'mercredi')
-        );
-        $dayBaskColl4 = $repoM->findBy(
-            array('dayOfWeek' => 'jeudi')
-        );
-        $dayBaskColl5 = $repoM->findBy(
-            array('dayOfWeek' => 'vendredi')
-        );
-        return $this->render('admin/basketColl.html.twig', [
-            'day1' => $dayBaskColl1,
-            'day2' => $dayBaskColl2,
-            'day3' => $dayBaskColl3,
-            'day4' => $dayBaskColl4,
-            'day5' => $dayBaskColl5
+
+        return $this->render('admin/basketColl.html.twig',[
+            'members' => $members
         ]);
     }
 }

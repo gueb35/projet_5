@@ -104,7 +104,7 @@
                         </p>
                         {% else %}
                         <p>
-                            Vous avez actuellement un panier validé le {{ app.user.getProdOfMembers().createdAt | date('d/m/Y')}} à {{ app.user.getProdOfMembers().createdAt | date('H:i')}} .<br>
+                            Vous avez actuellement un panier validé le {{ date | date('d/m/Y')}} à {{ date | date('H:i')}} .<br>
                         </p>
                         {% endif %}
                         <form action="{{path('choose_basket_type')}}" method="post">

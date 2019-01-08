@@ -15,13 +15,18 @@
         </p>
     </div>
     <div class="baskComp">
+        <div class="navListBaskComp">
+            <div class="navigationListBaskComp text-center">
+                    {{ knp_pagination_render(members) }}
+            </div>
+        </div>
         <section class="listBaskComp">
-            <h4 class="text-center">Paniers composés à récupérer le mardi de 13 à 17h :<a href="{{ path('delete_all_bask')}}"><button type="submit" class="btn btn-success">Supprimer tous les paniers composés !</button></a></h4>
+            <h4 class="text-center">Paniers composés à récupérer le mardi de 16 à 18h30 :<a href="{{ path('delete_all_bask')}}"><button type="submit" class="btn btn-success">Supprimer tous les paniers composés !</button></a></h4>
             <div class="titleAndFormComp">   
                 <div class="sepMemList"></div>
                 {% for member in members %}
                 <div class="metadata text-center">
-                    {% if member.numberBasketCompouned !='0' %}
+                    {% if (member.numberBasketCompouned !='0') and (member.numberBasketCompouned != null) %}
                         -Mr/Mme {{member.name}} {{member.firstname}}, {{member.numberBasketCompouned}} panier comprenant :<br>
                         {% for prods in prodBaskMember %}
                             {% if member.id == prods.getMembers.getId() %}

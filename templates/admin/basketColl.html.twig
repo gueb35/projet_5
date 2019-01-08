@@ -4,57 +4,35 @@
 
 {% block body %}
     <h1 class="text-center">Bienvenue sur la page représentant la liste des paniers collectés à préparer !</h1>
-
-    <section class="listBaskComp">
-
-        <div class="baskColl">
-            <h2>Paniers collectés du <strong>lundi</strong> a livrer sur la commune de <strong>Chateaugiron</strong>:</h2>
-                {% for day in day1 %}
-                    <div class="metadata">
-                        {{day.numberBasketCollected}} panier pour : Mr/Mme {{day.name}} {{day.firstName}}
-                        <a href="{{ path('defined_number_basket_rest',{'id':day.id})}}"><button type="submit" class="btn btn-success">redéfinir le nombre de paniers restant !</button></a>
+    <div class="listBaskColl">
+        <form action="{{path('basket_collected')}}" method="get">
+            <div class="form-group text-center">
+                <label for="exampleSelect1">Définissez votre jour de livraison :</label>
+                    <select class="form-control" id="exampleSelect1" name="chooseDayOfWeek" required="on">
+                        <option>lundi</option>
+                        <option>mardi</option>
+                        <option>mercredi</option>
+                        <option>jeudi</option>
+                        <option>vendredi</option>
+                    </select>
+                <button type="submit" class="btn btn-success">Lancer la liste des paniers !</button>
+            </div>
+        </form>
+        <div class="navBaskColl">
+            <div class="navigationBaskColl">
+                {{ knp_pagination_render(members) }}
+            </div>
+        </div>
+        {% for member in members %}
+            <h4 class="text-center">Paniers collectés du <strong>{{member.dayOfWeek}}</strong> à préparer et à livrer:</h4>
+            <div class="baskColl">
+                {% for member in members %}
+                    <div class="metadata bottomline text-center">
+                        {{member.numberBasketCollected}} panier pour : Mr/Mme {{member.name}} {{member.firstName}}
+                        <a href="{{ path('defined_number_basket_rest',{'id':member.id})}}"><button type="submit" class="btn btn-success">redéfinir le nombre de paniers restant !</button></a>
                     </div>
                 {% endfor %}
+            </div>
+        {% endfor %}
         </div>
-
-        <div class="baskColl">
-            <h2>Paniers collectés du <strong>mardi</strong> a récupérer à  <strong> l'éco-ferme de Nouvoitou</strong>:</h2>
-                {% for day in day2 %}
-                    <div class="metadata">
-                        {{day.numberBasketCollected}} panier pour : Mr/Mme {{day.name}} {{day.firstName}}
-                        <a href="{{ path('defined_number_basket_rest',{'id':day.id})}}"><button type="submit" class="btn btn-success">redéfinir le nombre de paniers restant !</button></a>
-                    </div>
-                {% endfor %}
-        </div>
-
-        <div class="baskColl">
-            <h2>Paniers collectés du <strong>mercredi</strong> a livrer sur la commune de <strong>Vern sur seiche</strong>:</h2>
-                {% for day in day3 %}
-                    <div class="metadata">
-                        {{day.numberBasketCollected}} panier pour : Mr/Mme {{day.name}} {{day.firstName}}
-                        <a href="{{ path('defined_number_basket_rest',{'id':day.id})}}"><button type="submit" class="btn btn-success">redéfinir le nombre de paniers restant !</button></a>
-                    </div>
-                {% endfor %}
-        </div>
-
-        <div class="baskColl">
-            <h2>Paniers collectés du <strong>jeudi</strong> a livrer sur la commune de <strong>Amanlis</strong>:</h2>
-                {% for day in day4 %}
-                    <div class="metadata">
-                        {{day.numberBasketCollected}} panier pour : Mr/Mme {{day.name}} {{day.firstName}}
-                        <a href="{{ path('defined_number_basket_rest',{'id':day.id})}}"><button type="submit" class="btn btn-success">redéfinir le nombre de paniers restant !</button></a>
-                    </div>
-                {% endfor %}
-        </div>
-
-        <div class="baskColl">
-            <h2>Paniers collectés du <strong>vendredi</strong> a livrer sur la commune de <strong>Bourg barré</strong>:</h2>
-                {% for day in day5 %}
-                    <div class="metadata">
-                        {{day.numberBasketCollected}} panier pour : Mr/Mme {{day.name}} {{day.firstName}}
-                        <a href="{{ path('defined_number_basket_rest',{'id':day.id})}}"><button type="submit" class="btn btn-success">redéfinir le nombre de paniers restant !</button></a>
-                    </div>
-                {% endfor %}
-        </div>
-    </section>
 {% endblock %}

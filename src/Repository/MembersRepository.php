@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
+use Doctrine\ORM\Query\ResultSetMapping;
 use App\Entity\Members;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -19,32 +21,22 @@ class MembersRepository extends ServiceEntityRepository
         parent::__construct($registry, Members::class);
     }
 
-    // /**
-    //  * @return Members[] Returns an array of Members objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * fonction qui fait une requète pour obtenir tous les membres ayant adhéré aux paniers composés
+     * 
+     * @param string $day
+     * 
+     * @return Members[] Returns an array of Members objects
+     */
+    public function listOfMembersByDay($day)
     {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $rsm = new ResultSetMappingBuilder($this->_em);
+        $rsm->addRootEntityFromClassMetadata('App\Entity\Members', 'm');
 
-    /*
-    public function findOneBySomeField($value): ?Members
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = $this->_em->createNativeQuery('SELECT * from members m WHERE m.basket_type_bis = :basket and  m.day_of_week = :day', $rsm)
+            ->setParameter('basket', 'collectés')
+            ->setParameter('day', $day);
+            return $query->getResult();
+
     }
-    */
 }

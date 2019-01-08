@@ -23,7 +23,7 @@ class RegistrationMembers extends AbstractType
             ->add('username',TextType::class)
             ->add('password', PasswordType::class)
             ->add('confirm_password', PasswordType::class)
-            ->add('namePhoto', FileType::class)
+            ->add('namePhoto', FileType::class, array('required' => false ))
             ;
     }
 

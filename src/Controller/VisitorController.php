@@ -10,7 +10,7 @@ class VisitorController extends AbstractController
     /**
      * @Route("/", name="visitor_home")
      */
-    public function homeUsers()
+    public function homeVisitor()
     {
         return $this->render('visitors/homeVisitor.html.twig');
     }
@@ -18,7 +18,7 @@ class VisitorController extends AbstractController
     /**
      * @Route("/presentation", name="visitor_presentation")
      */
-    public function presentation()
+    public function presentationVisitor()
     {
         return $this->render('visitors/presentationVisitor.html.twig');
     }
