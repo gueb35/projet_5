@@ -60,9 +60,8 @@ label{
     border-bottom: 35px solid white;
 }
 footer{
-
-    margin-top: 202px !important;
-    bottom: 0;
+    margin-top: 90px;
+    margin-left:120px;
 }
 /*************espace visitor***************/
 .btn{
@@ -70,9 +69,6 @@ footer{
 }
 p{
     margin: 0;
-}
-footer{
-    margin-top: 120px;
 }
 /*page d'accueil*/
 .homeTitle{
