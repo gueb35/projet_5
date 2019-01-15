@@ -1,0 +1,352 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.7
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : localhost
+-- Généré le :  mer. 09 jan. 2019 à 11:33
+-- Version du serveur :  10.1.30-MariaDB
+-- Version de PHP :  7.2.1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données :  `projet5`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `admin`
+--
+
+INSERT INTO `admin` (`id`, `email`, `username`, `password`) VALUES
+(5, 'eco-ferme@sfr.fr', 'ROMU', '$2y$13$S8e7UttZglsDxJWGE3TVwew8zwTSlNjP0oIzNJ/C5y2G8AOiC6uFa');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `members`
+--
+
+CREATE TABLE `members` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `basket_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `number_basket_collected` int(11) DEFAULT NULL,
+  `number_basket_compouned` int(11) DEFAULT NULL,
+  `town` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `day_of_week` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL,
+  `basket_type_bis` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name_photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `members`
+--
+
+INSERT INTO `members` (`id`, `name`, `first_name`, `email`, `basket_type`, `number_basket_collected`, `number_basket_compouned`, `town`, `day_of_week`, `username`, `password`, `created_at`, `basket_type_bis`, `name_photo`) VALUES
+(315, 'Nom 1', 'Prénom 1', 'mail@1', 'composés', NULL, 0, 'ville 1', 'mardi', 'pseudo no1', 'mot de passe no1', '2019-01-07 15:28:11', NULL, NULL),
+(316, 'Nom 2', 'Prénom 2', 'mail@2', 'composés', NULL, 0, 'ville 2', 'mardi', 'pseudo no2', 'mot de passe no2', '2019-01-07 15:28:11', NULL, NULL),
+(317, 'Nom 3', 'Prénom 3', 'mail@3', 'composés', NULL, 0, 'ville 3', 'mardi', 'pseudo no3', 'mot de passe no3', '2019-01-07 15:28:11', NULL, NULL),
+(318, 'Nom 4', 'Prénom 4', 'mail@4', 'composés', NULL, 0, 'ville 4', 'mardi', 'pseudo no4', 'mot de passe no4', '2019-01-07 15:28:11', NULL, NULL),
+(319, 'Nom 5', 'Prénom 5', 'mail@5', 'composés', NULL, 0, 'ville 5', 'mardi', 'pseudo no5', 'mot de passe no5', '2019-01-07 15:28:11', NULL, NULL),
+(320, 'Nom 6', 'Prénom 6', 'mail@6', 'composés', NULL, 0, 'ville 6', 'mardi', 'pseudo no6', 'mot de passe no6', '2019-01-07 15:28:11', NULL, NULL),
+(321, 'Nom 7', 'Prénom 7', 'mail@7', 'composés', NULL, 0, 'ville 7', 'mardi', 'pseudo no7', 'mot de passe no7', '2019-01-07 15:28:11', NULL, NULL),
+(322, 'Nom 8', 'Prénom 8', 'mail@8', 'composés', NULL, 0, 'ville 8', 'mardi', 'pseudo no8', 'mot de passe no8', '2019-01-07 15:28:11', NULL, NULL),
+(323, 'Nom 9', 'Prénom 9', 'mail@9', 'composés', NULL, 0, 'ville 9', 'mardi', 'pseudo no9', 'mot de passe no9', '2019-01-07 15:28:11', NULL, NULL),
+(324, 'Nom 10', 'Prénom 10', 'mail@10', 'composés', NULL, 0, 'ville 10', 'mardi', 'pseudo no10', 'mot de passe no10', '2019-01-07 15:28:11', NULL, NULL),
+(325, 'Nom 11', 'Prénom 11', 'mail@11', 'composés', NULL, 0, 'ville 11', 'mardi', 'pseudo no11', 'mot de passe no11', '2019-01-07 15:28:11', NULL, NULL),
+(326, 'Nom 12', 'Prénom 12', 'mail@12', 'composés', NULL, 0, 'ville 12', 'mardi', 'pseudo no12', 'mot de passe no12', '2019-01-07 15:28:11', NULL, NULL),
+(327, 'Nom 13', 'Prénom 13', 'mail@13', 'composés', NULL, 0, 'ville 13', 'mardi', 'pseudo no13', 'mot de passe no13', '2019-01-07 15:28:11', NULL, NULL),
+(328, 'Nom 14', 'Prénom 14', 'mail@14', 'composés', NULL, 0, 'ville 14', 'mardi', 'pseudo no14', 'mot de passe no14', '2019-01-07 15:28:11', NULL, NULL),
+(329, 'Nom 15', 'Prénom 15', 'mail@15', 'composés', NULL, 0, 'ville 15', 'mardi', 'pseudo no15', 'mot de passe no15', '2019-01-07 15:28:11', NULL, NULL),
+(330, 'Nom 16', 'Prénom 16', 'mail@16', 'composés', NULL, 0, 'ville 16', 'mardi', 'pseudo no16', 'mot de passe no16', '2019-01-07 15:28:11', NULL, NULL),
+(331, 'Nom 17', 'Prénom 17', 'mail@17', 'composés', NULL, 0, 'ville 17', 'mardi', 'pseudo no17', 'mot de passe no17', '2019-01-07 15:28:11', NULL, NULL),
+(332, 'Nom 18', 'Prénom 18', 'mail@18', 'composés', NULL, 0, 'ville 18', 'mardi', 'pseudo no18', 'mot de passe no18', '2019-01-07 15:28:11', NULL, NULL),
+(333, 'Nom 19', 'Prénom 19', 'mail@19', 'composés', NULL, 0, 'ville 19', 'mardi', 'pseudo no19', 'mot de passe no19', '2019-01-07 15:28:11', NULL, NULL),
+(334, 'Nom 20', 'Prénom 20', 'mail@20', 'composés', NULL, 0, 'ville 20', 'mardi', 'pseudo no20', 'mot de passe no20', '2019-01-07 15:28:11', NULL, NULL),
+(335, 'Nom 21', 'Prénom 21', 'mail@21', 'composés', NULL, 0, 'ville 21', 'mardi', 'pseudo no21', 'mot de passe no21', '2019-01-07 15:28:11', NULL, NULL),
+(336, 'Nom 22', 'Prénom 22', 'mail@22', 'composés', NULL, 0, 'ville 22', 'mardi', 'pseudo no22', 'mot de passe no22', '2019-01-07 15:28:11', NULL, NULL),
+(337, 'Nom 23', 'Prénom 23', 'mail@23', 'composés', NULL, 0, 'ville 23', 'mardi', 'pseudo no23', 'mot de passe no23', '2019-01-07 15:28:11', NULL, NULL),
+(338, 'Nom 24', 'Prénom 24', 'mail@24', 'composés', NULL, 0, 'ville 24', 'mardi', 'pseudo no24', 'mot de passe no24', '2019-01-07 15:28:11', NULL, NULL),
+(339, 'Nom 25', 'Prénom 25', 'mail@25', 'composés', NULL, 0, 'ville 25', 'mardi', 'pseudo no25', 'mot de passe no25', '2019-01-07 15:28:11', NULL, NULL),
+(340, 'Nom 26', 'Prénom 26', 'mail@26', NULL, 26, NULL, 'ville 26', 'lundi', 'pseudo no26', 'mot de passe no26', '2019-01-07 15:28:11', 'collectés', NULL),
+(341, 'Nom 27', 'Prénom 27', 'mail@27', NULL, 27, NULL, 'ville 27', 'lundi', 'pseudo no27', 'mot de passe no27', '2019-01-07 15:28:11', 'collectés', NULL),
+(342, 'Nom 28', 'Prénom 28', 'mail@28', NULL, 28, NULL, 'ville 28', 'lundi', 'pseudo no28', 'mot de passe no28', '2019-01-07 15:28:11', 'collectés', NULL),
+(343, 'Nom 29', 'Prénom 29', 'mail@29', NULL, 29, NULL, 'ville 29', 'lundi', 'pseudo no29', 'mot de passe no29', '2019-01-07 15:28:11', 'collectés', NULL),
+(344, 'Nom 30', 'Prénom 30', 'mail@30', NULL, 30, NULL, 'ville 30', 'lundi', 'pseudo no30', 'mot de passe no30', '2019-01-07 15:28:11', 'collectés', NULL),
+(345, 'Nom 31', 'Prénom 31', 'mail@31', NULL, 31, NULL, 'ville 31', 'lundi', 'pseudo no31', 'mot de passe no31', '2019-01-07 15:28:11', 'collectés', NULL),
+(346, 'Nom 32', 'Prénom 32', 'mail@32', NULL, 32, NULL, 'ville 32', 'lundi', 'pseudo no32', 'mot de passe no32', '2019-01-07 15:28:11', 'collectés', NULL),
+(347, 'Nom 33', 'Prénom 33', 'mail@33', NULL, 33, NULL, 'ville 33', 'lundi', 'pseudo no33', 'mot de passe no33', '2019-01-07 15:28:11', 'collectés', NULL),
+(348, 'Nom 34', 'Prénom 34', 'mail@34', NULL, 34, NULL, 'ville 34', 'lundi', 'pseudo no34', 'mot de passe no34', '2019-01-07 15:28:11', 'collectés', NULL),
+(349, 'Nom 35', 'Prénom 35', 'mail@35', NULL, 35, NULL, 'ville 35', 'lundi', 'pseudo no35', 'mot de passe no35', '2019-01-07 15:28:11', 'collectés', NULL),
+(350, 'Nom 36', 'Prénom 36', 'mail@36', NULL, 36, NULL, 'ville 36', 'lundi', 'pseudo no36', 'mot de passe no36', '2019-01-07 15:28:11', 'collectés', NULL),
+(351, 'Nom 37', 'Prénom 37', 'mail@37', NULL, 37, NULL, 'ville 37', 'lundi', 'pseudo no37', 'mot de passe no37', '2019-01-07 15:28:11', 'collectés', NULL),
+(352, 'Nom 38', 'Prénom 38', 'mail@38', NULL, 38, NULL, 'ville 38', 'lundi', 'pseudo no38', 'mot de passe no38', '2019-01-07 15:28:11', 'collectés', NULL),
+(353, 'Nom 39', 'Prénom 39', 'mail@39', NULL, 39, NULL, 'ville 39', 'lundi', 'pseudo no39', 'mot de passe no39', '2019-01-07 15:28:11', 'collectés', NULL),
+(354, 'Nom 40', 'Prénom 40', 'mail@40', NULL, 40, NULL, 'ville 40', 'lundi', 'pseudo no40', 'mot de passe no40', '2019-01-07 15:28:11', 'collectés', NULL),
+(355, 'Nom 41', 'Prénom 41', 'mail@41', NULL, 41, NULL, 'ville 41', 'lundi', 'pseudo no41', 'mot de passe no41', '2019-01-07 15:28:11', 'collectés', NULL),
+(356, 'Nom 42', 'Prénom 42', 'mail@42', NULL, 42, NULL, 'ville 42', 'lundi', 'pseudo no42', 'mot de passe no42', '2019-01-07 15:28:11', 'collectés', NULL),
+(357, 'Nom 43', 'Prénom 43', 'mail@43', NULL, 43, NULL, 'ville 43', 'lundi', 'pseudo no43', 'mot de passe no43', '2019-01-07 15:28:11', 'collectés', NULL),
+(358, 'Nom 44', 'Prénom 44', 'mail@44', NULL, 44, NULL, 'ville 44', 'lundi', 'pseudo no44', 'mot de passe no44', '2019-01-07 15:28:11', 'collectés', NULL),
+(359, 'Nom 45', 'Prénom 45', 'mail@45', NULL, 44, NULL, 'ville 45', 'lundi', 'pseudo no45', 'mot de passe no45', '2019-01-07 15:28:11', 'collectés', NULL),
+(360, 'Nom 46', 'Prénom 46', 'mail@46', NULL, 0, NULL, 'ville 46', 'mardi', 'pseudo no46', 'mot de passe no46', '2019-01-07 15:28:11', 'collectés', NULL),
+(361, 'Nom 47', 'Prénom 47', 'mail@47', NULL, 0, NULL, 'ville 47', 'mardi', 'pseudo no47', 'mot de passe no47', '2019-01-07 15:28:11', 'collectés', NULL),
+(362, 'Nom 48', 'Prénom 48', 'mail@48', NULL, 0, NULL, 'ville 48', 'mardi', 'pseudo no48', 'mot de passe no48', '2019-01-07 15:28:11', 'collectés', NULL),
+(363, 'Nom 49', 'Prénom 49', 'mail@49', NULL, 0, NULL, 'ville 49', 'mardi', 'pseudo no49', 'mot de passe no49', '2019-01-07 15:28:11', 'collectés', NULL),
+(364, 'Nom 50', 'Prénom 50', 'mail@50', NULL, 0, NULL, 'ville 50', 'mardi', 'pseudo no50', 'mot de passe no50', '2019-01-07 15:28:11', 'collectés', NULL),
+(365, 'Nom 51', 'Prénom 51', 'mail@51', NULL, 0, NULL, 'ville 51', 'mardi', 'pseudo no51', 'mot de passe no51', '2019-01-07 15:28:11', 'collectés', NULL),
+(366, 'Nom 52', 'Prénom 52', 'mail@52', NULL, 0, NULL, 'ville 52', 'mardi', 'pseudo no52', 'mot de passe no52', '2019-01-07 15:28:11', 'collectés', NULL),
+(367, 'Nom 53', 'Prénom 53', 'mail@53', NULL, 0, NULL, 'ville 53', 'mardi', 'pseudo no53', 'mot de passe no53', '2019-01-07 15:28:11', 'collectés', NULL),
+(368, 'Nom 54', 'Prénom 54', 'mail@54', NULL, 0, NULL, 'ville 54', 'mardi', 'pseudo no54', 'mot de passe no54', '2019-01-07 15:28:11', 'collectés', NULL),
+(369, 'Nom 55', 'Prénom 55', 'mail@55', NULL, 0, NULL, 'ville 55', 'mardi', 'pseudo no55', 'mot de passe no55', '2019-01-07 15:28:11', 'collectés', NULL),
+(370, 'Nom 56', 'Prénom 56', 'mail@56', NULL, 0, NULL, 'ville 56', 'mardi', 'pseudo no56', 'mot de passe no56', '2019-01-07 15:28:11', 'collectés', NULL),
+(371, 'Nom 57', 'Prénom 57', 'mail@57', NULL, 0, NULL, 'ville 57', 'mardi', 'pseudo no57', 'mot de passe no57', '2019-01-07 15:28:11', 'collectés', NULL),
+(372, 'Nom 58', 'Prénom 58', 'mail@58', NULL, 0, NULL, 'ville 58', 'mardi', 'pseudo no58', 'mot de passe no58', '2019-01-07 15:28:11', 'collectés', NULL),
+(373, 'Nom 59', 'Prénom 59', 'mail@59', NULL, 0, NULL, 'ville 59', 'mardi', 'pseudo no59', 'mot de passe no59', '2019-01-07 15:28:11', 'collectés', NULL),
+(374, 'Nom 60', 'Prénom 60', 'mail@60', NULL, 0, NULL, 'ville 60', 'mardi', 'pseudo no60', 'mot de passe no60', '2019-01-07 15:28:11', 'collectés', NULL),
+(375, 'Nom 61', 'Prénom 61', 'mail@61', NULL, 0, NULL, 'ville 61', 'mardi', 'pseudo no61', 'mot de passe no61', '2019-01-07 15:28:11', 'collectés', NULL),
+(376, 'Nom 62', 'Prénom 62', 'mail@62', NULL, 0, NULL, 'ville 62', 'mardi', 'pseudo no62', 'mot de passe no62', '2019-01-07 15:28:11', 'collectés', NULL),
+(377, 'Nom 63', 'Prénom 63', 'mail@63', NULL, 0, NULL, 'ville 63', 'mardi', 'pseudo no63', 'mot de passe no63', '2019-01-07 15:28:11', 'collectés', NULL),
+(378, 'Nom 64', 'Prénom 64', 'mail@64', NULL, 0, NULL, 'ville 64', 'mardi', 'pseudo no64', 'mot de passe no64', '2019-01-07 15:28:11', 'collectés', NULL),
+(379, 'Nom 65', 'Prénom 65', 'mail@65', NULL, 0, NULL, 'ville 65', 'mardi', 'pseudo no65', 'mot de passe no65', '2019-01-07 15:28:11', 'collectés', NULL),
+(380, 'Nom 66', 'Prénom 66', 'mail@66', NULL, 0, NULL, 'ville 66', 'mercredi', 'pseudo no66', 'mot de passe no66', '2019-01-07 15:28:11', 'collectés', NULL),
+(381, 'Nom 67', 'Prénom 67', 'mail@67', NULL, 0, NULL, 'ville 67', 'mercredi', 'pseudo no67', 'mot de passe no67', '2019-01-07 15:28:11', 'collectés', NULL),
+(382, 'Nom 68', 'Prénom 68', 'mail@68', NULL, 0, NULL, 'ville 68', 'mercredi', 'pseudo no68', 'mot de passe no68', '2019-01-07 15:28:11', 'collectés', NULL),
+(383, 'Nom 69', 'Prénom 69', 'mail@69', NULL, 0, NULL, 'ville 69', 'mercredi', 'pseudo no69', 'mot de passe no69', '2019-01-07 15:28:11', 'collectés', NULL),
+(384, 'Nom 70', 'Prénom 70', 'mail@70', NULL, 0, NULL, 'ville 70', 'mercredi', 'pseudo no70', 'mot de passe no70', '2019-01-07 15:28:11', 'collectés', NULL),
+(385, 'Nom 71', 'Prénom 71', 'mail@71', NULL, 0, NULL, 'ville 71', 'mercredi', 'pseudo no71', 'mot de passe no71', '2019-01-07 15:28:11', 'collectés', NULL),
+(386, 'Nom 72', 'Prénom 72', 'mail@72', NULL, 0, NULL, 'ville 72', 'mercredi', 'pseudo no72', 'mot de passe no72', '2019-01-07 15:28:11', 'collectés', NULL),
+(387, 'Nom 73', 'Prénom 73', 'mail@73', NULL, 0, NULL, 'ville 73', 'mercredi', 'pseudo no73', 'mot de passe no73', '2019-01-07 15:28:11', 'collectés', NULL),
+(388, 'Nom 74', 'Prénom 74', 'mail@74', NULL, 0, NULL, 'ville 74', 'mercredi', 'pseudo no74', 'mot de passe no74', '2019-01-07 15:28:11', 'collectés', NULL),
+(389, 'Nom 75', 'Prénom 75', 'mail@75', NULL, 0, NULL, 'ville 75', 'mercredi', 'pseudo no75', 'mot de passe no75', '2019-01-07 15:28:11', 'collectés', NULL),
+(390, 'Nom 76', 'Prénom 76', 'mail@76', NULL, 0, NULL, 'ville 76', 'mercredi', 'pseudo no76', 'mot de passe no76', '2019-01-07 15:28:11', 'collectés', NULL),
+(391, 'Nom 77', 'Prénom 77', 'mail@77', NULL, 0, NULL, 'ville 77', 'mercredi', 'pseudo no77', 'mot de passe no77', '2019-01-07 15:28:11', 'collectés', NULL),
+(392, 'Nom 78', 'Prénom 78', 'mail@78', NULL, 0, NULL, 'ville 78', 'mercredi', 'pseudo no78', 'mot de passe no78', '2019-01-07 15:28:11', 'collectés', NULL),
+(393, 'Nom 79', 'Prénom 79', 'mail@79', NULL, 0, NULL, 'ville 79', 'mercredi', 'pseudo no79', 'mot de passe no79', '2019-01-07 15:28:11', 'collectés', NULL),
+(394, 'Nom 80', 'Prénom 80', 'mail@80', NULL, 0, NULL, 'ville 80', 'mercredi', 'pseudo no80', 'mot de passe no80', '2019-01-07 15:28:11', 'collectés', NULL),
+(395, 'Nom 81', 'Prénom 81', 'mail@81', NULL, 0, NULL, 'ville 81', 'mercredi', 'pseudo no81', 'mot de passe no81', '2019-01-07 15:28:11', 'collectés', NULL),
+(396, 'Nom 82', 'Prénom 82', 'mail@82', NULL, 0, NULL, 'ville 82', 'mercredi', 'pseudo no82', 'mot de passe no82', '2019-01-07 15:28:11', 'collectés', NULL),
+(397, 'Nom 83', 'Prénom 83', 'mail@83', NULL, 0, NULL, 'ville 83', 'mercredi', 'pseudo no83', 'mot de passe no83', '2019-01-07 15:28:11', 'collectés', NULL),
+(398, 'Nom 84', 'Prénom 84', 'mail@84', NULL, 0, NULL, 'ville 84', 'mercredi', 'pseudo no84', 'mot de passe no84', '2019-01-07 15:28:11', 'collectés', NULL),
+(399, 'Nom 85', 'Prénom 85', 'mail@85', NULL, 0, NULL, 'ville 85', 'mercredi', 'pseudo no85', 'mot de passe no85', '2019-01-07 15:28:11', 'collectés', NULL),
+(400, 'Nom 86', 'Prénom 86', 'mail@86', NULL, 0, NULL, 'ville 86', 'jeudi', 'pseudo no86', 'mot de passe no86', '2019-01-07 15:28:11', 'collectés', NULL),
+(401, 'Nom 87', 'Prénom 87', 'mail@87', NULL, 0, NULL, 'ville 87', 'jeudi', 'pseudo no87', 'mot de passe no87', '2019-01-07 15:28:11', 'collectés', NULL),
+(402, 'Nom 88', 'Prénom 88', 'mail@88', NULL, 0, NULL, 'ville 88', 'jeudi', 'pseudo no88', 'mot de passe no88', '2019-01-07 15:28:11', 'collectés', NULL),
+(403, 'Nom 89', 'Prénom 89', 'mail@89', NULL, 0, NULL, 'ville 89', 'jeudi', 'pseudo no89', 'mot de passe no89', '2019-01-07 15:28:11', 'collectés', NULL),
+(404, 'Nom 90', 'Prénom 90', 'mail@90', NULL, 0, NULL, 'ville 90', 'jeudi', 'pseudo no90', 'mot de passe no90', '2019-01-07 15:28:11', 'collectés', NULL),
+(405, 'Nom 91', 'Prénom 91', 'mail@91', NULL, 0, NULL, 'ville 91', 'jeudi', 'pseudo no91', 'mot de passe no91', '2019-01-07 15:28:11', 'collectés', NULL),
+(406, 'Nom 92', 'Prénom 92', 'mail@92', NULL, 0, NULL, 'ville 92', 'jeudi', 'pseudo no92', 'mot de passe no92', '2019-01-07 15:28:11', 'collectés', NULL),
+(407, 'Nom 93', 'Prénom 93', 'mail@93', NULL, 0, NULL, 'ville 93', 'jeudi', 'pseudo no93', 'mot de passe no93', '2019-01-07 15:28:11', 'collectés', NULL),
+(408, 'Nom 94', 'Prénom 94', 'mail@94', NULL, 0, NULL, 'ville 94', 'jeudi', 'pseudo no94', 'mot de passe no94', '2019-01-07 15:28:11', 'collectés', NULL),
+(409, 'Nom 95', 'Prénom 95', 'mail@95', NULL, 0, NULL, 'ville 95', 'jeudi', 'pseudo no95', 'mot de passe no95', '2019-01-07 15:28:11', 'collectés', NULL),
+(410, 'Nom 96', 'Prénom 96', 'mail@96', NULL, 0, NULL, 'ville 96', 'jeudi', 'pseudo no96', 'mot de passe no96', '2019-01-07 15:28:11', 'collectés', NULL),
+(411, 'Nom 97', 'Prénom 97', 'mail@97', NULL, 0, NULL, 'ville 97', 'jeudi', 'pseudo no97', 'mot de passe no97', '2019-01-07 15:28:11', 'collectés', NULL),
+(412, 'Nom 98', 'Prénom 98', 'mail@98', NULL, 0, NULL, 'ville 98', 'jeudi', 'pseudo no98', 'mot de passe no98', '2019-01-07 15:28:11', 'collectés', NULL),
+(413, 'Nom 99', 'Prénom 99', 'mail@99', NULL, 0, NULL, 'ville 99', 'jeudi', 'pseudo no99', 'mot de passe no99', '2019-01-07 15:28:11', 'collectés', NULL),
+(414, 'Nom 100', 'Prénom 100', 'mail@100', NULL, 0, NULL, 'ville 100', 'jeudi', 'pseudo no100', 'mot de passe no100', '2019-01-07 15:28:11', 'collectés', NULL),
+(415, 'Nom 101', 'Prénom 101', 'mail@101', NULL, 0, NULL, 'ville 101', 'jeudi', 'pseudo no101', 'mot de passe no101', '2019-01-07 15:28:11', 'collectés', NULL),
+(416, 'Nom 102', 'Prénom 102', 'mail@102', NULL, 0, NULL, 'ville 102', 'jeudi', 'pseudo no102', 'mot de passe no102', '2019-01-07 15:28:11', 'collectés', NULL),
+(417, 'Nom 103', 'Prénom 103', 'mail@103', NULL, 0, NULL, 'ville 103', 'jeudi', 'pseudo no103', 'mot de passe no103', '2019-01-07 15:28:11', 'collectés', NULL),
+(418, 'Nom 104', 'Prénom 104', 'mail@104', NULL, 0, NULL, 'ville 104', 'jeudi', 'pseudo no104', 'mot de passe no104', '2019-01-07 15:28:11', 'collectés', NULL),
+(419, 'Nom 105', 'Prénom 105', 'mail@105', NULL, 0, NULL, 'ville 105', 'jeudi', 'pseudo no105', 'mot de passe no105', '2019-01-07 15:28:11', 'collectés', NULL),
+(420, 'Nom 106', 'Prénom 106', 'mail@106', NULL, 0, NULL, 'ville 106', 'vendredi', 'pseudo no106', 'mot de passe no106', '2019-01-07 15:28:11', 'collectés', NULL),
+(421, 'Nom 107', 'Prénom 107', 'mail@107', NULL, 0, NULL, 'ville 107', 'vendredi', 'pseudo no107', 'mot de passe no107', '2019-01-07 15:28:11', 'collectés', NULL),
+(422, 'Nom 108', 'Prénom 108', 'mail@108', NULL, 0, NULL, 'ville 108', 'vendredi', 'pseudo no108', 'mot de passe no108', '2019-01-07 15:28:11', 'collectés', NULL),
+(423, 'Nom 109', 'Prénom 109', 'mail@109', NULL, 0, NULL, 'ville 109', 'vendredi', 'pseudo no109', 'mot de passe no109', '2019-01-07 15:28:11', 'collectés', NULL),
+(424, 'Nom 110', 'Prénom 110', 'mail@110', NULL, 0, NULL, 'ville 110', 'vendredi', 'pseudo no110', 'mot de passe no110', '2019-01-07 15:28:11', 'collectés', NULL),
+(425, 'Nom 111', 'Prénom 111', 'mail@111', NULL, 0, NULL, 'ville 111', 'vendredi', 'pseudo no111', 'mot de passe no111', '2019-01-07 15:28:11', 'collectés', NULL),
+(426, 'Nom 112', 'Prénom 112', 'mail@112', NULL, 0, NULL, 'ville 112', 'vendredi', 'pseudo no112', 'mot de passe no112', '2019-01-07 15:28:11', 'collectés', NULL),
+(427, 'Nom 113', 'Prénom 113', 'mail@113', NULL, 0, NULL, 'ville 113', 'vendredi', 'pseudo no113', 'mot de passe no113', '2019-01-07 15:28:11', 'collectés', NULL),
+(428, 'Nom 114', 'Prénom 114', 'mail@114', NULL, 0, NULL, 'ville 114', 'vendredi', 'pseudo no114', 'mot de passe no114', '2019-01-07 15:28:11', 'collectés', NULL),
+(429, 'Nom 115', 'Prénom 115', 'mail@115', NULL, 0, NULL, 'ville 115', 'vendredi', 'pseudo no115', 'mot de passe no115', '2019-01-07 15:28:11', 'collectés', NULL),
+(430, 'Nom 116', 'Prénom 116', 'mail@116', NULL, 0, NULL, 'ville 116', 'vendredi', 'pseudo no116', 'mot de passe no116', '2019-01-07 15:28:11', 'collectés', NULL),
+(431, 'Nom 117', 'Prénom 117', 'mail@117', NULL, 0, NULL, 'ville 117', 'vendredi', 'pseudo no117', 'mot de passe no117', '2019-01-07 15:28:11', 'collectés', NULL),
+(432, 'Nom 118', 'Prénom 118', 'mail@118', NULL, 0, NULL, 'ville 118', 'vendredi', 'pseudo no118', 'mot de passe no118', '2019-01-07 15:28:11', 'collectés', NULL),
+(433, 'Nom 119', 'Prénom 119', 'mail@119', NULL, 0, NULL, 'ville 119', 'vendredi', 'pseudo no119', 'mot de passe no119', '2019-01-07 15:28:11', 'collectés', NULL),
+(434, 'Nom 120', 'Prénom 120', 'mail@120', NULL, 0, NULL, 'ville 120', 'vendredi', 'pseudo no120', 'mot de passe no120', '2019-01-07 15:28:11', 'collectés', NULL),
+(435, 'Nom 121', 'Prénom 121', 'mail@121', NULL, 0, NULL, 'ville 121', 'vendredi', 'pseudo no121', 'mot de passe no121', '2019-01-07 15:28:11', 'collectés', NULL),
+(436, 'Nom 122', 'Prénom 122', 'mail@122', NULL, 0, NULL, 'ville 122', 'vendredi', 'pseudo no122', 'mot de passe no122', '2019-01-07 15:28:11', 'collectés', NULL),
+(437, 'Nom 123', 'Prénom 123', 'mail@123', NULL, 0, NULL, 'ville 123', 'vendredi', 'pseudo no123', 'mot de passe no123', '2019-01-07 15:28:11', 'collectés', NULL),
+(438, 'Nom 124', 'Prénom 124', 'mail@124', NULL, 0, NULL, 'ville 124', 'vendredi', 'pseudo no124', 'mot de passe no124', '2019-01-07 15:28:11', 'collectés', NULL),
+(439, 'Nom 125', 'Prénom 125', 'mail@125', NULL, 0, NULL, 'ville 125', 'vendredi', 'pseudo no125', 'mot de passe no125', '2019-01-07 15:28:11', 'collectés', NULL),
+(440, 'GENDROT', 'Alban', 'aletsy@sfr.fr', 'composés', NULL, 1, 'NOUVOITOU', NULL, 'gueb', '$2y$13$xFFJUJypNz.Y/kRPn4RqnOpPKL1LPJeUdd6zQNg8ZDGihi59iB9cK', '2019-01-07 15:49:40', NULL, NULL),
+(441, 'GENDROT', 'Sylvie', 'sylvie@sfr.fr', 'composés', 0, 1, 'NOUVOITOU', 'mercredi', 'miou', '$2y$13$58pDF/70FlZbGGKnowxfK.z0DAaypljrQRRTJn1FDqdmtM6mJnGS.', '2019-01-07 15:52:58', 'collectés', NULL),
+(442, 'GENDROT', 'Axel', 'choupinou@sfr.fr', NULL, 0, NULL, 'NOUVOITOU', 'lundi', 'chou', '$2y$13$LykJx698UW0T6EEkE/F6Wu1TYODXgAEwzisgJrufzR5l9BcOcs2Fa', '2019-01-08 14:47:52', 'collectés', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `migration_versions`
+--
+
+CREATE TABLE `migration_versions` (
+  `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `migration_versions`
+--
+
+INSERT INTO `migration_versions` (`version`) VALUES
+('20181130132943'),
+('20181205124822'),
+('20181230112601'),
+('20181230120758'),
+('20181230223759'),
+('20190103103347');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `prod_bask_comp`
+--
+
+CREATE TABLE `prod_bask_comp` (
+  `id` int(11) NOT NULL,
+  `members_id` int(11) NOT NULL,
+  `name_prod` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kg_or_unity` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quantity_prod` int(11) NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `prod_bask_comp`
+--
+
+INSERT INTO `prod_bask_comp` (`id`, `members_id`, `name_prod`, `kg_or_unity`, `quantity_prod`, `created_at`) VALUES
+(23, 441, 'choux kale', 'unité', 1, '2019-01-07 15:54:21'),
+(24, 441, 'oignons', 'kg', 1, '2019-01-07 15:54:24'),
+(25, 441, 'echalotte', 'kg', 1, '2019-01-07 15:54:26'),
+(26, 441, 'poireaux', 'kg', 1, '2019-01-07 15:54:28'),
+(39, 440, 'choux kale', 'unité', 2, '2019-01-08 14:05:46');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `prod_of_week`
+--
+
+CREATE TABLE `prod_of_week` (
+  `id` int(11) NOT NULL,
+  `name_prod` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `sale_type` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `prod_of_week`
+--
+
+INSERT INTO `prod_of_week` (`id`, `name_prod`, `quantity`, `sale_type`) VALUES
+(40, 'choux kale', 50, 'unité'),
+(41, 'potimarron', 47, 'unité'),
+(42, 'choux vert', 64, 'unité'),
+(43, 'oignons', 74, 'kg'),
+(44, 'poireaux', 50, 'kg'),
+(45, 'epinard', 48, 'kg'),
+(46, 'echalotte', 40, 'kg');
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `members`
+--
+ALTER TABLE `members`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `migration_versions`
+--
+ALTER TABLE `migration_versions`
+  ADD PRIMARY KEY (`version`);
+
+--
+-- Index pour la table `prod_bask_comp`
+--
+ALTER TABLE `prod_bask_comp`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_92C21C5FBD01F5ED` (`members_id`);
+
+--
+-- Index pour la table `prod_of_week`
+--
+ALTER TABLE `prod_of_week`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT pour la table `members`
+--
+ALTER TABLE `members`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=443;
+
+--
+-- AUTO_INCREMENT pour la table `prod_bask_comp`
+--
+ALTER TABLE `prod_bask_comp`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT pour la table `prod_of_week`
+--
+ALTER TABLE `prod_of_week`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `prod_bask_comp`
+--
+ALTER TABLE `prod_bask_comp`
+  ADD CONSTRAINT `FK_92C21C5FBD01F5ED` FOREIGN KEY (`members_id`) REFERENCES `members` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

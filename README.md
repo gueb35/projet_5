@@ -22,5 +22,15 @@ Etape6:
 Utilisez la commande git clone suivi de l'url que vous avez récupéré comme ceci:
 git clone https://github.com/gueb35/projet_5.git
 
+Etape7:
+Ouvrez le phpMyAdmin de votre server local
+
+Etape8:
+Crééz une bdd du nom de : projet5
+
+Etape9:
+Cliquez sur importer dans phpMyAdmin et choisissez le fichier database situé à la racine du projet que vous avez importé en local puis cliquez sur exécuter en bas de page
+
+Et voilà, le projet est sur votre machine, la bdd est sur votre server local et le fichier .env est configuré pour fonctionner avec votre bdd!
 Et c'est tout!
 
