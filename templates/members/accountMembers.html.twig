@@ -51,10 +51,21 @@
                         </fieldset>
                     </form>
                 {% elseif (app.user.basketType == 'composés') and (app.user.basketTypeBis == 'collectés') %}
-                <p>
+                    <p>
                         Vous êtes inscrit(e) aux 2 paniers .<br>
-                        Votre nombre de paniers collectés vous restant dû est de {{ app.user.numberBasketCollected }} .
                     </p>
+                    {% if app.user.numberBasketCollected == '0' %}
+                            <p>
+                                Votre nombre de paniers collectés vous restant dû est de {{ app.user.numberBasketCollected }} .
+                                Votre adhésion n'a pas encore été validé par le producteur .<br>
+                                Merci d'envoyer votre réglement afin que cela soit fait .<br>
+                                Si vous l'avez envoyé, encore un peu de patience, votre adhésion est cours de validation !
+                            </p>
+                        {% else %}
+                            <p>
+                                Votre adhésion au panier collecté est valide et votre nombre de paniers vous restant dû est de {{ app.user.numberBasketCollected }} ..
+                            </p>
+                        {% endif %}
                         {% if app.user.numberBasketCompouned == '0' %}
                             <p>
                                 Vous n'avez actuellement pas de panier composé validé .<br>
@@ -72,6 +83,7 @@
                     </p>
                         {% if app.user.numberBasketCollected == '0' %}
                             <p>
+                                Votre nombre de paniers collectés vous restant dû est de {{ app.user.numberBasketCollected }} .
                                 Votre adhésion n'a pas encore été validé par le producteur .<br>
                                 Merci d'envoyer votre réglement afin que cela soit fait .<br>
                                 Si vous l'avez envoyé, encore un peu de patience, votre adhésion est cours de validation !
