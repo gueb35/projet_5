@@ -33,6 +33,12 @@ label{
     border: 1px solid black;
     background-color:  #555; 
 }
+.underlineBis{
+    width: 100%;
+    height: 4px;
+    border: 1px solid black;
+    background-color:  #555;
+}
 .deco{
     position: relative;
     width: 100%;
@@ -203,7 +209,7 @@ legend{
     background-color: rgba(255, 255, 255, 0.5);
 }
 .custom-checkbox{
-    border: 2px solid black;
+    border: 1px solid black;
     width: 20%;
     background-color: white;
     margin-bottom:5px;
@@ -249,9 +255,8 @@ legend{
 .strongG{
     color: #28a745;
 }
-.downTitle
-{
-    margin-top: 53px;
+.espace{
+    height: 33px;
 }
 
 /*************espace admin****************/
@@ -408,6 +413,9 @@ legend{
     .infoMember{
         margin-top: 50px;
     }
+    .custom-checkbox{
+        width: 22%;
+    }
     /*page basketCompounedMembers.html.twig*/
     .viewForCompBask{
         margin-top: 160px;
@@ -473,6 +481,9 @@ legend{
     .infoMember{
         margin-top: 50px;
     }
+    .custom-checkbox{
+        width: 30%;
+    }
     /*page basketCompounedMembers.html.twig*/
     .viewPForCompBask{
         margin-top: 65px;
@@ -500,6 +511,9 @@ legend{
     /*page home_visitor*/
     .underline{
         width: 60%;
+    }
+    .underlineBis{
+        width: 100%;
     }
     .rectangle{
         width: 100%;
@@ -533,6 +547,9 @@ legend{
     }
     /*partie member*/
     /*page accountMembers.html.twig*/
+    .custom-checkbox{
+        width: 63%;
+    }
     /*page basketCompounedMembers.html.twig*/
     .viewForCompBask{
         margin-top: 150px;
@@ -542,6 +559,9 @@ legend{
     }
     .formListInscr{
         margin-top: 50px;
+    }
+    .espace{
+        height: 66px;
     }
     /*partie admin*/
     /*page home admin*/

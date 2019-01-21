@@ -6,20 +6,21 @@
 <div class="viewForCompBask">
     <h1 class="text-center">Bienvenue {{app.user.firstName}} {{ app.user.name }} sur la page vous permettant de composer vous même votre panier !</h1>
     <p class="viewPForCompBask">
-        Afin de composer vous-même votre panier, cliquez sur <span class="input-icon"><i class="fas fa-plus"></i></span> dans les produits de la semaine pour le mettre dans votre panier .<br>
+        Afin de composer vous-même votre panier, cliquez sur <span class="input-icon"><i class="fas fa-plus"></i></span> dans les produits de la semaine pour mettre le produit dans votre panier .<br>
         Cliquez à nouveau sur <span class="input-icon"><i class="fas fa-plus"></i></span> pour augmenter la quantité de ce produit !<br>
         Cliquez sur <span><i class="fas fa-minus"></i></span> dans votre panier pour enlever une unité ou un kilo .<br>
         Ou sur <span><i class="fas fa-times"></i></span> pour enlever ce produit de votre panier .<br> 
         Le prix sera bien évidement en fonction de ce que vous prendrez et sera à régler sur place !<br>
         N'oubliez pas de valider votre panier grâce au bouton "Valider votre panier" sinon votre panier ne sera pas préparé !<br>
-        Mais rassurez-vous, dans ce cas, vous pourrez composer un panier sur place !<br>
-        Dans le cas ou vous avez déjà validé votre panier et que vous ne désirez plus le récupérer ou que vous voulez le modifier, cliquez sur "Annuler votre panier" afin de le re-composer au besoin !<br>
+        Mais rassurez-vous, dans ce cas, vous pourrez composer un panier sur place .<br>
+        Si vous ne désirez plus le récupérer, cliquez sur "Annuler/vider votre panier" .<br>
+        Si votre panier est validé et que vous souhaitez le modifier, cliquez sur "Modifiez votre panier".
     </p>
     <p class="strong">
         Pensez à vous déconnecter dès que vous n'avez plus besoin de votre espace membre !<br>
     </p>
     <p>
-        N'oubliez pas, votre panier composé est à retirer le mardi suivant la validation directement à la ferme de 16 à 18h30 !<br>
+        N'oubliez pas, votre panier composé est à retirer le mardi suivant la date de validation directement à la ferme de 16 à 18h30 !<br>
         Faites-vous plaisir !!!<br>
     </p>
         {% if app.user.numberBasketCompouned == '0' %}
@@ -39,6 +40,9 @@
     <div class="formListInscr">
         <div class="formInscription">
             <h3 class="text-center">Voici la liste des produits de la semaine :</h3>
+            {% if app.user.numberBasketCompouned == '1' %}
+            <div class="espace"></div>
+            {% endif %}
             <h4 class="text-center downTitle">Produits :</h4>
                 <div class="prodList">
                     {% for prods in prod %}
@@ -60,7 +64,10 @@
         <div class="listBasketComp">
             <h3 class="text-center">Voici la liste des produits de votre panier :</h3>
             <div class="text-center">
-            <a href="{{ path('delete_all_bask_of_member')}}"><button type="submit" class="btn btn-success">Annuler votre panier !</button></a>   
+            {% if app.user.numberBasketCompouned == '1' %}
+                <a href="{{ path('modify_bask_of_member')}}"><button type="submit" class="btn btn-success">Modifier votre panier !</button></a>
+                <a href="{{ path('delete_all_bask_of_member')}}"><button type="submit" class="btn btn-success">Annuler/vider votre panier !</button></a>
+            {% endif %}
             </div>
             <h4 class="text-center">Votre panier :
                 {% if app.user.numberBasketCompouned == '0' %}

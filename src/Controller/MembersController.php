@@ -251,6 +251,21 @@ class MembersController extends AbstractController
         }
         return $this->redirectToRoute('basket_compouned');
     }
+    /**
+     * fonction permettant d'enlever la validation pour pouvoir modifier le panier
+     * 
+     * @param object $manager
+     * parameter converter pour manipuler des données
+     * 
+     * @Route("/modifyBaskOfMember", name="modify_bask_of_member")
+     */
+    public function modifyBaskOfMember(ObjectManager $manager){
+        $modifyValidation = $this->getUser()->setNumberBasketCompouned("0");
+        $manager->persist($modifyValidation);
+        $manager->flush();
+
+        return $this->redirectToRoute('basket_compouned');
+    }
 
     /**
      * fonction permettant de composer son panier(partie 1)
