@@ -202,6 +202,13 @@ legend{
     border-radius: 0 0 5px 5px;
     background-color: rgba(255, 255, 255, 0.5);
 }
+.custom-checkbox{
+    border: 2px solid black;
+    width: 20%;
+    background-color: white;
+    margin-bottom:5px;
+    margin-top: 5px;
+}
 /*basket_compouned*/
 .validationOrNot{
     background-color: rgba(255, 255, 255, 0.2);
