@@ -113,17 +113,21 @@ class AdminController extends AbstractController
      * parameter converter pour manipuler des données
      * @param int $id
      * identifiant du membre
+     * @param int $groupOfMember1
+     * groupe de membre du panier composé
+     * @param int $groupOfMember2
+     * groupe de membre du panier collecté
      * 
-     * @Route("/initialize/{id}", name="initialize_number_basket_rest")
+     * @Route("/initialize/{id}/{groupOfMember1}/{groupOfMember2}", name="initialize_number_basket_rest")
      */
-    public function initializeNumberBasketRest(MembersRepository $repoM, ObjectManager $manager, $id)
+    public function initializeNumberBasketRest(MembersRepository $repoM, ObjectManager $manager, $id, $groupOfMember1, $groupOfMember2)
     {
         $memberId = $repoM->find($id);
         $newQuantity = $memberId->setNumberBasketCollected('44');
         $manager->persist($newQuantity);
         $manager->flush();
 
-        return $this->redirectToRoute('members_list');
+        return $this->redirectToRoute('paginationMemberGroup', ['groupOfMember1' => $groupOfMember1, 'groupOfMember2' => $groupOfMember2]);
     }
 
 
@@ -139,7 +143,7 @@ class AdminController extends AbstractController
      * 
      * @Route("/pagination_member_group/{groupOfMember1}/{groupOfMember2}", name="paginationMemberGroup")
      */
-    public function paginationMemberGroup(MembersRepository $repoM, $groupOfMember1, $groupOfMember2)
+    public function paginationMemberGroup(MembersRepository $repoM, $groupOfMember1 = null, $groupOfMember2 = null)
     {
         $groupOfMember1Max = count($repoM->findBy(
             array('basketType' => 'composés')
@@ -289,7 +293,9 @@ class AdminController extends AbstractController
     public function showBaskCompListMembers(PaginatorInterface $paginator, MembersRepository $repoM, ProdBaskCompRepository $repoC, Request $request)
     {
         $allMembers = $repoM->findBy(
-            array('basketType' => 'composés'),
+            array('basketType' => 'composés',
+            'numberBasketCompouned' => '1'
+        ),
             array('createdAt' => 'desc')
         );
 

@@ -33,7 +33,7 @@ class MembersRepository extends ServiceEntityRepository
         $rsm = new ResultSetMappingBuilder($this->_em);
         $rsm->addRootEntityFromClassMetadata('App\Entity\Members', 'm');
 
-        $query = $this->_em->createNativeQuery('SELECT * from members m WHERE m.basket_type_bis = :basket and  m.day_of_week = :day', $rsm)
+        $query = $this->_em->createNativeQuery('SELECT * from members m WHERE m.basket_type_bis = :basket and m.number_basket_collected > 0 and  m.day_of_week = :day', $rsm)
             ->setParameter('basket', 'collectés')
             ->setParameter('day', $day);
             return $query->getResult();

@@ -19,6 +19,7 @@ class SecurityController extends AbstractController
 
     /**
      * fonction servant à l'envoi d'un mail de confirmation d'inscription
+     * 
      * @param string $name
      * renvoie le nom du membre qui s'est inscrit
      * @param string $email
@@ -31,7 +32,7 @@ class SecurityController extends AbstractController
     public function sendMail($name, $email, \Swift_Mailer $mailer)
     {
         $message = (new \Swift_Message('Bonjour Mr/Mme ' . $name . '.Votre inscription est validé'))
-        ->setFrom('aletsy@sfr.fr')
+        ->setFrom('agendrot187@gmail.com')
         ->setTo($email)
         ->setBody(
             $this->renderView(

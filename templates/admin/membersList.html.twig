@@ -70,7 +70,7 @@
                             Mr/Mme {{member.name}} {{member.firstName}} inscrit(e) le {{member.createdAt | date('d/m/Y')}} à {{member.createdAt | date('H:i')}}
                             résidant à {{member.town}} .<br>
                             Nombre de paniers restant dû : {{member.numberBasketCollected}} .
-                            <a href="{{ path('initialize_number_basket_rest',{'id':member.id})}}"><button type="submit" class="btn btn-success">Valider l'abonnement de ce membre !</button></a><br>
+                            <a href="{{ path('initialize_number_basket_rest',{'id':member.id, 'groupOfMember1':groupOfMember1,'groupOfMember2':groupOfMember2})}}"><button type="submit" class="btn btn-success">Valider l'abonnement de ce membre !</button></a><br>
                             Le lieu de ramassage de ce panier se situe sur la commune du {{member.dayOfWeek}} !<br>
                             E-mail : {{member.email}}
                         </div>

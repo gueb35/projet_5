@@ -26,16 +26,14 @@
                 <div class="sepMemList"></div>
                 {% for member in members %}
                 <div class="metadata text-center">
-                    {% if (member.numberBasketCompouned !='0') and (member.numberBasketCompouned != null) %}
-                        -Mr/Mme {{member.name}} {{member.firstname}}, {{member.numberBasketCompouned}} panier comprenant :<br>
-                        {% for prods in prodBaskMember %}
-                            {% if member.id == prods.getMembers.getId() %}
-                                -{{prods.quantityProd}} {{prods.kgOrUnity}} {{prods.nameProd}}<br>
-                            {% endif %}
-                        {% endfor %}
+                    -Mr/Mme {{member.name}} {{member.firstname}}, {{member.numberBasketCompouned}} panier comprenant :<br>
+                    {% for prods in prodBaskMember %}
+                        {% if member.id == prods.getMembers.getId() %}
+                            -{{prods.quantityProd}} {{prods.kgOrUnity}} {{prods.nameProd}}<br>
+                        {% endif %}
+                    {% endfor %}
                     <a href="{{ path('delete_bask_member',{'memberId':member.id})}}"><button type="submit" class="btn btn-success">Supprimer le panier composé de ce membre !</button></a>
                     <div class="sepMemList"></div>
-                    {% endif %}
                 </div>
                 {% endfor %}
             </div>
